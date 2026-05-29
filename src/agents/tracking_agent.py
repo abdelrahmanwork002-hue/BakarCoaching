@@ -2,29 +2,25 @@
 Tracking Coach Agent
 ====================
 Runs AFTER all fitness and nutrition plans are merged.
-Performs a holistic review of the complete plan and generates a TrackingStrategy:
-- Weekly check-in metrics the client should track
-- Implementation tips (which days to train, how to schedule sessions)
-- Progressive milestone targets (week-by-week goals)
-- Red flag warnings (injury signals or safety concerns)
-- Overall coach notes synthesizing the full program
+Performs a holistic review of the complete plan and generates a TrackingStrategy.
+Uses Groq Llama 3.3 70B (no daily quota limits).
 
 Modify this file to change what the Tracking Coach recommends or monitors.
-Model: Google Gemini Flash (analytical, detail-oriented synthesis)
 """
+import time
 from langchain_core.messages import HumanMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 
 from src.state import AgentState, TrackingStrategy
+from src.agents.base import _invoke_with_retry
 
 
 def tracking_coach_node(state: AgentState) -> dict:
     """
-    Tracking Coach node.
-    Synthesizes the complete fitness + nutrition plan into an actionable
-    TrackingStrategy the client can follow for progress monitoring.
+    Tracking Coach node. Synthesizes the complete plan into an actionable TrackingStrategy.
+    Model: Groq Llama 3.3 70B
     """
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
     llm_structured = llm.with_structured_output(TrackingStrategy)
 
     profile = state.get("user_profile")
@@ -110,5 +106,5 @@ YOUR TASK — Generate a TrackingStrategy with:
    and how the fitness and nutrition plans work together for this client's goal.
 """
 
-    tracking_strategy = llm_structured.invoke([HumanMessage(content=prompt)])
+    tracking_strategy = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
     return {"tracking_strategy": tracking_strategy}

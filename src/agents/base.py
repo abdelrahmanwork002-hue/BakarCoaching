@@ -2,11 +2,18 @@
 Base agent logic shared across all domain specialist files.
 Contains: CreatorOutput schema, CheckerOutput schema,
           base_creator_node, base_checker_node, base_modifier_node.
+
+NOTE ON MODELS:
+  - Creators  → Groq Llama 3.3 70B  (fast, creative)
+  - Modifiers → Groq Llama 3.3 70B  (fast, targeted edits)
+  - Checkers  → Groq Llama 3.3 70B  (free, no daily quota)
+    Reason: Gemini free tier has a hard limit of 20 requests/day,
+    which is exhausted immediately when 4 checkers run in parallel.
 """
+import time
 from typing import List, Optional
 from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, Field
 
 from src.state import AgentState, WorkoutSession, ValidationLog
@@ -38,6 +45,25 @@ For EVERY exercise you include, you MUST populate ALL of the following fields:
 - muscles_goal: Primary muscles targeted and goal (e.g. "Hamstrings, Glutes — Strength & Hypertrophy")
 - notes: Specific form cues or injury modifications for this user. Always reference the user's injury/limitation if relevant.
 """
+
+# ---------------------------------------------------------------------------
+# Retry helper — handles transient rate-limit errors from any provider
+# ---------------------------------------------------------------------------
+
+def _invoke_with_retry(llm_structured, messages, max_retries=3):
+    """Invoke LLM with automatic exponential backoff on rate-limit (429) errors."""
+    for attempt in range(max_retries):
+        try:
+            return llm_structured.invoke(messages)
+        except Exception as e:
+            err_str = str(e)
+            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "rate_limit" in err_str.lower() or "RateLimitError" in err_str:
+                wait = (attempt + 1) * 15  # 15s → 30s → 45s
+                print(f"[Rate limit] Waiting {wait}s before retry {attempt + 1}/{max_retries}...")
+                time.sleep(wait)
+            else:
+                raise  # non-quota error — propagate immediately
+    raise RuntimeError("Max retries exceeded for LLM call.")
 
 # ---------------------------------------------------------------------------
 # Base Creator Node
@@ -76,7 +102,7 @@ Create a detailed weekly {domain} regimen (list of WorkoutSession objects). Each
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
     return {f"draft_{domain.lower()}": output.sessions}
 
 # ---------------------------------------------------------------------------
@@ -124,7 +150,7 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
 
     # Log the modification
     current_retries = state.get("domain_retries", {}).get(domain, 0)
@@ -143,15 +169,15 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
     }
 
 # ---------------------------------------------------------------------------
-# Base Checker Node
+# Base Checker Node  (Groq — no daily quota limit)
 # ---------------------------------------------------------------------------
 
 def base_checker_node(state: AgentState, domain: str) -> dict:
     """
     Evaluates the latest draft (modified > draft) for safety and efficacy.
-    Uses Gemini Flash for deep analytical checking.
+    Uses Groq Llama 3.3 70B — no daily quota, automatic retry on rate-limits.
     """
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     llm_structured = llm.with_structured_output(CheckerOutput)
 
     profile = state.get("user_profile")
@@ -163,7 +189,8 @@ def base_checker_node(state: AgentState, domain: str) -> dict:
     if not draft:
         raise ValueError(f"No draft found for domain '{domain}'. Cannot check.")
 
-    current_retries = state.get("domain_retries", {}).get(domain, 0)
+    domain_retries = state.get("domain_retries", {})
+    current_attempt = domain_retries.get(domain, 0)
 
     prompt = f"""You are the Senior Safety & Efficacy Auditor for a premium fitness platform.
 
@@ -187,16 +214,12 @@ If the plan passes ALL criteria, approve it.
 If ANY criterion fails, reject it with specific, actionable feedback referencing the exact exercise(s) and field(s) that need fixing.
 """
 
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
-
-    current_rejections = state.get("current_rejections", {})
-    domain_retries = state.get("domain_retries", {})
-    current_attempt = domain_retries.get(domain, 0)
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
 
     log = ValidationLog(
         domain=domain,
         provider_creator="Groq",
-        provider_checker="Google Gemini",
+        provider_checker="Groq",
         status="Approved" if output.is_approved else "Rejected",
         feedback=output.feedback,
         attempt=current_attempt + 1
@@ -205,7 +228,6 @@ If ANY criterion fails, reject it with specific, actionable feedback referencing
     updates = {"validation_logs": [log]}
 
     if output.is_approved:
-        # Clear rejection flag — use the best available draft as approved
         updates["current_rejections"] = {domain: None}
         best_draft = state.get(f"modified_{domain_key}") or state.get(f"draft_{domain_key}")
         if domain != "Nutrition":

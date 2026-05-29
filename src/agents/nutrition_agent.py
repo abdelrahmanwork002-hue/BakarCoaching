@@ -6,14 +6,13 @@ Modify this file to change how meal plans are generated or validated.
 
 Note: The Nutrition domain uses NutritionPlan (not WorkoutSession), so it has
 its own creator and modifier logic rather than delegating to base_creator_node.
+All LLM calls use Groq Llama 3.3 70B (no daily quota limits).
 """
 from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
-from pydantic import BaseModel, Field
 
 from src.state import AgentState, NutritionPlan, ValidationLog
-from src.agents.base import CheckerOutput
+from src.agents.base import CheckerOutput, _invoke_with_retry
 
 _DOMAIN = "Nutrition"
 
@@ -54,7 +53,7 @@ Create a practical, balanced daily meal plan (Breakfast, Morning Snack, Lunch, A
 Also provide a precise hydration_target_L value (in liters).
 """
 
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
     return {"draft_nutrition": output}
 
 
@@ -96,7 +95,7 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised above.
 """
 
     current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
 
     log = ValidationLog(
         domain=_DOMAIN,
@@ -116,11 +115,10 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised above.
 def nutrition_checker_node(state: AgentState) -> dict:
     """
     Safety & Efficacy Auditor for Nutrition plans.
-    Validates macro accuracy, food quality, and meal completeness.
-    Model: Google Gemini Flash
+    Uses Groq Llama 3.3 70B — no daily quota, automatic retry on rate-limits.
     Edit this function to change validation criteria for meal plans.
     """
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     llm_structured = llm.with_structured_output(CheckerOutput)
 
     profile = state.get("user_profile")
@@ -132,7 +130,7 @@ def nutrition_checker_node(state: AgentState) -> dict:
     if not draft:
         raise ValueError("No nutrition draft found in state.")
 
-    current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
+    current_attempt = state.get("domain_retries", {}).get(_DOMAIN, 0)
 
     prompt = f"""You are the Senior Nutrition Safety & Efficacy Auditor.
 
@@ -157,13 +155,12 @@ If all criteria pass, approve it.
 If any fail, reject with specific feedback referencing the exact meal and field that needs fixing.
 """
 
-    output = llm_structured.invoke([HumanMessage(content=prompt)])
+    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
 
-    current_attempt = current_retries
     log = ValidationLog(
         domain=_DOMAIN,
         provider_creator="Groq",
-        provider_checker="Google Gemini",
+        provider_checker="Groq",
         status="Approved" if output.is_approved else "Rejected",
         feedback=output.feedback,
         attempt=current_attempt + 1
