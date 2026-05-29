@@ -20,12 +20,31 @@ class MacroStrategy(BaseModel):
     carbs_g: int = Field(description="Daily carbohydrate target in grams")
     fats_g: int = Field(description="Daily fat target in grams")
     training_split: str = Field(description="High-level description of the weekly training split")
-    specialist_routes: List[str] = Field(description="List of specialists to engage, e.g., ['Gym', 'Yoga']")
+    specialist_directives: Dict[str, str] = Field(
+        description="Dict mapping each specialist to activate (Gym, Yoga, Calisthenics) to a specific focused coaching mandate. "
+                    "Keys must only be from: 'Gym', 'Yoga', 'Calisthenics'. "
+                    "Example: {'Gym': 'Focus on lower body compounds, avoid spinal loading', 'Yoga': 'Prioritize lumbar decompression'}"
+    )
+
+class Exercise(BaseModel):
+    """Enriched exercise schema with full training prescription details."""
+    name: str = Field(default="", description="Full name of the exercise")
+    sets: int = Field(default=3, description="Number of working sets")
+    reps: str = Field(default="", description="Rep range or count (e.g. '8-12' or '30 sec' or '45 sec hold')")
+    rest_seconds: int = Field(default=60, description="Rest time between sets in seconds (e.g. 60, 90, 120)")
+    warmup_sets: int = Field(default=0, description="Number of warm-up sets before working sets (0 if not applicable)")
+    tempo: str = Field(default="2-0-2", description="Tempo in eccentric-pause-concentric notation (e.g. '3-1-2' = 3s lower, 1s pause, 2s lift)")
+    demo_url: str = Field(
+        default="",
+        description="YouTube search URL for exercise demonstration. Format: https://www.youtube.com/results?search_query=EXERCISE+NAME+tutorial+form (replace spaces with +)"
+    )
+    muscles_goal: str = Field(default="", description="Primary muscles targeted and training goal (e.g. 'Quads, Glutes — Hypertrophy')")
+    notes: Optional[str] = Field(default=None, description="Form cues, safety notes, or injury modifications for this specific user")
 
 class WorkoutSession(BaseModel):
     day: str = Field(description="Day of the week")
     focus: str = Field(description="Primary focus (e.g., Upper Body, Core, Flexibility)")
-    exercises: List[Dict[str, str]] = Field(description="List of exercises with sets and reps")
+    exercises: List[Exercise] = Field(description="List of exercises with full prescription details")
     duration_mins: int = Field(description="Estimated duration in minutes")
 
 class FitnessPlan(BaseModel):
@@ -49,7 +68,7 @@ class ValidationLog(BaseModel):
     domain: str = Field(description="Domain being validated (e.g., Gym, Nutrition)")
     provider_creator: str = Field(description="LLM provider used for creation")
     provider_checker: str = Field(description="LLM provider used for checking")
-    status: str = Field(description="Approved or Rejected")
+    status: str = Field(description="Approved, Rejected, or Modified")
     feedback: str = Field(description="Feedback or critique from the checker")
     attempt: int = Field(description="Retry attempt number")
 
@@ -59,10 +78,40 @@ class ProgressUpdate(BaseModel):
     adherence_score: int = Field(description="Self-reported adherence score (1-10)")
     notes: str = Field(description="Any specific notes from the user")
 
-# --- LangGraph State Definition ---
+class TrackingStrategy(BaseModel):
+    """Output of the Tracking Coach — a holistic implementation roadmap."""
+    weekly_checkin_metrics: List[str] = Field(
+        description="Metrics the user should track weekly (e.g. 'Weight (kg)', 'Adherence Score 1-10', 'Sleep Quality')"
+    )
+    implementation_tips: List[str] = Field(
+        description="Practical tips for implementing the plan (e.g. 'Schedule gym on Mon/Wed/Fri', 'Do yoga on rest days as active recovery')"
+    )
+    milestone_targets: List[str] = Field(
+        description="Progressive weekly/monthly milestones (e.g. 'Week 2: Lose 0.5kg', 'Week 4: Complete full push-up', 'Month 2: Run 5km')"
+    )
+    red_flag_warnings: List[str] = Field(
+        description="Injury or safety signals to watch for (e.g. 'Stop immediately if lower back pain worsens', 'Skip session if dizzy')"
+    )
+    coach_notes: str = Field(
+        description="Free-text overall coaching synthesis — motivation, key priorities, and strategy overview"
+    )
+
+# --- LangGraph State Reducers ---
 
 def merge_validation_logs(existing: List[ValidationLog], new: List[ValidationLog]) -> List[ValidationLog]:
     return existing + new
+
+def merge_dicts(existing: dict, new: dict) -> dict:
+    res = existing.copy() if existing else {}
+    if new:
+        for k, v in new.items():
+            if v is None:
+                res.pop(k, None)
+            else:
+                res[k] = v
+    return res
+
+# --- LangGraph State Definition ---
 
 class AgentState(TypedDict):
     # Core Data
@@ -70,11 +119,29 @@ class AgentState(TypedDict):
     macro_strategy: Optional[MacroStrategy]
     fitness_plan: FitnessPlan
     nutrition_plan: Optional[NutritionPlan]
-    
+    tracking_strategy: Optional[TrackingStrategy]
+
     # Progress & Audit
     validation_logs: Annotated[List[ValidationLog], merge_validation_logs]
     progress_history: List[ProgressUpdate]
-    
+
+    # Creator Drafts (initial generation)
+    draft_gym: Optional[List[WorkoutSession]]
+    draft_yoga: Optional[List[WorkoutSession]]
+    draft_calisthenics: Optional[List[WorkoutSession]]
+    draft_nutrition: Optional[NutritionPlan]
+
+    # Modifier Drafts (post-checker corrections)
+    modified_gym: Optional[List[WorkoutSession]]
+    modified_yoga: Optional[List[WorkoutSession]]
+    modified_calisthenics: Optional[List[WorkoutSession]]
+    modified_nutrition: Optional[NutritionPlan]
+
+    # Approved (passed checker)
+    approved_gym: Optional[List[WorkoutSession]]
+    approved_yoga: Optional[List[WorkoutSession]]
+    approved_calisthenics: Optional[List[WorkoutSession]]
+
     # Validation Loop Tracking
-    domain_retries: Dict[str, int]
-    current_rejections: Dict[str, str]
+    domain_retries: Annotated[Dict[str, int], merge_dicts]
+    current_rejections: Annotated[Dict[str, str], merge_dicts]

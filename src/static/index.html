@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coaching Orchestrator</title>
+    <meta name="description" content="Your multi-agent AI fitness and nutrition planning system — powered by Senior Coach, domain specialists, and a dedicated Tracking Coach.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <header>
+            <div class="logo-badge">AI Coach</div>
+            <h1>Coaching <span>Orchestrator</span></h1>
+            <p>Multi-agent fitness & nutrition intelligence — Senior Coach, Specialists, Tracking Coach</p>
+        </header>
+
+        <!-- ===== ONBOARDING ===== -->
+        <section id="onboarding-section" class="glass-panel">
+            <h2>Client Onboarding</h2>
+            <p class="subtitle">Fill in the profile below. The Senior Coach will assign the right specialists and directives for you.</p>
+            <form id="onboard-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" required value="30" min="16" max="90">
+                    </div>
+                    <div class="input-group">
+                        <label for="weight">Current Weight (kg)</label>
+                        <input type="number" id="weight" step="0.1" required value="85.0">
+                    </div>
+                    <div class="input-group">
+                        <label for="target-weight">Target Weight (kg)</label>
+                        <input type="number" id="target-weight" step="0.1" required value="78.0">
+                    </div>
+                    <div class="input-group">
+                        <label for="activity">Activity Level</label>
+                        <select id="activity">
+                            <option value="Sedentary">Sedentary</option>
+                            <option value="Light">Light</option>
+                            <option value="Moderate" selected>Moderate</option>
+                            <option value="Active">Active</option>
+                            <option value="Very Active">Very Active</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="goal">Primary Goal</label>
+                        <select id="goal">
+                            <option value="Weight Loss and Muscle Gain">Weight Loss & Muscle Gain</option>
+                            <option value="Muscle Gain">Muscle Gain</option>
+                            <option value="Weight Loss">Weight Loss</option>
+                            <option value="Endurance">Endurance</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="experience">Experience Level</label>
+                        <select id="experience">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate" selected>Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <label for="injuries">Injuries / Limitations (comma separated)</label>
+                        <input type="text" id="injuries" placeholder="e.g. Mild lower back pain, right shoulder impingement" value="Mild lower back pain">
+                    </div>
+                </div>
+                <button type="submit" id="submit-btn" class="primary-btn">
+                    <span class="btn-text">🚀 Generate My Coaching Plan</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- ===== DASHBOARD ===== -->
+        <section id="dashboard-section" class="hidden">
+
+            <!-- Status Header -->
+            <div class="glass-panel dashboard-header-panel">
+                <div class="dashboard-title">
+                    <h2>Live Agent Dashboard</h2>
+                    <span id="status-badge" class="badge badge-running">Agents Running</span>
+                </div>
+                <div id="senior-coach-box" class="senior-coach-box hidden">
+                    <div class="senior-coach-title">👔 Senior Coach Directives</div>
+                    <div id="directives-list"></div>
+                </div>
+                <div class="macro-strip hidden" id="macro-strip">
+                    <div class="macro-pill" id="macro-cal"><span class="macro-label">Calories</span><span class="macro-val">—</span></div>
+                    <div class="macro-pill" id="macro-protein"><span class="macro-label">Protein</span><span class="macro-val">—</span></div>
+                    <div class="macro-pill" id="macro-carbs"><span class="macro-label">Carbs</span><span class="macro-val">—</span></div>
+                    <div class="macro-pill" id="macro-fats"><span class="macro-label">Fats</span><span class="macro-val">—</span></div>
+                    <div class="macro-pill" id="macro-split"><span class="macro-label">Split</span><span class="macro-val">—</span></div>
+                </div>
+            </div>
+
+            <!-- Validation Logs -->
+            <div class="glass-panel">
+                <h3>🔍 Validation Logs <span class="badge-sm" id="log-count">0</span></h3>
+                <div id="logs-container" class="logs">
+                    <div class="log-placeholder">Waiting for agents to report...</div>
+                </div>
+            </div>
+
+            <!-- HITL Alert -->
+            <div id="hitl-alert" class="alert-panel alert-warn hidden">
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-body">
+                    <strong>Human Review Required</strong>
+                    <p>The agents have paused at a Human-in-the-Loop checkpoint. Review the logs and approve to continue.</p>
+                </div>
+                <button id="resume-btn" class="primary-btn pulse-btn">✅ Approve & Resume</button>
+            </div>
+
+            <!-- Tracking Coach Panel -->
+            <div id="tracking-panel" class="glass-panel hidden">
+                <h3>🏅 Tracking Coach Recommendations</h3>
+                <div class="tracking-grid">
+                    <div class="tracking-col">
+                        <div class="tracking-section" id="t-tips">
+                            <h4>💡 Implementation Tips</h4>
+                            <ul id="tips-list"></ul>
+                        </div>
+                        <div class="tracking-section" id="t-metrics">
+                            <h4>📊 Weekly Check-in Metrics</h4>
+                            <ul id="metrics-list"></ul>
+                        </div>
+                    </div>
+                    <div class="tracking-col">
+                        <div class="tracking-section" id="t-milestones">
+                            <h4>🎯 Milestone Targets</h4>
+                            <ul id="milestones-list"></ul>
+                        </div>
+                        <div class="tracking-section t-warnings" id="t-warnings">
+                            <h4>🚨 Red Flag Warnings</h4>
+                            <ul id="warnings-list"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="coach-notes" id="coach-notes-box">
+                    <h4>📝 Coach Notes</h4>
+                    <p id="coach-notes-text"></p>
+                </div>
+            </div>
+
+            <!-- Workout Plan Preview -->
+            <div id="workout-panel" class="glass-panel hidden">
+                <h3>🏋️ Workout Plan Preview</h3>
+                <div id="workout-tabs" class="tab-bar"></div>
+                <div id="workout-table-wrapper" class="table-wrapper">
+                    <table id="workout-table" class="exercise-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th><th>Focus</th><th>Exercise</th>
+                                <th>Sets</th><th>Reps</th><th>Rest</th>
+                                <th>W/U Sets</th><th>Tempo</th>
+                                <th>Muscles / Goal</th><th>Notes</th><th>Demo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="workout-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Download -->
+            <div id="download-alert" class="alert-panel alert-success hidden">
+                <div class="alert-icon">🎉</div>
+                <div class="alert-body">
+                    <strong>Your Complete Plan is Ready!</strong>
+                    <p>All agents have approved the plan. Download your personalized Excel workbook with 4 sheets: Workout Schedule, Nutrition Plan, Tracking Strategy, and Progress Tracker.</p>
+                </div>
+                <a id="download-btn" href="#" class="primary-btn success-btn">📥 Download My Plan (.xlsx)</a>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

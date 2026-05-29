@@ -12,7 +12,7 @@ def orchestrator_node(state: AgentState) -> dict:
         raise ValueError("UserProfile is missing from state.")
         
     # We use a robust reasoning model for orchestration (Groq with Llama 3)
-    llm = ChatGroq(model="llama-3.1-70b-versatile", temperature=0)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     
     # Bind the tool to enforce output structure
     llm_with_structured_output = llm.with_structured_output(MacroStrategy)

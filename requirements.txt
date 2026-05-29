@@ -5,3 +5,8 @@ langchain-google-genai
 pydantic
 pandas
 openpyxl
+python-dotenv
+langgraph-checkpoint-sqlite
+fastapi
+uvicorn
+python-multipart

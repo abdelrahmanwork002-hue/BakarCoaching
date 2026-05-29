@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+checkpoints.sqlite
+Final_Client_Plan.xlsx
+Client_Plan.xlsx
