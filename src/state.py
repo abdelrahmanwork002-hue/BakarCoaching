@@ -115,13 +115,30 @@ def merge_dicts(existing: dict, new: dict) -> dict:
                 res[k] = v
     return res
 
+def merge_fitness_plan(existing: FitnessPlan, new: FitnessPlan) -> FitnessPlan:
+    """
+    Accumulates fitness sessions across parallel branches.
+    When Gym, Yoga, and Calisthenics branches all write to fitness_plan,
+    each write is merged additively — no branch overwrites the others.
+    Sessions from the new plan take priority if non-empty.
+    """
+    if existing is None:
+        return new
+    if new is None:
+        return existing
+    return FitnessPlan(
+        gym_sessions=new.gym_sessions if new.gym_sessions else existing.gym_sessions,
+        yoga_sessions=new.yoga_sessions if new.yoga_sessions else existing.yoga_sessions,
+        calisthenics_sessions=new.calisthenics_sessions if new.calisthenics_sessions else existing.calisthenics_sessions,
+    )
+
 # --- LangGraph State Definition ---
 
 class AgentState(TypedDict):
     # Core Data
     user_profile: Optional[UserProfile]
     macro_strategy: Optional[MacroStrategy]
-    fitness_plan: FitnessPlan
+    fitness_plan: Annotated[FitnessPlan, merge_fitness_plan]
     nutrition_plan: Optional[NutritionPlan]
     tracking_strategy: Optional[TrackingStrategy]
 
