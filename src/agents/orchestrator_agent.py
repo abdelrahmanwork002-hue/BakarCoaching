@@ -34,8 +34,7 @@ def orchestrator_node(state: AgentState) -> dict:
 Your job is to analyze the client profile below and produce a comprehensive macro strategy that:
 1. Sets precise daily caloric and macronutrient targets
 2. Defines a high-level weekly training split
-3. Assigns specialist_directives — a dictionary that activates ONLY the relevant training specialists
-   and gives each one a specific, targeted coaching mandate tailored to this client's goals and limitations.
+3. Assigns specialist_directives — a dictionary that ONLY includes the specialists the client has explicitly requested
 
 CLIENT PROFILE:
 - Age: {user_profile.age}
@@ -45,19 +44,18 @@ CLIENT PROFILE:
 - Experience Level: {user_profile.experience_level}
 - Injuries/Limitations: {', '.join(user_profile.injuries) if user_profile.injuries else 'None'}
 
-SPECIALIST SELECTION RULES:
-- Include "Gym" if the client would benefit from equipment-based resistance training
-- Include "Yoga" if the client would benefit from mobility, flexibility, or active recovery (especially if injuries present)
-- Include "Calisthenics" if the client would benefit from bodyweight strength and skill work
-- You may include 1, 2, or all 3 specialists based on the client's needs
-- You MUST NOT include a specialist if it is not appropriate for this client
+IMPORTANT — THE CLIENT HAS EXPLICITLY REQUESTED THESE TRAINING TYPES ONLY:
+{user_profile.preferred_training_types}
 
-For each specialist you include, write a specific directive (2-4 sentences) that:
+You MUST include specialist_directives ONLY for the types listed above.
+Do NOT add any other specialist. Do NOT omit any of the listed types.
+
+For each specialist, write a specific directive (2-4 sentences) that:
 - States the primary training focus for that specialist
 - References any injury modifications or contraindications
 - Aligns with the overall macro strategy and caloric goals
 
-Example specialist_directives format:
+Example specialist_directives format (if user selected Gym + Yoga):
 {{
   "Gym": "Focus on compound lower body movements (squats, deadlifts) and push/pull hypertrophy. Avoid overhead pressing and any exercises that load the lumbar spine. Target 4 sessions per week with progressive overload.",
   "Yoga": "Prioritize lumbar decompression, hip flexor mobility, and thoracic extension. Include restorative poses for recovery between gym sessions. 2-3 sessions per week."

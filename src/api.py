@@ -39,12 +39,32 @@ class OnboardRequest(BaseModel):
     primary_goal: str
     experience_level: str
     injuries: list[str]
+    preferred_training_types: list[str] = ["Gym", "Yoga", "Calisthenics"]
+
+
+def _serialize(obj):
+    """Recursively serialize Pydantic models and lists."""
+    if obj is None:
+        return None
+    if hasattr(obj, "model_dump"):
+        return obj.model_dump()
+    if isinstance(obj, list):
+        return [_serialize(i) for i in obj]
+    if isinstance(obj, dict):
+        return {k: _serialize(v) for k, v in obj.items()}
+    return obj
 
 
 @app.post("/api/onboard")
 def onboard(req: OnboardRequest, background_tasks: BackgroundTasks):
     thread_id = str(uuid.uuid4())
     config = {"configurable": {"thread_id": thread_id}}
+
+    # Validate training types
+    valid_types = {"Gym", "Yoga", "Calisthenics"}
+    preferred = [t for t in req.preferred_training_types if t in valid_types]
+    if not preferred:
+        preferred = ["Gym"]  # fallback
 
     initial_profile = UserProfile(
         user_id=thread_id,
@@ -54,7 +74,8 @@ def onboard(req: OnboardRequest, background_tasks: BackgroundTasks):
         activity_level=req.activity_level,
         primary_goal=req.primary_goal,
         experience_level=req.experience_level,
-        injuries=req.injuries
+        injuries=req.injuries,
+        preferred_training_types=preferred
     )
 
     initial_state = AgentState(
@@ -102,21 +123,6 @@ def get_status(thread_id: str):
     next_node = snapshot.next
     val = snapshot.values
 
-    # Macro strategy serialization
-    macro = val.get("macro_strategy")
-    if macro:
-        macro = macro.model_dump() if hasattr(macro, "model_dump") else dict(macro)
-
-    # Tracking strategy serialization
-    tracking = val.get("tracking_strategy")
-    if tracking:
-        tracking = tracking.model_dump() if hasattr(tracking, "model_dump") else dict(tracking)
-
-    # Validation logs serialization
-    logs = []
-    for log in val.get("validation_logs", []):
-        logs.append(log.model_dump() if hasattr(log, "model_dump") else dict(log))
-
     # Determine status
     state_status = "completed"
     if next_node:
@@ -125,9 +131,28 @@ def get_status(thread_id: str):
         else:
             state_status = "running"
 
+    # Serialize macro strategy
+    macro = _serialize(val.get("macro_strategy"))
+
+    # Serialize tracking strategy
+    tracking = _serialize(val.get("tracking_strategy"))
+
+    # Serialize full fitness plan (all sessions + exercises)
+    fitness_plan_raw = val.get("fitness_plan")
+    fitness_plan = _serialize(fitness_plan_raw)
+
+    # Serialize nutrition plan
+    nutrition_plan = _serialize(val.get("nutrition_plan"))
+
+    # Serialize validation logs
+    logs = [_serialize(log) for log in val.get("validation_logs", [])]
+
     # Rejections (filter out None values)
     raw_rejections = val.get("current_rejections", {})
     rejections = {k: v for k, v in raw_rejections.items() if v is not None}
+
+    # User profile (for displaying preferred types etc.)
+    user_profile = _serialize(val.get("user_profile"))
 
     return {
         "status": state_status,
@@ -136,6 +161,9 @@ def get_status(thread_id: str):
         "validation_logs": logs,
         "macro_strategy": macro,
         "tracking_strategy": tracking,
+        "fitness_plan": fitness_plan,
+        "nutrition_plan": nutrition_plan,
+        "user_profile": user_profile,
     }
 
 

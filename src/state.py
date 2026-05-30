@@ -13,6 +13,10 @@ class UserProfile(BaseModel):
     primary_goal: str = Field(description="Muscle Gain, Weight Loss, Maintenance, Endurance")
     injuries: List[str] = Field(default_factory=list, description="List of current injuries or limitations")
     experience_level: str = Field(description="Beginner, Intermediate, Advanced")
+    preferred_training_types: List[str] = Field(
+        default_factory=lambda: ["Gym", "Yoga", "Calisthenics"],
+        description="Training types the user explicitly wants: subset of ['Gym', 'Yoga', 'Calisthenics']"
+    )
 
 class MacroStrategy(BaseModel):
     target_calories: int = Field(description="Daily caloric target")

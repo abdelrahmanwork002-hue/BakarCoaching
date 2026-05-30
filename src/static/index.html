@@ -25,7 +25,7 @@
         <!-- ===== ONBOARDING ===== -->
         <section id="onboarding-section" class="glass-panel">
             <h2>Client Onboarding</h2>
-            <p class="subtitle">Fill in the profile below. The Senior Coach will assign the right specialists and directives for you.</p>
+            <p class="subtitle">Fill in your profile and select which training types you want included in your plan.</p>
             <form id="onboard-form">
                 <div class="form-grid">
                     <div class="input-group">
@@ -69,12 +69,46 @@
                         </select>
                     </div>
                     <div class="input-group full-width">
-                        <label for="injuries">Injuries / Limitations (comma separated)</label>
-                        <input type="text" id="injuries" placeholder="e.g. Mild lower back pain, right shoulder impingement" value="Mild lower back pain">
+                        <label for="injuries">Injuries / Limitations <span class="optional-tag">optional</span></label>
+                        <input type="text" id="injuries" placeholder="e.g. Mild lower back pain, right shoulder impingement">
                     </div>
                 </div>
+
+                <!-- Training Type Selector -->
+                <div class="training-selector">
+                    <label class="training-selector-label">Training Types <span class="required-tag">select at least one</span></label>
+                    <div class="training-cards" id="training-cards">
+                        <label class="training-card" id="card-gym">
+                            <input type="checkbox" name="training_type" value="Gym" checked>
+                            <div class="training-card-inner">
+                                <div class="training-icon">🏋️</div>
+                                <div class="training-name">Gym</div>
+                                <div class="training-desc">Equipment-based resistance training, compound & isolation lifts</div>
+                            </div>
+                        </label>
+                        <label class="training-card" id="card-yoga">
+                            <input type="checkbox" name="training_type" value="Yoga" checked>
+                            <div class="training-card-inner">
+                                <div class="training-icon">🧘</div>
+                                <div class="training-name">Yoga</div>
+                                <div class="training-desc">Flexibility, mobility, active recovery & mindfulness</div>
+                            </div>
+                        </label>
+                        <label class="training-card" id="card-cali">
+                            <input type="checkbox" name="training_type" value="Calisthenics" checked>
+                            <div class="training-card-inner">
+                                <div class="training-icon">🤸</div>
+                                <div class="training-name">Calisthenics</div>
+                                <div class="training-desc">Bodyweight mastery, skill progressions & core strength</div>
+                            </div>
+                        </label>
+                    </div>
+                    <p class="training-hint" id="training-hint"></p>
+                </div>
+
                 <button type="submit" id="submit-btn" class="primary-btn">
-                    <span class="btn-text">🚀 Generate My Coaching Plan</span>
+                    <span class="btn-icon">🚀</span>
+                    <span class="btn-text">Generate My Coaching Plan</span>
                 </button>
             </form>
         </section>
@@ -119,53 +153,56 @@
                 <button id="resume-btn" class="primary-btn pulse-btn">✅ Approve & Resume</button>
             </div>
 
+            <!-- Full Plan Viewer -->
+            <div id="plan-viewer" class="glass-panel hidden">
+                <div class="plan-viewer-header">
+                    <h3>📋 Full Coaching Plan</h3>
+                    <div class="plan-tabs" id="plan-tabs">
+                        <button class="plan-tab active" data-tab="workout">💪 Workout</button>
+                        <button class="plan-tab" data-tab="nutrition">🥗 Nutrition</button>
+                    </div>
+                </div>
+
+                <!-- Workout Tab -->
+                <div id="tab-workout" class="plan-tab-content">
+                    <div class="domain-tabs" id="domain-tabs"></div>
+                    <div id="domain-content"></div>
+                </div>
+
+                <!-- Nutrition Tab -->
+                <div id="tab-nutrition" class="plan-tab-content hidden">
+                    <div id="nutrition-content"></div>
+                </div>
+            </div>
+
             <!-- Tracking Coach Panel -->
             <div id="tracking-panel" class="glass-panel hidden">
                 <h3>🏅 Tracking Coach Recommendations</h3>
                 <div class="tracking-grid">
                     <div class="tracking-col">
-                        <div class="tracking-section" id="t-tips">
+                        <div class="tracking-section">
                             <h4>💡 Implementation Tips</h4>
                             <ul id="tips-list"></ul>
                         </div>
-                        <div class="tracking-section" id="t-metrics">
+                        <div class="tracking-section">
                             <h4>📊 Weekly Check-in Metrics</h4>
                             <ul id="metrics-list"></ul>
                         </div>
                     </div>
                     <div class="tracking-col">
-                        <div class="tracking-section" id="t-milestones">
+                        <div class="tracking-section">
                             <h4>🎯 Milestone Targets</h4>
                             <ul id="milestones-list"></ul>
                         </div>
-                        <div class="tracking-section t-warnings" id="t-warnings">
+                        <div class="tracking-section t-warnings">
                             <h4>🚨 Red Flag Warnings</h4>
                             <ul id="warnings-list"></ul>
                         </div>
                     </div>
                 </div>
-                <div class="coach-notes" id="coach-notes-box">
+                <div class="coach-notes">
                     <h4>📝 Coach Notes</h4>
                     <p id="coach-notes-text"></p>
-                </div>
-            </div>
-
-            <!-- Workout Plan Preview -->
-            <div id="workout-panel" class="glass-panel hidden">
-                <h3>🏋️ Workout Plan Preview</h3>
-                <div id="workout-tabs" class="tab-bar"></div>
-                <div id="workout-table-wrapper" class="table-wrapper">
-                    <table id="workout-table" class="exercise-table">
-                        <thead>
-                            <tr>
-                                <th>Day</th><th>Focus</th><th>Exercise</th>
-                                <th>Sets</th><th>Reps</th><th>Rest</th>
-                                <th>W/U Sets</th><th>Tempo</th>
-                                <th>Muscles / Goal</th><th>Notes</th><th>Demo</th>
-                            </tr>
-                        </thead>
-                        <tbody id="workout-tbody"></tbody>
-                    </table>
                 </div>
             </div>
 
@@ -174,9 +211,9 @@
                 <div class="alert-icon">🎉</div>
                 <div class="alert-body">
                     <strong>Your Complete Plan is Ready!</strong>
-                    <p>All agents have approved the plan. Download your personalized Excel workbook with 4 sheets: Workout Schedule, Nutrition Plan, Tracking Strategy, and Progress Tracker.</p>
+                    <p>Download your personalized Excel workbook: Workout Schedule, Nutrition Plan, Tracking Strategy, and Progress Tracker.</p>
                 </div>
-                <a id="download-btn" href="#" class="primary-btn success-btn">📥 Download My Plan (.xlsx)</a>
+                <a id="download-btn" href="#" class="primary-btn success-btn">📥 Download Excel</a>
             </div>
 
         </section>

@@ -2,109 +2,142 @@
 Tracking Coach Agent
 ====================
 Runs AFTER all fitness and nutrition plans are merged.
-Performs a holistic review of the complete plan and generates a TrackingStrategy.
-Uses Groq Llama 3.3 70B (no daily quota limits).
+Generates a TrackingStrategy using JSON mode (more reliable than tool-calling
+for complex nested schemas on Groq).
 
 Modify this file to change what the Tracking Coach recommends or monitors.
+Model: Groq Llama 3.3 70B
 """
+import json
 import time
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 
 from src.state import AgentState, TrackingStrategy
-from src.agents.base import _invoke_with_retry
 
 
 def tracking_coach_node(state: AgentState) -> dict:
     """
     Tracking Coach node. Synthesizes the complete plan into an actionable TrackingStrategy.
-    Model: Groq Llama 3.3 70B
+    Uses JSON mode for reliable structured output.
     """
     llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
-    llm_structured = llm.with_structured_output(TrackingStrategy)
+    llm_json = llm.bind(response_format={"type": "json_object"})
 
     profile = state.get("user_profile")
     fitness_plan = state.get("fitness_plan")
     nutrition_plan = state.get("nutrition_plan")
     macro = state.get("macro_strategy")
 
-    # Summarize the fitness plan for context
-    gym_days = [s.day for s in (fitness_plan.gym_sessions or [])]
+    gym_days  = [s.day for s in (fitness_plan.gym_sessions or [])]
     yoga_days = [s.day for s in (fitness_plan.yoga_sessions or [])]
     cali_days = [s.day for s in (fitness_plan.calisthenics_sessions or [])]
-
     total_sessions = len(gym_days) + len(yoga_days) + len(cali_days)
-    total_weekly_duration = sum(
+    total_mins = sum(
         s.duration_mins
-        for domain_sessions in [
-            fitness_plan.gym_sessions or [],
-            fitness_plan.yoga_sessions or [],
-            fitness_plan.calisthenics_sessions or []
-        ]
-        for s in domain_sessions
+        for sessions in [fitness_plan.gym_sessions or [], fitness_plan.yoga_sessions or [], fitness_plan.calisthenics_sessions or []]
+        for s in sessions
     )
 
     meal_summary = ""
     if nutrition_plan and nutrition_plan.daily_meals:
         meal_summary = "\n".join(
-            f"  - {m.meal_name}: {m.calories} kcal, P:{m.protein_g}g, C:{m.carbs_g}g, F:{m.fats_g}g"
+            f"  - {m.meal_name}: {m.calories} kcal P:{m.protein_g}g C:{m.carbs_g}g F:{m.fats_g}g"
             for m in nutrition_plan.daily_meals
         )
 
     directives_summary = "\n".join(
-        f"  - {domain}: {directive}"
-        for domain, directive in (macro.specialist_directives or {}).items()
+        f"  - {k}: {v}" for k, v in (macro.specialist_directives or {}).items()
     )
 
-    prompt = f"""You are the Tracking Coach — a world-class fitness progress specialist.
+    system_msg = SystemMessage(content="""You are the Tracking Coach — a world-class fitness progress specialist.
+You MUST respond with a single valid JSON object and NOTHING else — no markdown, no explanation.
+The JSON must have EXACTLY these 5 keys:
+{
+  "weekly_checkin_metrics": ["string", ...],
+  "implementation_tips": ["string", ...],
+  "milestone_targets": ["string", ...],
+  "red_flag_warnings": ["string", ...],
+  "coach_notes": "string"
+}""")
 
-Your job is to review a client's complete fitness and nutrition plan and generate a practical
-TrackingStrategy that will help them stay on track, measure progress, and avoid injury.
+    user_msg = HumanMessage(content=f"""Generate a TrackingStrategy JSON for this client.
 
 CLIENT PROFILE:
 - Age: {profile.age} | Weight: {profile.weight_kg}kg → Target: {profile.target_weight_kg}kg
 - Goal: {profile.primary_goal} | Experience: {profile.experience_level}
-- Injuries/Limitations: {', '.join(profile.injuries) if profile.injuries else 'None'}
+- Injuries: {', '.join(profile.injuries) if profile.injuries else 'None'}
 
 SENIOR COACH DIRECTIVES:
-{directives_summary if directives_summary else '  Not specified'}
+{directives_summary or '  Not specified'}
 
-APPROVED FITNESS PLAN SUMMARY:
-- Gym Sessions: {gym_days if gym_days else 'None'}
-- Yoga Sessions: {yoga_days if yoga_days else 'None'}
-- Calisthenics Sessions: {cali_days if cali_days else 'None'}
-- Total Weekly Sessions: {total_sessions}
-- Total Weekly Training Time: ~{total_weekly_duration} minutes
+FITNESS PLAN:
+- Gym: {gym_days or 'None'} | Yoga: {yoga_days or 'None'} | Calisthenics: {cali_days or 'None'}
+- Total: {total_sessions} sessions / ~{total_mins} mins/week
 
-APPROVED NUTRITION PLAN:
-- Daily Target: {macro.target_calories} kcal | P:{macro.protein_g}g | C:{macro.carbs_g}g | F:{macro.fats_g}g
-- Meals:
-{meal_summary if meal_summary else '  Not available'}
-- Hydration Target: {nutrition_plan.hydration_target_L if nutrition_plan else 'N/A'} liters/day
+NUTRITION:
+- Targets: {macro.target_calories} kcal | P:{macro.protein_g}g C:{macro.carbs_g}g F:{macro.fats_g}g
+- Hydration: {nutrition_plan.hydration_target_L if nutrition_plan else 'N/A'} L/day
+{meal_summary}
 
-YOUR TASK — Generate a TrackingStrategy with:
+Required in your JSON:
+- weekly_checkin_metrics: 5-8 measurable weekly tracking items
+- implementation_tips: 6-10 practical scheduling tips referencing the actual training days
+- milestone_targets: 8-12 progressive targets (format "Week N: ..." or "Month N: ...")
+- red_flag_warnings: 4-8 safety signals specific to this client's injuries
+- coach_notes: 2-3 paragraph motivating synthesis of the program
+""")
 
-1. weekly_checkin_metrics (5-8 items):
-   Specific measurable metrics the client should log every week.
-   Examples: "Body weight (kg) — weigh in same time each morning", "Workout adherence (sessions completed / planned)"
-
-2. implementation_tips (6-10 items):
-   Practical scheduling and lifestyle tips for successfully implementing this specific plan.
-   Reference the actual training days and session types from the plan above.
-
-3. milestone_targets (8-12 items):
-   Week-by-week and month-by-month progressive targets.
-   Be specific and realistic for this client's goal and starting point.
-   Format: "Week 2: [specific target]", "Month 1: [specific target]"
-
-4. red_flag_warnings (4-8 items):
-   Specific injury or safety signals this client should watch for given their profile.
-   Reference their listed injuries/limitations directly.
-
-5. coach_notes (2-3 paragraphs):
-   A motivating, synthesizing overview of the program strategy, key priorities,
-   and how the fitness and nutrition plans work together for this client's goal.
-"""
-
-    tracking_strategy = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
-    return {"tracking_strategy": tracking_strategy}
+    for attempt in range(3):
+        try:
+            response = llm_json.invoke([system_msg, user_msg])
+            raw = response.content.strip()
+            if raw.startswith("```"):
+                raw = raw.split("```")[1]
+                if raw.startswith("json"):
+                    raw = raw[4:]
+                raw = raw.strip()
+            data = json.loads(raw)
+            tracking_strategy = TrackingStrategy(**data)
+            return {"tracking_strategy": tracking_strategy}
+        except Exception as e:
+            err = str(e)
+            if "429" in err or "rate_limit" in err.lower():
+                wait = (attempt + 1) * 15
+                print(f"[Tracking Coach] Rate limit — waiting {wait}s...")
+                time.sleep(wait)
+            elif attempt >= 2:
+                # Final fallback — return a minimal but valid strategy
+                print(f"[Tracking Coach] Failed after 3 attempts: {err[:200]}")
+                return {"tracking_strategy": TrackingStrategy(
+                    weekly_checkin_metrics=[
+                        "Body weight (kg) — same time each morning",
+                        "Sessions completed vs planned",
+                        "Daily protein intake (g)",
+                        "Sleep quality (hours)",
+                        "Energy level (1-10)"
+                    ],
+                    implementation_tips=[
+                        "Follow the training schedule consistently",
+                        "Prepare meals in advance to hit macro targets",
+                        "Prioritize sleep for recovery",
+                        "Warm up properly before every session",
+                        "Stay hydrated — carry a water bottle"
+                    ],
+                    milestone_targets=[
+                        "Week 2: Complete all scheduled sessions",
+                        "Week 4: Track noticeable strength improvement",
+                        "Month 1: Reach first weight milestone",
+                        "Month 2: Establish full routine habit"
+                    ],
+                    red_flag_warnings=[
+                        "Stop immediately if any acute pain occurs",
+                        "Rest if excessively fatigued or unwell",
+                        "Consult a professional if injuries worsen"
+                    ],
+                    coach_notes=(
+                        "Your plan is well-structured and tailored to your goals. "
+                        "Consistency is the most important factor in your success. "
+                        "Track your progress weekly and adjust as needed."
+                    )
+                )}
