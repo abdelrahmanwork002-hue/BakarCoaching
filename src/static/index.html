@@ -22,6 +22,12 @@
             <p>Multi-agent fitness & nutrition intelligence — Senior Coach, Specialists, Tracking Coach</p>
         </header>
 
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav-tabs">
+            <button id="nav-btn-coaching" class="nav-tab active">📋 Client Coaching Plan</button>
+            <button id="nav-btn-library" class="nav-tab">🏋️ Exercise Library & Search</button>
+        </nav>
+
         <!-- ===== ONBOARDING ===== -->
         <section id="onboarding-section" class="glass-panel">
             <h2>Client Onboarding</h2>
@@ -216,6 +222,173 @@
                 <a id="download-btn" href="#" class="primary-btn success-btn">📥 Download Excel</a>
             </div>
 
+        </section>
+
+        <!-- ===== EXERCISE LIBRARY SECTION ===== -->
+        <section id="library-section" class="hidden">
+            <div class="glass-panel library-header-panel">
+                <div class="library-title-row">
+                    <h2>🏋️ Exercise Library</h2>
+                    <p class="subtitle">Search, filter, and expand your database. Coach agents automatically select training exercises from this library.</p>
+                </div>
+                
+                <!-- Web Search Trigger -->
+                <div class="search-box-container">
+                    <form id="library-search-form" class="search-form">
+                        <input type="text" id="library-search-input" placeholder="Search the web and classify new exercises... (e.g. 'upper chest gym', 'yoga balance poses', 'calisthenics core')" required>
+                        <button type="submit" id="library-search-btn" class="primary-btn">
+                            <span class="btn-icon">🔍</span>
+                            <span class="btn-text">Search & Classify</span>
+                        </button>
+                    </form>
+                    
+                    <!-- Search Loader -->
+                    <div id="search-loader" class="search-loader hidden">
+                        <div class="loader-spinner"></div>
+                        <div class="loader-text">
+                            <strong>Agent Searching & Classifying...</strong>
+                            <p>Querying web pages and YouTube tutorials. Extracting and tags-classifying with LLM Llama 3.3...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Actions Row -->
+                <div class="library-actions">
+                    <button id="toggle-add-form-btn" class="secondary-btn">➕ Add Exercise Manually</button>
+                </div>
+            </div>
+
+            <!-- Manual Exercise Form (Hidden by Default) -->
+            <div id="manual-exercise-panel" class="glass-panel hidden">
+                <h3>➕ Add Custom Exercise</h3>
+                <p class="subtitle">Manually add an exercise and classify it with targeted muscles, training types, levels, and video tutorial links.</p>
+                <form id="manual-exercise-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="manual-ex-name">Exercise Name</label>
+                            <input type="text" id="manual-ex-name" required placeholder="e.g. Incline Dumbbell Bench Press">
+                        </div>
+                        <div class="input-group">
+                            <label for="manual-ex-demo">Demo Video Link / URL</label>
+                            <input type="url" id="manual-ex-demo" required placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="manual-ex-desc">Exercise Description / Instructions</label>
+                            <textarea id="manual-ex-desc" rows="3" required placeholder="Provide clear step-by-step form cues for correct execution..."></textarea>
+                        </div>
+                        
+                        <!-- Training Types -->
+                        <div class="input-group">
+                            <label>Training Types</label>
+                            <div class="checkbox-pill-group">
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_training_types" value="Gym" checked>
+                                    <span>🏋️ Gym</span>
+                                </label>
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_training_types" value="Calisthenics">
+                                    <span>🤸 Cali</span>
+                                </label>
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_training_types" value="Yoga">
+                                    <span>🧘 Yoga</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Levels -->
+                        <div class="input-group">
+                            <label>Levels</label>
+                            <div class="checkbox-pill-group">
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_levels" value="Beginner" checked>
+                                    <span>Beginner</span>
+                                </label>
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_levels" value="Intermediate" checked>
+                                    <span>Intermediate</span>
+                                </label>
+                                <label class="checkbox-pill">
+                                    <input type="checkbox" name="manual_levels" value="Advanced">
+                                    <span>Advanced</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Next progressions -->
+                        <div class="input-group full-width">
+                            <label for="manual-ex-progressions">Next Progressions / Exercises <span class="optional-tag">comma-separated</span></label>
+                            <input type="text" id="manual-ex-progressions" placeholder="e.g. Decline Push-Up, Archer Push-Up">
+                        </div>
+
+                        <!-- Targeted Muscles Multi-Select & Focus Setup -->
+                        <div class="input-group full-width">
+                            <label>Targeted Muscles & Focus (Strength / Mobility)</label>
+                            <p class="subtitle" style="margin-top:-5px;margin-bottom:10px;">Select targeted muscles. For each active muscle, select whether this exercise targets Strength and/or Mobility.</p>
+                            <div class="muscle-focus-grid" id="muscle-focus-selector-grid">
+                                <!-- Generated Dynamically by JS to support premium multi-select -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">💾 Save & Add to Library</button>
+                        <button type="button" id="cancel-add-btn" class="secondary-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Library Search / Filter Row -->
+            <div class="glass-panel library-filters-panel">
+                <h3>🔍 Filter Library</h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="filter-type">Training Type</label>
+                        <select id="filter-type">
+                            <option value="">All Types</option>
+                            <option value="Gym">🏋️ Gym</option>
+                            <option value="Calisthenics">🤸 Calisthenics</option>
+                            <option value="Yoga">🧘 Yoga</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-muscle">Target Muscle</label>
+                        <select id="filter-muscle">
+                            <option value="">All Muscles</option>
+                            <option value="Chest">Chest</option>
+                            <option value="Back">Back</option>
+                            <option value="Shoulders">Shoulders</option>
+                            <option value="Quads">Quads</option>
+                            <option value="Hamstrings">Hamstrings</option>
+                            <option value="Glutes">Glutes</option>
+                            <option value="Calves">Calves</option>
+                            <option value="Biceps">Biceps</option>
+                            <option value="Triceps">Triceps</option>
+                            <option value="Core">Core</option>
+                            <option value="Wrists/Forearms">Wrists/Forearms</option>
+                            <option value="Hips">Hips</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-level">Experience Level</label>
+                        <select id="filter-level">
+                            <option value="">All Levels</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-text">Search Text</label>
+                        <input type="text" id="filter-text" placeholder="Type exercise name...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="exercises-grid-container" class="exercises-grid">
+                <!-- Generated Dynamically by JS -->
+            </div>
         </section>
     </div>
 

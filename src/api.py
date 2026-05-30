@@ -30,6 +30,10 @@ os.makedirs(static_dir, exist_ok=True)
 
 graph = build_graph()
 
+# Module-level error store: thread_id -> error message
+# Populated when run_graph() raises an unhandled exception
+run_errors: dict = {}
+
 
 class OnboardRequest(BaseModel):
     age: int
@@ -102,8 +106,13 @@ def onboard(req: OnboardRequest, background_tasks: BackgroundTasks):
     )
 
     def run_graph():
-        for _ in graph.stream(initial_state, config=config, stream_mode="values"):
-            pass
+        try:
+            for _ in graph.stream(initial_state, config=config, stream_mode="values"):
+                pass
+        except Exception as e:
+            run_errors[thread_id] = str(e)
+            print(f"[Graph Error] thread={thread_id}: {e}")
+
 
     background_tasks.add_task(run_graph)
     return {"thread_id": thread_id}
@@ -111,6 +120,10 @@ def onboard(req: OnboardRequest, background_tasks: BackgroundTasks):
 
 @app.get("/api/status/{thread_id}")
 def get_status(thread_id: str):
+    # Check if a graph error was recorded for this thread
+    if thread_id in run_errors:
+        return {"status": "error", "message": run_errors[thread_id]}
+
     config = {"configurable": {"thread_id": thread_id}}
     try:
         snapshot = graph.get_state(config)
@@ -205,6 +218,76 @@ def download_excel(thread_id: str):
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         filename="My_Coaching_Plan.xlsx"
     )
+
+
+# ---------------------------------------------------------------------------
+# Exercise Library & Browser Search Flow Endpoints
+# ---------------------------------------------------------------------------
+
+class AddExerciseRequest(BaseModel):
+    name: str
+    description: str
+    targeted_muscles: list[str]
+    muscle_focus: dict[str, list[str]]
+    training_types: list[str]
+    demo_url: str
+    levels: list[str]
+    next_level_progressions: list[str] = []
+
+class SearchExercisesRequest(BaseModel):
+    query: str
+
+@app.get("/api/exercises")
+def get_exercises(training_type: str = None, muscle: str = None, level: str = None, focus: str = None):
+    from src.exercise_library import query_exercises
+    try:
+        items = query_exercises(training_type, muscle, level, focus)
+        return {"status": "success", "exercises": [item.model_dump() for item in items]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/exercises")
+def add_exercise(req: AddExerciseRequest):
+    from src.exercise_library import ExerciseLibraryItem, add_or_update_exercise
+    import re
+    
+    # Generate clean snake_case id
+    ex_id = re.sub(r'[^a-z0-9]+', '_', req.name.lower()).strip('_')
+    if not ex_id:
+        ex_id = f"exercise_{uuid.uuid4().hex[:6]}"
+        
+    item = ExerciseLibraryItem(
+        id=ex_id,
+        name=req.name,
+        description=req.description,
+        targeted_muscles=req.targeted_muscles,
+        muscle_focus=req.muscle_focus,
+        training_types=req.training_types,
+        demo_url=req.demo_url,
+        levels=req.levels,
+        next_level_progressions=req.next_level_progressions
+    )
+    
+    try:
+        library = add_or_update_exercise(item)
+        return {"status": "success", "exercises": [ex.model_dump() for ex in library]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/exercises/search")
+def search_exercises(req: SearchExercisesRequest):
+    from src.exercise_search_flow import run_browser_search_flow
+    from src.exercise_library import load_exercise_library
+    try:
+        new_items = run_browser_search_flow(req.query)
+        all_items = load_exercise_library()
+        return {
+            "status": "success",
+            "new_exercises": [ex.model_dump() for ex in new_items],
+            "exercises": [ex.model_dump() for ex in all_items]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Mount static frontend last so API routes take priority

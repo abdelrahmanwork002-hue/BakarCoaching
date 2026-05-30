@@ -1,0 +1,5671 @@
+[
+    {
+        "id": "bench_press",
+        "name": "Barbell Bench Press",
+        "description": "Lie on a flat bench, grip the barbell slightly wider than shoulder-width, lower the bar to your chest, and press it back up.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=barbell+bench+press+form+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Incline Bench Press",
+            "Dumbbell Flys"
+        ]
+    },
+    {
+        "id": "barbell_squat",
+        "name": "Barbell Back Squat",
+        "description": "Place a barbell on your upper back, stand with feet shoulder-width apart, bend at the hips and knees to lower down until thighs are parallel to the floor, then stand back up.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Hamstrings",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength",
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=barbell+back+squat+form+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Pistol Squat",
+            "Front Squat"
+        ]
+    },
+    {
+        "id": "romanian_deadlift",
+        "name": "Barbell Romanian Deadlift",
+        "description": "Stand holding a barbell at hip height, hinge at the hips, keeping your back flat and knees slightly bent, lower the barbell along your thighs until you feel a stretch in your hamstrings, then return to start.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Glutes",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength",
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=romanian+deadlift+form+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Barbell Deadlift"
+        ]
+    },
+    {
+        "id": "push_up",
+        "name": "Standard Push-Up",
+        "description": "Start in a high plank position, lower your chest to the floor by bending your elbows, then push through your chest and triceps to return to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps",
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=perfect+push+up+form+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Decline Push-Up",
+            "Archer Push-Up",
+            "Dips"
+        ]
+    },
+    {
+        "id": "pull_up",
+        "name": "Standard Pull-Up",
+        "description": "Hang from a pull-up bar with an overhand grip wider than shoulder-width, pull your chest up to the bar by driving your elbows down, then slowly lower back down.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength",
+                "Mobility"
+            ],
+            "Biceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=how+to+do+a+pull+up+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Weighted Pull-Up",
+            "Muscle-Up"
+        ]
+    },
+    {
+        "id": "dips",
+        "name": "Parallel Bar Dips",
+        "description": "Support your bodyweight on parallel bars, bend your elbows to lower your shoulders below elbow depth, keeping a slight forward lean, then push back up to full lockout.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=parallel+bar+dips+form+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Weighted Dips",
+            "Muscle-Up"
+        ]
+    },
+    {
+        "id": "pike_push_up",
+        "name": "Pike Push-Up",
+        "description": "Get into a push-up position and walk your feet forward, raising your hips into an inverted 'V' shape. Lower your head towards the ground between your hands, then push back up.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Triceps",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=pike+push+up+form+tutorial",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Handstand Push-Up"
+        ]
+    },
+    {
+        "id": "pistol_squat",
+        "name": "Pistol Squat",
+        "description": "Stand on one leg, extend the other leg straight in front of you, lower down into a full squat on the standing leg, then drive back up to a standing position.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Hamstrings",
+            "Calves",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=pistol+squat+form+progression+tutorial",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Weighted Pistol Squat"
+        ]
+    },
+    {
+        "id": "downward_dog",
+        "name": "Downward-Facing Dog Pose",
+        "description": "From all fours, tuck your toes, raise your hips high, and extend your arms and legs to form an inverted 'V' shape, pushing chest towards thighs.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Shoulders",
+            "Calves",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ],
+            "Back": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=downward+facing+dog+form+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Three-Legged Downward Dog"
+        ]
+    },
+    {
+        "id": "cobra_pose",
+        "name": "Cobra Pose (Bhujangasana)",
+        "description": "Lie prone, hands under shoulders, press the tops of your feet into the floor, inhale and lift your chest off the mat while keeping your pelvis on the floor.",
+        "targeted_muscles": [
+            "Back",
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility",
+                "Strength"
+            ],
+            "Core": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=cobra+pose+yoga+form+tutorial",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Upward-Facing Dog Pose"
+        ]
+    },
+    {
+        "id": "crow_pose",
+        "name": "Crow Pose (Bakasana)",
+        "description": "Squat down, place hands flat on the floor shoulder-width apart, place knees against upper triceps, lean forward shifting weight to hands, and lift feet off the ground.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Triceps",
+            "Core",
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ],
+            "Wrists/Forearms": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga",
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=crow+pose+yoga+step+by+step+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Handstand",
+            "Side Crow Pose"
+        ]
+    },
+    {
+        "id": "pigeon_pose",
+        "name": "Pigeon Pose (Eka Pada Rajakapotasana)",
+        "description": "Bring one knee forward and place it behind its wrist, lay the shin down, extend the other leg straight behind you, square your hips, and fold forward over the front leg.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hips",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ],
+            "Back": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=pigeon+pose+yoga+form+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "King Pigeon Pose"
+        ]
+    },
+    {
+        "id": "tree_pose",
+        "name": "Tree Pose (Vrikshasana)",
+        "description": "Stand tall, shift weight to one foot, place the sole of the other foot on your inner thigh or calf (never the knee), bring hands together at heart center, and extend arms up.",
+        "targeted_muscles": [
+            "Core",
+            "Calves",
+            "Glutes",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Calves": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=tree+pose+yoga+balance+tutorial",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Eagle Pose"
+        ]
+    },
+    {
+        "id": "l_sit",
+        "name": "L-Sit",
+        "description": "Sit on the floor or parallel bars, place hands flat, press down to lift your hips off the ground, and extend legs straight out parallel to the floor forming an 'L' shape.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders",
+            "Triceps",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=l+sit+form+progression+tutorial",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "V-Sit"
+        ]
+    },
+    {
+        "id": "archer_push_up",
+        "name": "Archer Push-Up",
+        "description": "Adopt a wide push-up stance. As you lower down, slide your bodyweight to one side, bending that elbow, while keeping the other arm straight. Push back up and alternate sides.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps",
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=archer+push+up+form+progression",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "One-Arm Push-Up"
+        ]
+    },
+    {
+        "id": "dumbbell_lateral_raise",
+        "name": "Dumbbell Lateral Raise",
+        "description": "Stand holding dumbbells at your sides, raise the weights out to your sides until your arms are parallel to the floor, with elbows slightly bent, then lower slowly.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=dumbbell+lateral+raise+form+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cable Lateral Raise"
+        ]
+    },
+    {
+        "id": "warrior_ii",
+        "name": "Warrior II Pose (Virabhadrasana II)",
+        "description": "Step feet wide apart, turn front foot out 90 degrees and back foot slightly in, bend front knee until thigh is parallel to floor, and extend arms out parallel to floor.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Shoulders",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=warrior+2+yoga+pose+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Reverse Warrior",
+            "Extended Side Angle"
+        ]
+    },
+    {
+        "id": "face_pulls",
+        "name": "Cable Face Pull",
+        "description": "Set a cable pulley at upper-chest height with a rope attachment. Pull the rope towards your face, pulling the hands apart and rotating wrists out at the finish.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Back": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=cable+face+pull+form+tutorial",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Rear Delt Fly"
+        ]
+    },
+    {
+        "id": "childs_pose",
+        "name": "Child's Pose (Balasana)",
+        "description": "Kneel on the floor, touch big toes together, sit on your heels, separate knees, and fold your torso forward extending arms in front of you resting forehead on mat.",
+        "targeted_muscles": [
+            "Back",
+            "Shoulders",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=childs+pose+yoga+tutorial",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Extended Puppy Pose"
+        ]
+    },
+    {
+        "id": "muscle_up",
+        "name": "Bar Muscle-Up",
+        "description": "Hang from a bar, pull your chest explosively up and over the bar, transitioning your wrists and pushing through the triceps to extend your arms into lockout at the top.",
+        "targeted_muscles": [
+            "Back",
+            "Triceps",
+            "Chest",
+            "Biceps",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Chest": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=bar+muscle+up+progression+step+by+step",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Strict Muscle-Up"
+        ]
+    },
+    {
+        "id": "incline_dumbbell_press",
+        "name": "Incline Dumbbell Press",
+        "description": "Sit on an incline bench and hold dumbbells, then press upwards extending the arms fully, before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Incline+Dumbbell+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Incline Barbell Press"
+        ]
+    },
+    {
+        "id": "cable_lateral_raise",
+        "name": "Cable Lateral Raise",
+        "description": "Stand facing away from a cable machine with the cable at shoulder height, hold a handle in each hand, and raise the arms out to the sides until they are at shoulder height.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Lateral+Raise+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Lateral Raise"
+        ]
+    },
+    {
+        "id": "close_grip_bench_press",
+        "name": "Close Grip Bench Press",
+        "description": "Lie on a flat bench and hold a barbell with a close grip, then lower the bar to the chest before pressing upwards extending the arms fully.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Close+Grip+Bench+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Close Grip Incline Bench Press"
+        ]
+    },
+    {
+        "id": "seated_cable_row",
+        "name": "Seated Cable Row",
+        "description": "Sit at a cable machine with the cable at chest height, hold a handle in each hand, and pull the handle towards the chest, keeping the elbows close to the body.",
+        "targeted_muscles": [
+            "Back"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Cable+Row+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Bent Over Barbell Row"
+        ]
+    },
+    {
+        "id": "leg_press",
+        "name": "Leg Press",
+        "description": "Sit at a leg press machine and push the platform away from you with your feet, extending the legs fully before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Leg+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Bulgarian Split Squat"
+        ]
+    },
+    {
+        "id": "cable_hammer_curl",
+        "name": "Cable Hammer Curl",
+        "description": "Stand facing a cable machine with the cable at shoulder height, hold a handle in each hand with the palms facing towards the body, and curl the arms up towards the shoulders.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Hammer+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Hammer Curl"
+        ]
+    },
+    {
+        "id": "tricep_pushdown",
+        "name": "Tricep Pushdown",
+        "description": "Hold a handle attached to a cable machine with the cable at shoulder height, extend the arm fully, then lower the handle back to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tricep+Pushdown+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Overhead Dumbbell Extension"
+        ]
+    },
+    {
+        "id": "cable_rotary_calf_raise",
+        "name": "Cable Rotary Calf Raise",
+        "description": "Stand on a step facing a cable machine with the cable at ankle height, hold a handle in each hand, and raise up onto the toes, then lower back to the starting position.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Rotary+Calf+Raise+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standing Calf Raise"
+        ]
+    },
+    {
+        "id": "decline_dumbbell_press",
+        "name": "Decline Dumbbell Press",
+        "description": "Sit on a decline bench and hold dumbbells, then press upwards extending the arms fully, before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Decline+Dumbbell+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Decline Barbell Press"
+        ]
+    },
+    {
+        "id": "seated_dumbbell_shoulder_press",
+        "name": "Seated Dumbbell Shoulder Press",
+        "description": "Sit on a bench and hold dumbbells at shoulder height, then press upwards extending the arms fully, before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Dumbbell+Shoulder+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standing Dumbbell Shoulder Press"
+        ]
+    },
+    {
+        "id": "cable_cross_over",
+        "name": "Cable Cross Over",
+        "description": "Stand facing a cable machine with the cables at shoulder height, hold a handle in each hand, and press the handles out to the sides until they are at shoulder height, then lower back to the starting position.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Cross+Over+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Incline Dumbbell Press"
+        ]
+    },
+    {
+        "id": "leg_extension",
+        "name": "Leg Extension",
+        "description": "Sit at a leg extension machine and lift the weight up with the legs, extending the legs fully before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Quads"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Leg+Extension+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Bulgarian Split Squat"
+        ]
+    },
+    {
+        "id": "cable_bicep_curl",
+        "name": "Cable Bicep Curl",
+        "description": "Stand facing a cable machine with the cable at shoulder height, hold a handle in each hand with the palms facing forwards, and curl the arms up towards the shoulders.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Bicep+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Bicep Curl"
+        ]
+    },
+    {
+        "id": "tricep_dips",
+        "name": "Tricep Dips (Assisted)",
+        "description": "Sit on the edge of a bench with the hands grasping the edge, lower the body down by bending the elbows until the arms are bent at a 90 degree angle, then straighten the arms to return to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tricep+Dips+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Overhead Dumbbell Extension"
+        ]
+    },
+    {
+        "id": "cable_lateral_raise_with_rotation",
+        "name": "Cable Lateral Raise with Rotation",
+        "description": "Stand facing away from a cable machine with the cable at shoulder height, hold a handle in each hand, and raise the arms out to the sides until they are at shoulder height, rotating the wrists so the palms face downwards.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Lateral+Raise+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Lateral Raise with Rotation"
+        ]
+    },
+    {
+        "id": "seated_cable_row_with_rotation",
+        "name": "Seated Cable Row with Rotation",
+        "description": "Sit at a cable machine with the cable at chest height, hold a handle in each hand, and pull the handle towards the chest, rotating the wrists so the palms face towards the body.",
+        "targeted_muscles": [
+            "Back"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Cable+Row+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Bent Over Barbell Row with Rotation"
+        ]
+    },
+    {
+        "id": "leg_curl",
+        "name": "Leg Curl",
+        "description": "Sit at a leg curl machine and lift the weight up with the legs, curling the legs up towards the glutes.",
+        "targeted_muscles": [
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Leg+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Romanian Deadlift"
+        ]
+    },
+    {
+        "id": "cable_woodchoppers",
+        "name": "Cable Woodchoppers",
+        "description": "Stand facing a cable machine with the cable at shoulder height, hold a handle in each hand, and rotate the torso from side to side, keeping the arms straight.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Woodchoppers+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Russian Twists"
+        ]
+    },
+    {
+        "id": "calf_raise_on_step",
+        "name": "Calf Raise on Step",
+        "description": "Stand on a step and raise up onto the toes, then lower back to the starting position.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raise+on+Step+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raise"
+        ]
+    },
+    {
+        "id": "seated_leg_press",
+        "name": "Seated Leg Press",
+        "description": "Sit at a leg press machine and push the platform away from you with your feet, extending the legs fully before lowering back to the starting position.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Leg+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Bulgarian Split Squat"
+        ]
+    },
+    {
+        "id": "cable_tricep_extension",
+        "name": "Cable Tricep Extension",
+        "description": "Stand facing a cable machine with the cable at shoulder height, hold a handle in one hand, and extend the arm fully, then lower the handle back to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Tricep+Extension+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Overhead Dumbbell Extension"
+        ]
+    },
+    {
+        "id": "cable_bicep_curl_with_rotation",
+        "name": "Cable Bicep Curl with Rotation",
+        "description": "Stand facing a cable machine with the cable at shoulder height, hold a handle in each hand with the palms facing forwards, and curl the arms up towards the shoulders, rotating the wrists so the palms face towards the body.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Bicep+Curl+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Bicep Curl with Rotation"
+        ]
+    },
+    {
+        "id": "seated_cable_shoulder_press",
+        "name": "Seated Cable Shoulder Press",
+        "description": "Sit at a cable machine with the cable at shoulder height, hold a handle in each hand, and press the handles upwards, extending the arms fully.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Cable+Shoulder+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standing Cable Shoulder Press"
+        ]
+    },
+    {
+        "id": "cable_cross_over_with_rotation",
+        "name": "Cable Cross Over with Rotation",
+        "description": "Stand facing a cable machine with the cables at shoulder height, hold a handle in each hand, and press the handles out to the sides until they are at shoulder height, rotating the wrists so the palms face downwards.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Cross+Over+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Incline Dumbbell Press with Rotation"
+        ]
+    },
+    {
+        "id": "leg_extension_with_rotation",
+        "name": "Leg Extension with Rotation",
+        "description": "Sit at a leg extension machine and lift the weight up with the legs, extending the legs fully and rotating the ankles so the toes point outwards.",
+        "targeted_muscles": [
+            "Quads"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Leg+Extension+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Bulgarian Split Squat with Rotation"
+        ]
+    },
+    {
+        "id": "single_arm_push_up",
+        "name": "Single Arm Push-up",
+        "description": "Start in a plank position with one arm lifted, lower your body until your chest almost touches the ground, then push back up to the starting position. Alternate arms with each rep.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Push-up+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Push-up with Clap"
+        ]
+    },
+    {
+        "id": "tuck_planche",
+        "name": "Tuck Planche",
+        "description": "Start in a plank position with your feet lifted and tucked into your chest, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tuck+Planche+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Planche"
+        ]
+    },
+    {
+        "id": "single_leg_squat",
+        "name": "Single Leg Squat",
+        "description": "Stand on one leg, lower your body down into a squat, then push back up to the starting position. Alternate legs with each rep.",
+        "targeted_muscles": [
+            "Quads",
+            "Hamstrings",
+            "Glutes"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Squat+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Squat with Pause"
+        ]
+    },
+    {
+        "id": "side_to_side_push_up",
+        "name": "Side to Side Push-up",
+        "description": "Start in a plank position, lower your body down into a push-up, then push back up and move your hands to one side, repeat on the other side.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+to+Side+Push-up+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Push-up"
+        ]
+    },
+    {
+        "id": "glute_bridge",
+        "name": "Glute Bridge",
+        "description": "Lie on your back with your knees bent and feet flat on the ground, lift your hips up towards the ceiling, then lower back down to the starting position.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Glute+Bridge+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Glute Bridge"
+        ]
+    },
+    {
+        "id": "wall_handstand",
+        "name": "Wall Handstand",
+        "description": "Kick up into a handstand against a wall, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wall+Handstand+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Free Standing Handstand"
+        ]
+    },
+    {
+        "id": "single_arm_inverted_row",
+        "name": "Single Arm Inverted Row",
+        "description": "Hang from a bar with one arm, lift your body up towards the bar, then lower back down to the starting position. Alternate arms with each rep.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Inverted+Row+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Inverted Row with Pause"
+        ]
+    },
+    {
+        "id": "side_plank",
+        "name": "Side Plank",
+        "description": "Lie on your side with your feet stacked, lift your hips up off the ground, engage your core and hold the position for the desired amount of time. Alternate sides with each rep.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+Plank+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Side Plank"
+        ]
+    },
+    {
+        "id": "single_leg_deadlift",
+        "name": "Single Leg Deadlift",
+        "description": "Stand on one leg, bend at the hips and lower your body down, then push back up to the starting position. Alternate legs with each rep.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Glutes",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Deadlift+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Deadlift with Pause"
+        ]
+    },
+    {
+        "id": "tuck_lever",
+        "name": "Tuck Lever",
+        "description": "Hang from a bar with your body in a tuck position, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tuck+Lever+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Lever"
+        ]
+    },
+    {
+        "id": "single_arm_dip",
+        "name": "Single Arm Dip",
+        "description": "Lower your body down on a dip bar with one arm, then push back up to the starting position. Alternate arms with each rep.",
+        "targeted_muscles": [
+            "Triceps",
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ],
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Dip+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Dip with Pause"
+        ]
+    },
+    {
+        "id": "ring_push_up",
+        "name": "Ring Push-up",
+        "description": "Start in a plank position with your hands on gymnastic rings, lower your body down into a push-up, then push back up to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ring+Push-up+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Ring Push-up"
+        ]
+    },
+    {
+        "id": "single_leg_calf_raise",
+        "name": "Single Leg Calf Raise",
+        "description": "Stand on one leg, raise up onto your toes, then lower back down to the starting position. Alternate legs with each rep.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Calf+Raise+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raise on a Step"
+        ]
+    },
+    {
+        "id": "inverted_leg_raise",
+        "name": "Inverted Leg Raise",
+        "description": "Hang from a bar, raise your legs up towards the ceiling, then lower back down to the starting position.",
+        "targeted_muscles": [
+            "Core",
+            "Hip Flexors"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Hip Flexors": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Inverted+Leg+Raise+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Inverted Leg Raise with Pause"
+        ]
+    },
+    {
+        "id": "single_arm_row",
+        "name": "Single Arm Row",
+        "description": "Hold a bar with one arm, lift your body up towards the bar, then lower back down to the starting position. Alternate arms with each rep.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Row+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Row with Pause"
+        ]
+    },
+    {
+        "id": "tuck_front_lever",
+        "name": "Tuck Front Lever",
+        "description": "Hang from a bar with your body in a tuck position, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tuck+Front+Lever+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Front Lever"
+        ]
+    },
+    {
+        "id": "single_leg_glute_bridge",
+        "name": "Single Leg Glute Bridge",
+        "description": "Lie on your back with one leg lifted, lift your hips up towards the ceiling, then lower back down to the starting position. Alternate legs with each rep.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Glute+Bridge+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Glute Bridge with Pause"
+        ]
+    },
+    {
+        "id": "ring_dip",
+        "name": "Ring Dip",
+        "description": "Lower your body down on gymnastic rings, then push back up to the starting position.",
+        "targeted_muscles": [
+            "Triceps",
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ],
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ring+Dip+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Ring Dip"
+        ]
+    },
+    {
+        "id": "single_arm_hang",
+        "name": "Single Arm Hang",
+        "description": "Hang from a bar with one arm, engage your core and hold the position for the desired amount of time. Alternate arms with each rep.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Hang+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Hang with Leg Lift"
+        ]
+    },
+    {
+        "id": "inverted_l_sit",
+        "name": "Inverted L-Sit",
+        "description": "Hang from a bar with your body in an L-sit position, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Inverted+L-Sit+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Inverted L-Sit"
+        ]
+    },
+    {
+        "id": "single_leg_deadlift_with_row",
+        "name": "Single Leg Deadlift with Row",
+        "description": "Stand on one leg, bend at the hips and lower your body down, then lift your body up towards a bar and row, then lower back down to the starting position. Alternate legs with each rep.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Glutes",
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Deadlift+with+Row+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Deadlift with Row and Pause"
+        ]
+    },
+    {
+        "id": "tuck_back_lever",
+        "name": "Tuck Back Lever",
+        "description": "Hang from a bar with your body in a tuck position, engage your core and hold the position for the desired amount of time.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tuck+Back+Lever+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Back Lever"
+        ]
+    },
+    {
+        "id": "single_arm_inverted_row_with_leg_lift",
+        "name": "Single Arm Inverted Row with Leg Lift",
+        "description": "Hang from a bar with one arm, lift your body up towards the bar, then lift one leg up towards the ceiling, then lower back down to the starting position. Alternate arms and legs with each rep.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Inverted+Row+with+Leg+Lift+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Inverted Row with Leg Lift and Pause"
+        ]
+    },
+    {
+        "id": "ring_push_up_with_clap",
+        "name": "Ring Push-up with Clap",
+        "description": "Start in a plank position with your hands on gymnastic rings, lower your body down into a push-up, then push back up and clap your hands together, then lower back down to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ring+Push-up+with+Clap+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Arm Ring Push-up with Clap"
+        ]
+    },
+    {
+        "id": "sphinx_pose",
+        "name": "Sphinx Pose",
+        "description": "Lie on your stomach with your forearms on the ground and lift your chest and head off the ground, keeping your shoulders down and away from your ears.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Sphinx+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cobra Pose"
+        ]
+    },
+    {
+        "id": "seated_forward_fold_pose",
+        "name": "Seated Forward Fold Pose",
+        "description": "Sit on the ground with your legs extended in front of you, then lean forward and reach for your toes, keeping your knees slightly bent if necessary.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Back",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Forward+Fold+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standing Forward Fold Pose"
+        ]
+    },
+    {
+        "id": "side_angle_pose",
+        "name": "Side Angle Pose",
+        "description": "Stand with your feet wide apart, then reach your right arm up and over your head, bending to the left and placing your right hand on the ground, keeping your left leg straight.",
+        "targeted_muscles": [
+            "Hips",
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+Angle+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Triangle Pose"
+        ]
+    },
+    {
+        "id": "plow_pose",
+        "name": "Plow Pose",
+        "description": "Lie on your back and lift your legs up and over your head, keeping your shoulders down and away from your ears, then place your hands on your lower back for support.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Back",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Plow+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Shoulder Stand Pose"
+        ]
+    },
+    {
+        "id": "seated_spinal_twist_pose",
+        "name": "Seated Spinal Twist Pose",
+        "description": "Sit on the ground with your legs crossed, then twist your torso to the right and place your right hand on the outside of your left knee, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Back",
+            "Hips",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Spinal+Twist+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Marichyasana Pose"
+        ]
+    },
+    {
+        "id": "bridge_pose",
+        "name": "Bridge Pose",
+        "description": "Lie on your back with your knees bent and feet flat on the ground, then lift your hips up towards the ceiling, squeezing your glutes and lower back muscles.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Bridge+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Wheel Pose"
+        ]
+    },
+    {
+        "id": "reclined_pigeon_pose",
+        "name": "Reclined Pigeon Pose",
+        "description": "Lie on your back and bring your right knee into your chest, then place your right ankle in front of your left knee, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Lower Back"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Mobility"
+            ],
+            "Lower Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Reclined+Pigeon+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Firefly Pose"
+        ]
+    },
+    {
+        "id": "supta_baddha_konasana_pose",
+        "name": "Supta Baddha Konasana Pose",
+        "description": "Lie on your back and bring the soles of your feet together, letting your knees fall apart, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Lower Back"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Mobility"
+            ],
+            "Lower Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Supta+Baddha+Konasana+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Reclined Pigeon Pose"
+        ]
+    },
+    {
+        "id": "headstand_pose",
+        "name": "Headstand Pose",
+        "description": "Kneel on the ground and place your hands on the ground in front of you, then kick your legs up and over your head, balancing on your hands and head.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Core",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Headstand+Pose+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Scorpion Pose"
+        ]
+    },
+    {
+        "id": "hanumanasana_pose",
+        "name": "Hanumanasana Pose",
+        "description": "Start on your hands and knees, then step your right foot forward and lower your torso down, keeping your back leg straight and your front thigh parallel to the ground.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Hanumanasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Rajakapotasana Pose"
+        ]
+    },
+    {
+        "id": "uttanasana_pose",
+        "name": "Uttanasana Pose",
+        "description": "Stand with your feet hip-width apart, then fold forward and reach for the ground, keeping your knees slightly bent if necessary.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Back",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Uttanasana+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Prasarita Padottanasana Pose"
+        ]
+    },
+    {
+        "id": "salabhasana_pose",
+        "name": "Salabhasana Pose",
+        "description": "Lie on your stomach with your arms extended in front of you, then lift your arms, legs, and chest off the ground, keeping your shoulders down and away from your ears.",
+        "targeted_muscles": [
+            "Back",
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Salabhasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Locust Pose"
+        ]
+    },
+    {
+        "id": "vasisthasana_pose",
+        "name": "Vasisthasana Pose",
+        "description": "Start on your hands and knees, then lift your right arm and left leg off the ground, balancing on your left arm and right leg.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Core",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Vasisthasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Ustrasana Pose"
+        ]
+    },
+    {
+        "id": "eka_pada_rajakapotasana_pose",
+        "name": "Eka Pada Rajakapotasana Pose",
+        "description": "Start on your hands and knees, then step your right foot forward and lower your torso down, keeping your back leg straight and your front thigh parallel to the ground.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Eka+Pada+Rajakapotasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Hanumanasana Pose"
+        ]
+    },
+    {
+        "id": "prasarita_padottanasana_pose",
+        "name": "Prasarita Padottanasana Pose",
+        "description": "Stand with your feet wide apart, then fold forward and reach for the ground, keeping your knees slightly bent if necessary.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Back",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Back": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Prasarita+Padottanasana+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Uttanasana Pose"
+        ]
+    },
+    {
+        "id": "marichyasana_pose",
+        "name": "Marichyasana Pose",
+        "description": "Sit on the ground with your legs crossed, then twist your torso to the right and place your right hand on the outside of your left knee, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Back",
+            "Hips",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Marichyasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Seated Spinal Twist Pose"
+        ]
+    },
+    {
+        "id": "eka_pada_ustrasana_pose",
+        "name": "Eka Pada Ustrasana Pose",
+        "description": "Kneel on the ground and bring your right foot forward, then lift your chest and head up, keeping your back leg straight and your front thigh parallel to the ground.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Eka+Pada+Ustrasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Vasisthasana Pose"
+        ]
+    },
+    {
+        "id": "parsvakonasana_pose",
+        "name": "Parsvakonasana Pose",
+        "description": "Stand with your feet wide apart, then reach your right arm up and over your head, bending to the left and placing your right hand on the ground, keeping your left leg straight.",
+        "targeted_muscles": [
+            "Hips",
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Parsvakonasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Side Angle Pose"
+        ]
+    },
+    {
+        "id": "ardha_matsyendrasana_pose",
+        "name": "Ardha Matsyendrasana Pose",
+        "description": "Sit on the ground with your legs crossed, then twist your torso to the right and place your right hand on the outside of your left knee, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Back",
+            "Hips",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ardha+Matsyendrasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Marichyasana Pose"
+        ]
+    },
+    {
+        "id": "setu_bandha_sarvangasana_pose",
+        "name": "Setu Bandha Sarvangasana Pose",
+        "description": "Lie on your back and lift your hips up towards the ceiling, squeezing your glutes and lower back muscles.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Setu+Bandha+Sarvangasana+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Uddiyana Bandha Pose"
+        ]
+    },
+    {
+        "id": "anjaneyasana_pose",
+        "name": "Anjaneyasana Pose",
+        "description": "Start on your hands and knees, then step your right foot forward and lower your torso down, keeping your back leg straight and your front thigh parallel to the ground.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Anjaneyasana+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Hanumanasana Pose"
+        ]
+    },
+    {
+        "id": "baddha_konasana_pose",
+        "name": "Baddha Konasana Pose",
+        "description": "Sit on the ground with your legs crossed, then bring your feet together and let your knees fall apart, keeping your spine long and your shoulders down.",
+        "targeted_muscles": [
+            "Hips",
+            "Glutes",
+            "Lower Back"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Glutes": [
+                "Mobility"
+            ],
+            "Lower Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Baddha+Konasana+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Supta Baddha Konasana Pose"
+        ]
+    },
+    {
+        "id": "kettlebell_snatch",
+        "name": "Kettlebell Snatch",
+        "description": "Hold a kettlebell with both hands, swing it back between your legs, then up to chest height, using your hips and legs to generate power.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength",
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Kettlebell+Snatch+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Double Kettlebell Snatch"
+        ]
+    },
+    {
+        "id": "single_leg_deadlift_with_single_arm_row",
+        "name": "Single Leg Deadlift with Single Arm Row",
+        "description": "Stand on one leg, bend at the hip, and lift the other leg behind you while performing a single arm row with the opposite arm.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength",
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Deadlift+with+Single+Arm+Row+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Deadlift with Single Arm Row and Rotation"
+        ]
+    },
+    {
+        "id": "side_plank_with_leg_lift_and_arm_raise",
+        "name": "Side Plank with Leg Lift and Arm Raise",
+        "description": "Lie on your side, lift your hips off the ground, and raise one leg and the opposite arm towards the ceiling.",
+        "targeted_muscles": [
+            "Core",
+            "Glutes",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+Plank+with+Leg+Lift+and+Arm+Raise+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Side Plank with Leg Lift and Arm Raise and Rotation"
+        ]
+    },
+    {
+        "id": "yoga_wheel_forward_fold",
+        "name": "Yoga Wheel Forward Fold",
+        "description": "Stand with your feet hip-width apart, place a yoga wheel in front of you, and fold forward, stretching your hamstrings and calves.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Wheel+Forward+Fold+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Wheel Forward Fold with Leg Lift"
+        ]
+    },
+    {
+        "id": "resistance_band_rotations",
+        "name": "Resistance Band Rotations",
+        "description": "Hold a resistance band in both hands, rotate your shoulders and torso, keeping your arms straight.",
+        "targeted_muscles": [
+            "Shoulders",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Rotations+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Rotations with Leg Lift"
+        ]
+    },
+    {
+        "id": "cable_lateral_walks",
+        "name": "Cable Lateral Walks",
+        "description": "Stand facing a cable machine, hold the cable in one hand, and walk laterally, keeping your arms straight.",
+        "targeted_muscles": [
+            "Glutes",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Lateral+Walks+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cable Lateral Walks with Rotation"
+        ]
+    },
+    {
+        "id": "single_arm_kettlebell_clean",
+        "name": "Single Arm Kettlebell Clean",
+        "description": "Hold a kettlebell with one hand, swing it back between your legs, then up to chest height, using your hips and legs to generate power.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength",
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Kettlebell+Clean+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Double Kettlebell Clean"
+        ]
+    },
+    {
+        "id": "yoga_leg_swings",
+        "name": "Yoga Leg Swings",
+        "description": "Stand with your feet hip-width apart, swing one leg forward and backward, then switch to the other leg.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Leg+Swings+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Yoga Leg Swings with Arm Raise"
+        ]
+    },
+    {
+        "id": "cable_chest_fly",
+        "name": "Cable Chest Fly",
+        "description": "Stand facing a cable machine, hold the cable in both hands, and press the cable out to the sides, keeping your arms straight.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Chest+Fly+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cable Chest Fly with Rotation"
+        ]
+    },
+    {
+        "id": "resistance_band_leg_curls",
+        "name": "Resistance Band Leg Curls",
+        "description": "Anchor a resistance band to a stable object, loop the other end around your ankle, and curl your heel towards your glutes.",
+        "targeted_muscles": [
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Leg+Curls+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Leg Curls with Rotation"
+        ]
+    },
+    {
+        "id": "yoga_downward_facing_dog_variations",
+        "name": "Yoga Downward Facing Dog Variations",
+        "description": "Start in a plank position, lift your hips up and back, straightening your arms and legs, and then lift one leg up towards the ceiling.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Downward+Facing+Dog+Variations+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Downward Facing Dog Variations with Arm Raise"
+        ]
+    },
+    {
+        "id": "single_arm_cable_row",
+        "name": "Single Arm Cable Row",
+        "description": "Stand facing a cable machine, hold the cable in one hand, and pull the cable towards your side, keeping your elbow close to your body.",
+        "targeted_muscles": [
+            "Back"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Cable+Row+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Cable Row with Rotation"
+        ]
+    },
+    {
+        "id": "yoga_tree_pose_variations",
+        "name": "Yoga Tree Pose Variations",
+        "description": "Stand on one leg, lift the other leg up and balance, then lift your arms up towards the ceiling.",
+        "targeted_muscles": [
+            "Glutes",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Tree+Pose+Variations+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Tree Pose Variations with Arm Raise"
+        ]
+    },
+    {
+        "id": "resistance_band_shoulder_rotations",
+        "name": "Resistance Band Shoulder Rotations",
+        "description": "Hold a resistance band in both hands, rotate your shoulders in a circular motion, first clockwise and then counterclockwise.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Shoulder+Rotations+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Shoulder Rotations with Leg Lift"
+        ]
+    },
+    {
+        "id": "cable_tricep_extensions",
+        "name": "Cable Tricep Extensions",
+        "description": "Stand facing a cable machine, hold the cable in both hands, and extend your arms straight out behind you.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Tricep+Extensions+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cable Tricep Extensions with Rotation"
+        ]
+    },
+    {
+        "id": "yoga_seated_forward_fold_variations",
+        "name": "Yoga Seated Forward Fold Variations",
+        "description": "Sit on the ground with your legs straight out in front of you, lean forward, and reach for your toes.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Seated+Forward+Fold+Variations+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Seated Forward Fold Variations with Arm Raise"
+        ]
+    },
+    {
+        "id": "resistance_band_bicep_curls",
+        "name": "Resistance Band Bicep Curls",
+        "description": "Stand on a resistance band, hold the ends of the band in both hands, and curl your arms up towards your shoulders.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Bicep+Curls+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Bicep Curls with Rotation"
+        ]
+    },
+    {
+        "id": "yoga_cobra_pose_variations",
+        "name": "Yoga Cobra Pose Variations",
+        "description": "Lie on your stomach with your hands under your shoulders, press your palms into the ground, and lift your chest and head off the ground.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Cobra+Pose+Variations+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Cobra Pose Variations with Leg Lift"
+        ]
+    },
+    {
+        "id": "cable_lateral_raises",
+        "name": "Cable Lateral Raises",
+        "description": "Stand facing a cable machine, hold the cable in both hands, and lift the cable out to the sides until they are at shoulder height.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Lateral+Raises+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Cable Lateral Raises with Rotation"
+        ]
+    },
+    {
+        "id": "resistance_band_leg_swings",
+        "name": "Resistance Band Leg Swings",
+        "description": "Anchor a resistance band to a stable object, loop the other end around your ankle, and swing your leg forward and backward.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Leg+Swings+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Leg Swings with Arm Raise"
+        ]
+    },
+    {
+        "id": "yoga_warrior_iii_pose",
+        "name": "Yoga Warrior III Pose",
+        "description": "Stand on one leg, lift the other leg behind you, and stretch your arms out in front of you.",
+        "targeted_muscles": [
+            "Glutes",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Warrior+III+Pose+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Yoga Warrior III Pose with Arm Raise"
+        ]
+    },
+    {
+        "id": "single_arm_dumbbell_snatch",
+        "name": "Single Arm Dumbbell Snatch",
+        "description": "Hold a dumbbell with one hand, swing it back between your legs, then up to chest height, using your hips and legs to generate power.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength",
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Dumbbell+Snatch+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Double Dumbbell Snatch"
+        ]
+    },
+    {
+        "id": "resistance_band_chest_press",
+        "name": "Resistance Band Chest Press",
+        "description": "Anchor a resistance band to a stable object, hold the ends of the band in both hands, and press the band forward, extending your arms.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Resistance+Band+Chest+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Resistance Band Chest Press with Rotation"
+        ]
+    },
+    {
+        "id": "single_arm_wrist_curl",
+        "name": "Single Arm Wrist Curl",
+        "description": "Hold a dumbbell with your palm facing up and curl your wrist, keeping your forearm still. Focus on squeezing your forearm muscles at the top of the movement.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Wrist+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Wrist Curl with Rotation"
+        ]
+    },
+    {
+        "id": "neck_bridge",
+        "name": "Neck Bridge",
+        "description": "Lie on your back with your knees bent and feet flat on the ground. Slowly lift your head and shoulders off the ground, keeping your neck straight, and then lower back down.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Neck+Bridge+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Neck Bridge"
+        ]
+    },
+    {
+        "id": "calf_raise_on_a_step_with_dumbbells",
+        "name": "Calf Raise on a Step with Dumbbells",
+        "description": "Stand on a step with your heels hanging off the edge and hold dumbbells at your sides. Raise up onto your tiptoes and then lower back down.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raise+on+a+Step+with+Dumbbells+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raise on a Step with Dumbbells"
+        ]
+    },
+    {
+        "id": "deep_core_plank",
+        "name": "Deep Core Plank",
+        "description": "Start in a plank position with your hands under your shoulders and your toes on the ground. Engage your core muscles and hold the position, focusing on drawing your belly button towards your spine.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Plank+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Deep Core Plank"
+        ]
+    },
+    {
+        "id": "side_to_side_ankle_touches",
+        "name": "Side to Side Ankle Touches",
+        "description": "Stand with your feet hip-width apart and touch your right ankle with your right hand, then quickly switch to touch your left ankle with your left hand. Continue alternating sides.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+to+Side+Ankle+Touches+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Leg Side to Side Ankle Touches"
+        ]
+    },
+    {
+        "id": "single_leg_calf_raise_on_a_bosu_ball",
+        "name": "Single Leg Calf Raise on a BOSU Ball",
+        "description": "Stand on a BOSU ball with one foot and hold onto a wall for balance. Raise up onto your tiptoes and then lower back down.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Calf+Raise+on+a+BOSU+Ball+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raise on a BOSU Ball with Dumbbells"
+        ]
+    },
+    {
+        "id": "wrist_extensions_with_a_resistance_band",
+        "name": "Wrist Extensions with a Resistance Band",
+        "description": "Hold a resistance band in one hand with your palm facing down and your wrist straight. Lift your hand up, keeping your forearm still, and then lower back down.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wrist+Extensions+with+a+Resistance+Band+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Wrist Extensions with a Resistance Band and Rotation"
+        ]
+    },
+    {
+        "id": "deep_core_leg_raises",
+        "name": "Deep Core Leg Raises",
+        "description": "Lie on your back with your arms extended overhead and raise your legs straight up towards the ceiling. Lower your legs back down without touching the floor and repeat.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Leg+Raises+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Deep Core Leg Raises"
+        ]
+    },
+    {
+        "id": "ankle_circles",
+        "name": "Ankle Circles",
+        "description": "Sit on the floor with your legs straight out in front of you. Lift one foot off the ground and draw circles with your ankle, first clockwise and then counterclockwise.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ankle+Circles+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Leg Ankle Circles with Resistance Band"
+        ]
+    },
+    {
+        "id": "single_arm_wrist_extension",
+        "name": "Single Arm Wrist Extension",
+        "description": "Hold a dumbbell with your palm facing down and lift your hand up, keeping your forearm still. Focus on squeezing your forearm muscles at the top of the movement.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Wrist+Extension+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Arm Wrist Extension with Rotation"
+        ]
+    },
+    {
+        "id": "calf_raises_on_a_step_with_a_single_leg",
+        "name": "Calf Raises on a Step with a Single Leg",
+        "description": "Stand on a step with one foot and hold onto a wall for balance. Raise up onto your tiptoes and then lower back down.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raises+on+a+Step+with+a+Single+Leg+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raises on a Step with Dumbbells"
+        ]
+    },
+    {
+        "id": "deep_core_side_plank",
+        "name": "Deep Core Side Plank",
+        "description": "Lie on your side with your feet stacked and your hands under your shoulders. Lift your hips off the ground and hold, focusing on engaging your core muscles.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Side+Plank+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Deep Core Side Plank"
+        ]
+    },
+    {
+        "id": "toe_spreads",
+        "name": "Toe Spreads",
+        "description": "Sit on the floor with your legs straight out in front of you. Lift your toes up and spread them as far apart as possible, then lower them back down.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Toe+Spreads+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Leg Toe Spreads with Resistance Band"
+        ]
+    },
+    {
+        "id": "single_arm_forearm_curl",
+        "name": "Single Arm Forearm Curl",
+        "description": "Hold a dumbbell with your palm facing up and curl your forearm, keeping your upper arm still. Focus on squeezing your forearm muscles at the top of the movement.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Forearm+Curl+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Arm Forearm Curl with Rotation"
+        ]
+    },
+    {
+        "id": "calf_raises_on_a_step_with_dumbbells_and_rotation",
+        "name": "Calf Raises on a Step with Dumbbells and Rotation",
+        "description": "Stand on a step with your heels hanging off the edge and hold dumbbells at your sides. Raise up onto your tiptoes and rotate your ankles, first clockwise and then counterclockwise.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raises+on+a+Step+with+Dumbbells+and+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raises on a Step with Dumbbells and Rotation"
+        ]
+    },
+    {
+        "id": "deep_core_reverse_crunches",
+        "name": "Deep Core Reverse Crunches",
+        "description": "Lie on your back with your arms extended overhead and lift your hips off the ground, squeezing your core muscles at the top of the movement.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Reverse+Crunches+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Deep Core Reverse Crunches"
+        ]
+    },
+    {
+        "id": "ankle_rotations",
+        "name": "Ankle Rotations",
+        "description": "Sit on the floor with your legs straight out in front of you. Lift one foot off the ground and rotate your ankle, first clockwise and then counterclockwise.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ankle+Rotations+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Leg Ankle Rotations with Resistance Band"
+        ]
+    },
+    {
+        "id": "single_arm_wrist_curl_with_rotation",
+        "name": "Single Arm Wrist Curl with Rotation",
+        "description": "Hold a dumbbell with your palm facing up and curl your wrist, keeping your forearm still. Rotate your wrist, first clockwise and then counterclockwise, at the top of the movement.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Wrist+Curl+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Wrist Curl with Rotation and Dumbbell"
+        ]
+    },
+    {
+        "id": "calf_raises_on_a_step_with_single_leg_and_rotation",
+        "name": "Calf Raises on a Step with Single Leg and Rotation",
+        "description": "Stand on a step with one foot and hold onto a wall for balance. Raise up onto your tiptoes and rotate your ankles, first clockwise and then counterclockwise.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raises+on+a+Step+with+Single+Leg+and+Rotation+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raises on a Step with Dumbbells and Rotation"
+        ]
+    },
+    {
+        "id": "deep_core_side_plank_with_leg_lift",
+        "name": "Deep Core Side Plank with Leg Lift",
+        "description": "Lie on your side with your feet stacked and your hands under your shoulders. Lift your hips off the ground and lift your top leg, holding for a moment before lowering back down.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Side+Plank+with+Leg+Lift+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Deep Core Side Plank with Leg Lift"
+        ]
+    },
+    {
+        "id": "toe_taps",
+        "name": "Toe Taps",
+        "description": "Sit on the floor with your legs straight out in front of you. Lift your toes up and tap them on the ground in front of you, alternating feet.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Toe+Taps+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Leg Toe Taps with Resistance Band"
+        ]
+    },
+    {
+        "id": "single_arm_forearm_extension",
+        "name": "Single Arm Forearm Extension",
+        "description": "Hold a dumbbell with your palm facing down and lift your forearm, keeping your upper arm still. Focus on squeezing your forearm muscles at the top of the movement.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Arm+Forearm+Extension+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Single Arm Forearm Extension with Rotation"
+        ]
+    },
+    {
+        "id": "calf_raises_on_a_step_with_dumbbells_and_single_leg",
+        "name": "Calf Raises on a Step with Dumbbells and Single Leg",
+        "description": "Stand on a step with one foot and hold dumbbells at your sides. Raise up onto your tiptoes and then lower back down.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Raises+on+a+Step+with+Dumbbells+and+Single+Leg+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Calf Raises on a Step with Dumbbells and Rotation"
+        ]
+    },
+    {
+        "id": "deep_core_plank_jacks",
+        "name": "Deep Core Plank Jacks",
+        "description": "Start in a plank position with your hands under your shoulders and your toes on the ground. Jump your feet out to the sides, landing in a squat position, and then quickly return to the starting position.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Deep+Core+Plank+Jacks+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Deep Core Plank Jacks"
+        ]
+    },
+    {
+        "id": "incline_barbell_press",
+        "name": "Incline Barbell Press",
+        "description": "Sit on an incline bench and grip the barbell with your hands slightly wider than shoulder-width apart, then press the barbell upwards extending your arms fully, before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Incline+Barbell+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Dumbbell Incline Press"
+        ]
+    },
+    {
+        "id": "cable_row_with_rotation",
+        "name": "Cable Row with Rotation",
+        "description": "Hold a cable handle with both hands and stand facing away from the cable machine, then pull the handle towards your chest while rotating your torso, before returning to the starting position.",
+        "targeted_muscles": [
+            "Back",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Row+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Cable Row with Rotation"
+        ]
+    },
+    {
+        "id": "sumo_deadlift",
+        "name": "Sumo Deadlift",
+        "description": "Stand with your feet wider than shoulder-width apart and hold a barbell with your hands inside your legs, then lift the barbell up to hip level before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Glutes",
+            "Quads",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Quads": [
+                "Strength"
+            ],
+            "Back": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Sumo+Deadlift+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Deficit Sumo Deadlift"
+        ]
+    },
+    {
+        "id": "preacher_curl",
+        "name": "Preacher Curl",
+        "description": "Sit on a preacher curl bench and hold a dumbbell with your arm resting on the pad, then curl the dumbbell up towards your shoulder before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Preacher+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Concentration Curl"
+        ]
+    },
+    {
+        "id": "skull_crusher",
+        "name": "Skull Crusher",
+        "description": "Lie on a flat bench and hold a barbell or dumbbells over your chest, then lower the weight down towards your forehead before pressing it back up to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Skull+Crusher+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Close-Grip Bench Press"
+        ]
+    },
+    {
+        "id": "calf_press",
+        "name": "Calf Press",
+        "description": "Sit on a calf press machine and push the platform away from you with your toes, then lower the platform back down to the starting position.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Calf+Press+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standing Calf Raise"
+        ]
+    },
+    {
+        "id": "lateral_raise_with_rotation",
+        "name": "Lateral Raise with Rotation",
+        "description": "Stand with your feet shoulder-width apart and hold a dumbbell in each hand, then lift the dumbbells out to the sides while rotating your wrists, before lowering them back down to the starting position.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Lateral+Raise+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Lateral Raise with Rotation"
+        ]
+    },
+    {
+        "id": "reverse_grip_bent_over_row",
+        "name": "Reverse Grip Bent Over Row",
+        "description": "Hold a barbell with a reverse grip and bend over at the waist, then lift the barbell up to your chest before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Reverse+Grip+Bent+Over+Row+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Reverse Grip Bent Over Row"
+        ]
+    },
+    {
+        "id": "step_up",
+        "name": "Step Up",
+        "description": "Stand in front of a step or bench and raise one foot up onto the step, then step back down to the starting position and repeat with the other leg.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Step+Up+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single-Leg Step Up"
+        ]
+    },
+    {
+        "id": "hanging_leg_raise",
+        "name": "Hanging Leg Raise",
+        "description": "Hang from a pull-up bar with your hands shoulder-width apart, then lift your legs up towards the ceiling before lowering them back down to the starting position.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Hanging+Leg+Raise+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Hanging Leg Raise"
+        ]
+    },
+    {
+        "id": "incline_dumbbell_curl",
+        "name": "Incline Dumbbell Curl",
+        "description": "Sit on an incline bench and hold a dumbbell in each hand, then curl the dumbbells up towards your shoulders before lowering them back down to the starting position.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Incline+Dumbbell+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Concentration Curl"
+        ]
+    },
+    {
+        "id": "decline_dumbbell_tricep_extension",
+        "name": "Decline Dumbbell Tricep Extension",
+        "description": "Sit on a decline bench and hold a dumbbell in one hand, then extend the dumbbell behind your head before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Decline+Dumbbell+Tricep+Extension+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Decline Dumbbell Tricep Extension"
+        ]
+    },
+    {
+        "id": "close_grip_incline_bench_press",
+        "name": "Close Grip Incline Bench Press",
+        "description": "Sit on an incline bench and hold a barbell with your hands closer than shoulder-width apart, then press the barbell upwards extending your arms fully, before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Close+Grip+Incline+Bench+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Close Grip Incline Bench Press"
+        ]
+    },
+    {
+        "id": "single_arm_cable_lateral_raise",
+        "name": "Single-Arm Cable Lateral Raise",
+        "description": "Stand facing a cable machine and hold a handle with one hand, then lift the handle out to the side while keeping your arm straight, before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single-Arm+Cable+Lateral+Raise+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Cable Lateral Raise with Rotation"
+        ]
+    },
+    {
+        "id": "decline_hamstring_curl",
+        "name": "Decline Hamstring Curl",
+        "description": "Sit on a decline bench and hold a dumbbell or barbell with your hands, then curl your heels up towards your glutes before lowering them back down to the starting position.",
+        "targeted_muscles": [
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Decline+Hamstring+Curl+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Leg Decline Hamstring Curl"
+        ]
+    },
+    {
+        "id": "cable_woodchopper_with_rotation",
+        "name": "Cable Woodchopper with Rotation",
+        "description": "Stand facing a cable machine and hold a handle with both hands, then rotate your torso while lifting the handle from one side to the other, before returning to the starting position.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Woodchopper+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Cable Woodchopper with Rotation"
+        ]
+    },
+    {
+        "id": "single_leg_press",
+        "name": "Single Leg Press",
+        "description": "Sit on a leg press machine and lift the platform up with one leg, then lower it back down to the starting position and repeat with the other leg.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Leg Deficit Press"
+        ]
+    },
+    {
+        "id": "cable_crossover_with_rotation",
+        "name": "Cable Crossover with Rotation",
+        "description": "Stand facing a cable machine and hold a handle with both hands, then lift the handle across your body while rotating your torso, before returning to the starting position.",
+        "targeted_muscles": [
+            "Chest"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Crossover+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Cable Crossover with Rotation"
+        ]
+    },
+    {
+        "id": "decline_tricep_extension_with_rotation",
+        "name": "Decline Tricep Extension with Rotation",
+        "description": "Sit on a decline bench and hold a dumbbell or barbell with one hand, then extend the weight behind your head while rotating your wrist, before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Decline+Tricep+Extension+with+Rotation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Decline Tricep Extension with Rotation"
+        ]
+    },
+    {
+        "id": "single_arm_dumbbell_row",
+        "name": "Single-Arm Dumbbell Row",
+        "description": "Hold a dumbbell in one hand and bend over at the waist, then lift the dumbbell up to your side before lowering it back down to the starting position.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single-Arm+Dumbbell+Row+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Dumbbell Row with Rotation"
+        ]
+    },
+    {
+        "id": "incline_hamstring_curl",
+        "name": "Incline Hamstring Curl",
+        "description": "Sit on an incline bench and hold a dumbbell or barbell with your hands, then curl your heels up towards your glutes before lowering them back down to the starting position.",
+        "targeted_muscles": [
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Incline+Hamstring+Curl+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Leg Incline Hamstring Curl"
+        ]
+    },
+    {
+        "id": "cable_rotary_shoulder_press",
+        "name": "Cable Rotary Shoulder Press",
+        "description": "Stand facing a cable machine and hold a handle with both hands, then press the handle straight out in front of you while rotating your shoulders, before returning to the starting position.",
+        "targeted_muscles": [
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Shoulders": [
+                "Strength",
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Rotary+Shoulder+Press+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Single-Arm Cable Rotary Shoulder Press"
+        ]
+    },
+    {
+        "id": "assisted_single_arm_push_up",
+        "name": "Assisted Single Arm Push-Up",
+        "description": "Start in a plank position with one hand on the ground and the other hand on a surface higher than the ground, lower your body until your chest almost touches the ground, then push back up to the starting position.",
+        "targeted_muscles": [
+            "Chest",
+            "Triceps",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Strength"
+            ],
+            "Triceps": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Assisted+Single+Arm+Push-Up+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Arm Push-Up"
+        ]
+    },
+    {
+        "id": "single_leg_glute_ham_raise",
+        "name": "Single Leg Glute Ham Raise",
+        "description": "Lie on your back with your arms extended overhead and lift one leg towards the ceiling, then lift your hips off the ground and raise your other leg towards the ceiling, lower your body back down to the starting position.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Single+Leg+Glute+Ham+Raise+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Single Leg Glute Ham Raise with Leg Lift"
+        ]
+    },
+    {
+        "id": "side_to_side_leg_swings",
+        "name": "Side to Side Leg Swings",
+        "description": "Stand with your feet hip-width apart and swing one leg to the side, then swing the other leg to the side, continue alternating legs.",
+        "targeted_muscles": [
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+to+Side+Leg+Swings+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Side to Side Leg Swings with Weights"
+        ]
+    },
+    {
+        "id": "tuck_planche_progression",
+        "name": "Tuck Planche Progression",
+        "description": "Start in a plank position and lift your legs off the ground, hold for a few seconds and lower your body back down to the starting position.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Tuck+Planche+Progression+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Full Planche"
+        ]
+    },
+    {
+        "id": "yoga_wheel_forward_fold_progression",
+        "name": "Yoga Wheel Forward Fold Progression",
+        "description": "Stand with your feet hip-width apart and place a yoga wheel in front of you, lean forward and place your hands on the wheel, lower your body down towards the ground and lift back up to the starting position.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Yoga+Wheel+Forward+Fold+Progression+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Yoga Wheel Forward Fold with Leg Lift"
+        ]
+    },
+    {
+        "id": "uttana_shishosana_pose",
+        "name": "Extended Puppy Pose",
+        "description": "Start on all fours, then walk hands forward and lower forehead to the ground, keeping elbows slightly bent and arms straight. Stretch the neck and shoulders, feeling the chest expand.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Extended+Puppy+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Uttanasana Pose"
+        ]
+    },
+    {
+        "id": "salamba_sirsasana_pose",
+        "name": "Headstand Pose With Wall Support",
+        "description": "Kneel on the ground with your forearms on the ground and your hands clasped together. Place the crown of your head on the ground and lift your legs up, keeping them straight and your body in a straight line from head to heels.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Headstand+Pose+With+Wall+Support+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Headstand Pose Without Wall Support"
+        ]
+    },
+    {
+        "id": "eka_pada_rajakapotasana_pose_variation",
+        "name": "One-Legged King Pigeon Pose Variation",
+        "description": "Start on all fours, then bring one knee forward and place the ankle in front of the other knee. Lower your torso down, stretching the back leg and glutes, and extend the arms out in front of you.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=One-Legged+King+Pigeon+Pose+Variation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Rajakapotasana Pose"
+        ]
+    },
+    {
+        "id": "prasarita_padottanasana_pose_variation",
+        "name": "Wide-Legged Standing Forward Fold Pose Variation",
+        "description": "Stand with your feet wide apart, then bend forward and place your hands on the ground. Keep your knees slightly bent and your back straight, stretching the hamstrings and calves.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wide-Legged+Standing+Forward+Fold+Pose+Variation+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Prasarita Padottanasana Pose"
+        ]
+    },
+    {
+        "id": "marichyasana_pose_variation",
+        "name": "Seated Spinal Twist Pose Variation",
+        "description": "Sit on the ground with your legs crossed, then twist your torso to one side and place your hand on the outside of your knee. Keep your spine long and your hips facing forward, stretching the spine and hips.",
+        "targeted_muscles": [
+            "Back",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Seated+Spinal+Twist+Pose+Variation+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Marichyasana Pose"
+        ]
+    },
+    {
+        "id": "supta_padangusthasana_pose",
+        "name": "Reclined Big Toe Pose",
+        "description": "Lie on your back and lift your legs up towards the ceiling, then reach for your toes and stretch your spine, keeping your shoulders down and away from your ears.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Reclined+Big+Toe+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Uttana Padangusthasana Pose"
+        ]
+    },
+    {
+        "id": "akarna_dhanurasana_pose",
+        "name": "Archer Pose",
+        "description": "Kneel on the ground with your hands on your hips, then bend your back and lift your chest up, stretching your shoulders and chest, and keeping your core engaged.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Archer+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Dhanurasana Pose"
+        ]
+    },
+    {
+        "id": "hanumanasana_pose_variation",
+        "name": "Monkey Pose Variation",
+        "description": "Start on all fours, then bring one knee forward and place the foot on the ground in front of the other knee. Lower your torso down, stretching the back leg and glutes, and extend the arms out in front of you.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Monkey+Pose+Variation+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Hanumanasana Pose"
+        ]
+    },
+    {
+        "id": "uttanasana_pose_variation",
+        "name": "Standing Forward Fold Pose Variation",
+        "description": "Stand with your feet hip-width apart, then bend forward and place your hands on the ground, keeping your knees slightly bent and your back straight, stretching the hamstrings and calves.",
+        "targeted_muscles": [
+            "Hamstrings",
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Mobility"
+            ],
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Standing+Forward+Fold+Pose+Variation+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Uttanasana Pose"
+        ]
+    },
+    {
+        "id": "salabhasana_pose_variation",
+        "name": "Locust Pose Variation",
+        "description": "Lie on your stomach with your arms extended in front of you, then lift your arms, legs, and chest off the ground, keeping your shoulders down and away from your ears, and engage your core.",
+        "targeted_muscles": [
+            "Back",
+            "Glutes"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Locust+Pose+Variation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Salabhasana Pose"
+        ]
+    },
+    {
+        "id": "vrschikasana_pose",
+        "name": "Scorpion Pose",
+        "description": "Start in a forearm stand, then bend your knees and lift your legs up, keeping your shoulders down and away from your ears, and engage your core.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Scorpion+Pose+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Vrschikasana Pose"
+        ]
+    },
+    {
+        "id": "pincha_mayurasana_pose",
+        "name": "Feathered Peacock Pose",
+        "description": "Start in a forearm stand, then lift your legs up and balance on your forearms, keeping your shoulders down and away from your ears, and engage your core.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Feathered+Peacock+Pose+tutorial+form",
+        "levels": [
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Pincha Mayurasana Pose"
+        ]
+    },
+    {
+        "id": "eka_pada_rajakapotasana_pose_variation_2",
+        "name": "One-Legged King Pigeon Pose Variation 2",
+        "description": "Start on all fours, then bring one knee forward and place the ankle in front of the other knee. Lower your torso down, stretching the back leg and glutes, and extend the arms out in front of you.",
+        "targeted_muscles": [
+            "Glutes",
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Glutes": [
+                "Mobility"
+            ],
+            "Hamstrings": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=One-Legged+King+Pigeon+Pose+Variation+2+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Eka Pada Rajakapotasana Pose"
+        ]
+    },
+    {
+        "id": "parsvakonasana_pose_variation",
+        "name": "Side Angle Pose Variation",
+        "description": "Stand with your feet wide apart, then bend your front knee and stretch your arms out to the sides, keeping your back straight and your spine long. Stretch the hips and legs, and keep your core engaged.",
+        "targeted_muscles": [
+            "Hips",
+            "Legs"
+        ],
+        "muscle_focus": {
+            "Hips": [
+                "Mobility"
+            ],
+            "Legs": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Side+Angle+Pose+Variation+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Utthita Parsvakonasana Pose"
+        ]
+    },
+    {
+        "id": "eka_pada_ustrasana_pose_variation",
+        "name": "One-Legged Camel Pose Variation",
+        "description": "Kneel on the ground with your hands on your hips, then arch your back and lift one leg up and back, keeping your knee straight. Stretch the chest and shoulders, and keep your core engaged.",
+        "targeted_muscles": [
+            "Chest",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=One-Legged+Camel+Pose+Variation+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Ustrasana Pose"
+        ]
+    },
+    {
+        "id": "lat_pulldown_wide_grip",
+        "name": "Wide-Grip Lat Pulldown",
+        "description": "Sit at a pulldown station, grip the bar wider than shoulders, pull the bar down to your upper chest while retracting scapulae.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength",
+                "Mobility"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wide+Grip+Lat+Pulldown+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standard Pull-Up"
+        ]
+    },
+    {
+        "id": "barbell_bicep_curl",
+        "name": "Barbell Bicep Curl",
+        "description": "Stand tall, hold a barbell with an underhand grip, curl the bar up toward shoulders while keeping elbows pinned to sides.",
+        "targeted_muscles": [
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Barbell+Bicep+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Incline Dumbbell Curl"
+        ]
+    },
+    {
+        "id": "triceps_rope_pushdown",
+        "name": "Cable Triceps Rope Pushdown",
+        "description": "Stand at a cable station with rope attachment, pin elbows, push rope down and flare ends apart at full extension.",
+        "targeted_muscles": [
+            "Triceps"
+        ],
+        "muscle_focus": {
+            "Triceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cable+Triceps+Rope+Pushdown+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Parallel Bar Dips"
+        ]
+    },
+    {
+        "id": "bulgarian_split_squat",
+        "name": "Dumbbell Bulgarian Split Squat",
+        "description": "Stand a stride in front of a bench, place one foot back on bench, hold dumbbells, lower hips until back knee is near floor.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes",
+            "Hamstrings",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength",
+                "Mobility"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Dumbbell+Bulgarian+Split+Squat+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Pistol Squat"
+        ]
+    },
+    {
+        "id": "chin_up",
+        "name": "Standard Chin-Up",
+        "description": "Hang from a pull-up bar with an underhand grip shoulder-width apart, pull chest up to bar focusing on biceps and lats.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps",
+            "Core"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength",
+                "Mobility"
+            ],
+            "Biceps": [
+                "Strength"
+            ],
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Standard+Chin+Up+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standard Pull-Up"
+        ]
+    },
+    {
+        "id": "hollow_body_rock",
+        "name": "Hollow Body Rock",
+        "description": "Lie on back, lift legs and upper back, engage core to flatten lower back, and gently rock back and forth in a solid banana shape.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Hollow+Body+Rock+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "L-Sit"
+        ]
+    },
+    {
+        "id": "plank_standard",
+        "name": "Forearm Plank",
+        "description": "Support bodyweight on forearms and toes, maintain straight line from head to heels, engage core and glutes.",
+        "targeted_muscles": [
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Forearm+Plank+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Side Plank",
+            "L-Sit"
+        ]
+    },
+    {
+        "id": "hanging_knee_raises",
+        "name": "Hanging Knee Raises",
+        "description": "Hang from a bar, pull knees up toward chest slowly under control without swinging, then lower down slowly.",
+        "targeted_muscles": [
+            "Core",
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Hanging+Knee+Raises+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Hanging Leg Raises"
+        ]
+    },
+    {
+        "id": "wall_sit_isometric",
+        "name": "Isometric Wall Sit",
+        "description": "Lean back against a wall, lower hips until thighs are parallel to ground, and hold this sitting position.",
+        "targeted_muscles": [
+            "Quads",
+            "Glutes"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Glutes": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Isometric+Wall+Sit+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Barbell Back Squat"
+        ]
+    },
+    {
+        "id": "warrior_i_pose",
+        "name": "Warrior I Pose (Virabhadrasana I)",
+        "description": "From high lunge, pivot back heel down 45 degrees, square hips forward, and raise arms straight overhead.",
+        "targeted_muscles": [
+            "Quads",
+            "Shoulders",
+            "Hips",
+            "Back"
+        ],
+        "muscle_focus": {
+            "Quads": [
+                "Strength"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ],
+            "Back": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Warrior+1+Pose+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Warrior II Pose"
+        ]
+    },
+    {
+        "id": "warrior_iii_pose",
+        "name": "Warrior III Pose (Virabhadrasana III)",
+        "description": "Balance on one leg, hinge forward from hips to extend torso and back leg parallel to floor forming a 'T' shape.",
+        "targeted_muscles": [
+            "Core",
+            "Hamstrings",
+            "Glutes",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Hamstrings": [
+                "Strength",
+                "Mobility"
+            ],
+            "Glutes": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Warrior+3+Pose+tutorial+form",
+        "levels": [
+            "Intermediate",
+            "Advanced"
+        ],
+        "next_level_progressions": [
+            "Half Moon Pose"
+        ]
+    },
+    {
+        "id": "boat_pose_navasana",
+        "name": "Boat Pose (Navasana)",
+        "description": "Sit with knees bent, feet flat. Lean back slightly, lift feet to eye level extending legs straight, and extend arms parallel to floor.",
+        "targeted_muscles": [
+            "Core",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ],
+            "Hips": [
+                "Mobility",
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Boat+Pose+Navasana+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Crow Pose"
+        ]
+    },
+    {
+        "id": "camel_pose_ustrasana",
+        "name": "Camel Pose (Ustrasana)",
+        "description": "Kneel with hips stacked over knees, push hips forward, reach back to place hands on heels, opening chest and throat.",
+        "targeted_muscles": [
+            "Chest",
+            "Back",
+            "Shoulders",
+            "Hips"
+        ],
+        "muscle_focus": {
+            "Chest": [
+                "Mobility"
+            ],
+            "Back": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ],
+            "Hips": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Camel+Pose+Ustrasana+tutorial+form",
+        "levels": [
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Bow Pose"
+        ]
+    },
+    {
+        "id": "cat_cow_dynamic",
+        "name": "Dynamic Cat-Cow Stretch",
+        "description": "On all fours, inhale to arch your back lifting chest (Cow), then exhale to round spine tucking chin (Cat).",
+        "targeted_muscles": [
+            "Back",
+            "Core",
+            "Shoulders"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ],
+            "Core": [
+                "Mobility"
+            ],
+            "Shoulders": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Yoga",
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Cat+Cow+Stretch+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Downward-Facing Dog Pose"
+        ]
+    },
+    {
+        "id": "wrist_extensor_stretch",
+        "name": "Wrist Extensor Stretch",
+        "description": "Extend one arm straight forward, palm down. Use other hand to gently pull fingers down and back toward body.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Yoga",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wrist+Extensor+Stretch+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Wrist Mobility Sequence"
+        ]
+    },
+    {
+        "id": "wrist_flexor_stretch",
+        "name": "Wrist Flexor Stretch",
+        "description": "Extend one arm straight forward, palm up. Use other hand to gently pull fingers down and back toward forearm.",
+        "targeted_muscles": [
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Wrists/Forearms": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Yoga",
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Wrist+Flexor+Stretch+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Wrist Mobility Sequence"
+        ]
+    },
+    {
+        "id": "ankle_controlled_mobility",
+        "name": "Ankle Controlled Articular Rotations",
+        "description": "Sit down, lift foot off floor, and slowly draw the largest possible circles with your toes to improve ankle mobility.",
+        "targeted_muscles": [
+            "Calves"
+        ],
+        "muscle_focus": {
+            "Calves": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Gym",
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Ankle+Controlled+Articular+Rotations+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Pistol Squat"
+        ]
+    },
+    {
+        "id": "thoracic_spine_foam_roll",
+        "name": "Thoracic Spine Foam Rolling",
+        "description": "Place foam roller under upper back, cross arms, support head, lift hips, and roll up and down upper-to-mid back.",
+        "targeted_muscles": [
+            "Back"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Mobility"
+            ]
+        },
+        "training_types": [
+            "Gym",
+            "Calisthenics"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Thoracic+Spine+Foam+Rolling+tutorial+form",
+        "levels": [
+            "Beginner"
+        ],
+        "next_level_progressions": [
+            "Cobra Pose"
+        ]
+    },
+    {
+        "id": "lying_leg_curl",
+        "name": "Lying Machine Leg Curl",
+        "description": "Lie face down on leg curl machine, place roller pads on lower calves, and curl heels up toward glutes squeezing hamstrings.",
+        "targeted_muscles": [
+            "Hamstrings"
+        ],
+        "muscle_focus": {
+            "Hamstrings": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Lying+Machine+Leg+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Barbell Romanian Deadlift"
+        ]
+    },
+    {
+        "id": "dumbbell_hammer_curl",
+        "name": "Dumbbell Hammer Curl",
+        "description": "Stand holding dumbbells with palms facing each other, curl weights up while keeping neutral wrist alignment.",
+        "targeted_muscles": [
+            "Biceps",
+            "Wrists/Forearms"
+        ],
+        "muscle_focus": {
+            "Biceps": [
+                "Strength"
+            ],
+            "Wrists/Forearms": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Dumbbell+Hammer+Curl+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Barbell Bicep Curl"
+        ]
+    },
+    {
+        "id": "reverse_grip_lat_pulldown",
+        "name": "Reverse-Grip Lat Pulldown",
+        "description": "Sit at pull station, grip bar with underhand shoulder-width grip, pull bar to chest focusing on biceps and lower lats.",
+        "targeted_muscles": [
+            "Back",
+            "Biceps"
+        ],
+        "muscle_focus": {
+            "Back": [
+                "Strength",
+                "Mobility"
+            ],
+            "Biceps": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Gym"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Reverse+Grip+Lat+Pulldown+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "Standard Chin-Up"
+        ]
+    },
+    {
+        "id": "side_plank_isometric",
+        "name": "Isometric Side Plank",
+        "description": "Support bodyweight on one forearm and side of foot, raise hips to form a straight line, keep core braced and hold.",
+        "targeted_muscles": [
+            "Core"
+        ],
+        "muscle_focus": {
+            "Core": [
+                "Strength"
+            ]
+        },
+        "training_types": [
+            "Calisthenics",
+            "Yoga"
+        ],
+        "demo_url": "https://www.youtube.com/results?search_query=Isometric+Side+Plank+tutorial+form",
+        "levels": [
+            "Beginner",
+            "Intermediate"
+        ],
+        "next_level_progressions": [
+            "L-Sit"
+        ]
+    }
+]

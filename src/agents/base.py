@@ -14,9 +14,22 @@ import time
 from typing import List, Optional
 from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, Field
 
 from src.state import AgentState, WorkoutSession, ValidationLog
+
+def get_llm(temperature: float = 0.2, json_mode: bool = False):
+    """
+    Central LLM factory — uses Groq Llama 3.3 70B exclusively.
+    Groq is free with no daily quota limit (only a per-minute token limit,
+    handled by the _invoke_with_retry backoff logic).
+    """
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=temperature)
+    if json_mode:
+        return llm.bind(response_format={"type": "json_object"})
+    return llm
+
 
 # ---------------------------------------------------------------------------
 # Output Schemas
@@ -50,20 +63,32 @@ For EVERY exercise you include, you MUST populate ALL of the following fields:
 # Retry helper — handles transient rate-limit errors from any provider
 # ---------------------------------------------------------------------------
 
-def _invoke_with_retry(llm_structured, messages, max_retries=3):
-    """Invoke LLM with automatic exponential backoff on rate-limit (429) errors."""
+def _invoke_with_retry(llm_structured, messages, max_retries=8):
+    """
+    Invoke LLM with automatic exponential backoff on rate-limit (429) errors.
+    Uses up to 8 retries with waits of 30s, 60s, 90s... to handle Groq TPM limits
+    when multiple parallel creators fire simultaneously.
+    """
     for attempt in range(max_retries):
         try:
             return llm_structured.invoke(messages)
         except Exception as e:
             err_str = str(e)
-            if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "rate_limit" in err_str.lower() or "RateLimitError" in err_str:
-                wait = (attempt + 1) * 15  # 15s → 30s → 45s
+            is_rate_limit = (
+                "429" in err_str
+                or "RESOURCE_EXHAUSTED" in err_str
+                or "rate_limit" in err_str.lower()
+                or "RateLimitError" in err_str
+                or "rate limit" in err_str.lower()
+                or "quota" in err_str.lower()
+            )
+            if is_rate_limit:
+                wait = (attempt + 1) * 30  # 30s, 60s, 90s, 120s, 150s, 180s, 210s, 240s
                 print(f"[Rate limit] Waiting {wait}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait)
             else:
                 raise  # non-quota error — propagate immediately
-    raise RuntimeError("Max retries exceeded for LLM call.")
+    raise RuntimeError(f"Max retries exceeded ({max_retries} attempts) for LLM call.")
 
 # ---------------------------------------------------------------------------
 # Base Creator Node
@@ -72,13 +97,36 @@ def _invoke_with_retry(llm_structured, messages, max_retries=3):
 def base_creator_node(state: AgentState, domain: str, directive: str) -> dict:
     """
     Generates a fresh weekly workout plan for a given domain.
-    Uses Groq Llama for fast, creative plan generation.
+    Uses Gemini for fast, creative plan generation, selecting exercises from the Exercise Library.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
+    llm = get_llm(temperature=0.2)
     llm_structured = llm.with_structured_output(CreatorOutput)
+
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
+
+    # Load and filter exercise library for this domain
+    from src.exercise_library import load_exercise_library
+    library_items = load_exercise_library()
+    domain_exercises = [
+        item for item in library_items
+        if domain.lower() in [t.lower() for t in item.training_types]
+    ]
+
+    library_text = ""
+    for ex in domain_exercises:
+        library_text += f"- NAME: {ex.name}\n"
+        library_text += f"  DESCRIPTION: {ex.description}\n"
+        library_text += f"  LEVELS: {', '.join(ex.levels)}\n"
+        library_text += f"  TARGETED MUSCLES: {', '.join(ex.targeted_muscles)}\n"
+        # Format muscle focus
+        focus_strs = [f"{m} ({'/'.join(focs)})" for m, focs in ex.muscle_focus.items()]
+        library_text += f"  FOCUS: {', '.join(focus_strs)}\n"
+        library_text += f"  DEMO URL: {ex.demo_url}\n"
+        if ex.next_level_progressions:
+            library_text += f"  PROGRESSIONS TO: {', '.join(ex.next_level_progressions)}\n"
+        library_text += "\n"
 
     prompt = f"""You are the {domain} Specialist Creator Agent.
 
@@ -96,8 +144,15 @@ WEEKLY CONTEXT:
 - Training Split: {macro.training_split}
 - Daily Calories: {macro.target_calories} kcal | Protein: {macro.protein_g}g | Carbs: {macro.carbs_g}g | Fats: {macro.fats_g}g
 
+AVAILABLE EXERCISE LIBRARY FOR {domain.upper()}:
+You MUST select exercises from this library to formulate your workout sessions whenever possible. Match them carefully to the user's targeted muscles, level, and safety needs:
+---
+{library_text}
+---
+
 YOUR TASK:
-Create a detailed weekly {domain} regimen (list of WorkoutSession objects). Each session targets a specific day and focus area aligned with the Senior Coach directive above.
+Create a detailed weekly {domain} regimen (list of WorkoutSession objects). Each session targets a specific day and focus area aligned with the Senior Coach directive.
+Select exercises from the library above. For every exercise chosen, preserve its name and demo_url EXACTLY as specified in the library list. Customize the sets, reps, rest_seconds, tempo, warmup_sets, and notes specifically for this user's profile and injury limitations.
 
 {EXERCISE_FIELDS_INSTRUCTION}
 """
@@ -113,10 +168,11 @@ def base_modifier_node(state: AgentState, domain: str) -> dict:
     """
     Applies targeted corrections to an existing draft based on checker feedback.
     Does NOT regenerate — only patches the specific issues raised.
-    Uses Groq Llama for fast corrections.
+    Uses Gemini for fast corrections, matching exercises to the library.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
+    llm = get_llm(temperature=0.1)
     llm_structured = llm.with_structured_output(CreatorOutput)
+
 
     profile = state.get("user_profile")
     feedback = state.get("current_rejections", {}).get(domain, "")
@@ -124,6 +180,27 @@ def base_modifier_node(state: AgentState, domain: str) -> dict:
     # Use the modified draft if it exists (2nd+ iteration), else use the original draft
     domain_key = domain.lower()
     current_draft = state.get(f"modified_{domain_key}") or state.get(f"draft_{domain_key}")
+
+    # Load and filter exercise library for this domain
+    from src.exercise_library import load_exercise_library
+    library_items = load_exercise_library()
+    domain_exercises = [
+        item for item in library_items
+        if domain.lower() in [t.lower() for t in item.training_types]
+    ]
+
+    library_text = ""
+    for ex in domain_exercises:
+        library_text += f"- NAME: {ex.name}\n"
+        library_text += f"  DESCRIPTION: {ex.description}\n"
+        library_text += f"  LEVELS: {', '.join(ex.levels)}\n"
+        library_text += f"  TARGETED MUSCLES: {', '.join(ex.targeted_muscles)}\n"
+        focus_strs = [f"{m} ({'/'.join(focs)})" for m, focs in ex.muscle_focus.items()]
+        library_text += f"  FOCUS: {', '.join(focus_strs)}\n"
+        library_text += f"  DEMO URL: {ex.demo_url}\n"
+        if ex.next_level_progressions:
+            library_text += f"  PROGRESSIONS TO: {', '.join(ex.next_level_progressions)}\n"
+        library_text += "\n"
 
     prompt = f"""You are the {domain} Plan Editor Agent.
 
@@ -137,6 +214,11 @@ USER PROFILE (for context):
 - Experience: {profile.experience_level}
 - Injuries/Limitations: {', '.join(profile.injuries) if profile.injuries else 'None'}
 
+EXERCISE LIBRARY FOR REFERENCE:
+---
+{library_text}
+---
+
 CURRENT DRAFT TO FIX:
 {current_draft}
 
@@ -145,6 +227,7 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
 - Do NOT change exercises that were not flagged.
 - Do NOT change the session structure unless explicitly flagged.
 - Preserve all fields of unchanged exercises exactly as they are.
+- For any modified exercise, select it from the exercise library or align it with the library guidelines. Keep the name and demo_url matching the library definition.
 - For any modified exercise, ensure ALL fields are still fully populated.
 
 {EXERCISE_FIELDS_INSTRUCTION}
@@ -175,10 +258,11 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
 def base_checker_node(state: AgentState, domain: str) -> dict:
     """
     Evaluates the latest draft (modified > draft) for safety and efficacy.
-    Uses Groq Llama 3.3 70B — no daily quota, automatic retry on rate-limits.
+    Uses Gemini — no daily quota, automatic retry on rate-limits.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    llm = get_llm(temperature=0)
     llm_structured = llm.with_structured_output(CheckerOutput)
+
 
     profile = state.get("user_profile")
     domain_key = domain.lower()

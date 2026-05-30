@@ -2,34 +2,47 @@
 Nutrition Specialist Agent
 ===========================
 Contains the Creator, Modifier, and Checker nodes for the Nutrition domain.
-Modify this file to change how meal plans are generated or validated.
-
-Note: The Nutrition domain uses NutritionPlan (not WorkoutSession), so it has
-its own creator and modifier logic rather than delegating to base_creator_node.
-All LLM calls use Groq Llama 3.3 70B (no daily quota limits).
+Loads and enforces the metabolic screenings, dynamic fueling, peri-workout timing, and meal structure blueprints.
 """
+import os
 from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
 
 from src.state import AgentState, NutritionPlan, ValidationLog
-from src.agents.base import CheckerOutput, _invoke_with_retry
+from src.agents.base import CheckerOutput, _invoke_with_retry, get_llm
 
 _DOMAIN = "Nutrition"
 
+def _load_nutrition_guidelines() -> str:
+    """Loads all nutrition-specific markdown documents from 'md files' directory."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    md_dir = os.path.join(base_dir, "md files")
+    guidelines = ""
+    try:
+        for fname in ["01_nutritionist_assessment.md", "02_nutritionist_progression_matrices.md", "03_nutritionist_meal_blueprint.md"]:
+            path = os.path.join(md_dir, fname)
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    guidelines += f"\n--- {fname} ---\n" + f.read() + "\n"
+    except Exception as e:
+        print(f"Error loading nutrition guidelines: {e}")
+    return guidelines
 
 def nutrition_creator_node(state: AgentState) -> dict:
     """
-    Creates the initial daily meal plan aligned with macro targets.
-    Model: Groq Llama 3.3 70B
-    Edit this function to change how meals are structured or what constraints are applied.
+    Creates the initial daily meal plan aligned with macro targets,
+    strictly adhering to dynamic fueling matrices and four-meal timing frameworks.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
+    llm = get_llm(temperature=0.1)
     llm_structured = llm.with_structured_output(NutritionPlan)
 
     macro = state.get("macro_strategy")
     profile = state.get("user_profile")
 
-    prompt = f"""You are the Head Nutritionist and Meal Planning Specialist.
+    # Load custom Nutrition guidelines
+    nutrition_guidelines = _load_nutrition_guidelines()
+
+    prompt = f"""You are the master Head Nutritionist and Meal Planning Specialist.
 
 USER PROFILE:
 - Goal: {profile.primary_goal}
@@ -43,36 +56,43 @@ DAILY MACRO TARGETS (MUST HIT THESE):
 - Carbohydrates: {macro.carbs_g}g
 - Fats: {macro.fats_g}g
 
-YOUR TASK:
-Create a practical, balanced daily meal plan (Breakfast, Morning Snack, Lunch, Afternoon Snack, Dinner) that:
-1. Hits the macro targets within ±50 kcal and ±5g per macro
-2. Uses whole, nutrient-dense foods
-3. Respects the user's goal (e.g. high protein for muscle gain, slight deficit for weight loss)
-4. Includes a realistic hydration target in liters
+ATHLETIC NUTRITION & DYNAMIC FUELING BLUEPRINTS (MANDATORY):
+You MUST strictly follow these dietary baseline screens, carbohydrate scaling rules, peri-workout timing windows, and meal schedules:
+---
+{nutrition_guidelines}
+---
 
-Also provide a precise hydration_target_L value (in liters).
+YOUR TASK:
+Create a daily nutrition plan (list of Meal objects).
+You MUST structure the eating timeline using the **Daily Four-Meal Tier Structure Template** and synchronize it with the client's macro goals:
+1. Meal 1: Metabolic Inception & Tissue Repair (08:00 - Lean protein, complex low-glycemic starches like oats, and healthy fats).
+2. Meal 2: Pre-Workout Nutrient Loading (13:00 - Lean isolates/chicken, white fish, SWEET POTATO or jasmine rice, keeping fat trace <= 5g to ensure rapid absorption).
+3. Meal 3: Post-Workout Glycogen Replenishment (17:30 - Fast-acting high-glycemic starches to spike insulin like cream of rice/white potatoes, and lean rapid-digesting proteins).
+4. Meal 4: Nocturnal Recovery & Anti-Catabolic Reset (21:30 - Slow-digesting casein, cottage cheese or lean beef, paired with healthy lipids like almond butter to slow digestion).
+
+Set the `hydration_target_L` based on active training guidelines (>3.5L baseline, plus 1.0L water per hour of heavy resistance training, alongside sodium/electrolyte recommendations in Meal 2/3). Incorporate key micronutrient interventions (magnesium glycinate, Vitamin D3+K2, and Omega-3 fish oils) in the meal notes.
+
+Provide macro and calorie breakdowns for EVERY single meal, and ensure the daily totals hit the required macro targets within ±50 kcal.
 """
 
     output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
     return {"draft_nutrition": output}
 
-
 def nutrition_modifier_node(state: AgentState) -> dict:
     """
-    Applies targeted corrections to a rejected nutrition plan based on checker feedback.
-    Does NOT regenerate from scratch — only patches what was flagged.
-    Model: Groq Llama 3.3 70B
-    Edit this function to adjust how the modifier corrects meal plans.
+    Applies targeted corrections to a rejected nutrition plan based on checker feedback,
+    while maintaining the dynamic meal timing framework.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
+    llm = get_llm(temperature=0.1)
     llm_structured = llm.with_structured_output(NutritionPlan)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
     feedback = state.get("current_rejections", {}).get(_DOMAIN, "")
-
-    # Prefer modified draft if exists (2nd+ iteration), else original draft
     current_draft = state.get("modified_nutrition") or state.get("draft_nutrition")
+
+    # Load custom Nutrition guidelines
+    nutrition_guidelines = _load_nutrition_guidelines()
 
     prompt = f"""You are the Nutrition Plan Editor Agent.
 
@@ -81,17 +101,26 @@ A draft meal plan was rejected by the Nutrition Auditor with this feedback:
 AUDITOR FEEDBACK:
 {feedback}
 
+USER PROFILE:
+- Goal: {profile.primary_goal}
+- Weight: {profile.weight_kg}kg → Target: {profile.target_weight_kg}kg
+
+REQUIRED MACRO TARGETS:
+- Calories: {macro.target_calories} kcal | Protein: {macro.protein_g}g | Carbs: {macro.carbs_g}g | Fats: {macro.fats_g}g
+
+ATHLETIC NUTRITION & TIMING PRINCIPLES:
+---
+{nutrition_guidelines}
+---
+
 CURRENT DRAFT TO FIX:
 {current_draft}
 
-MACRO TARGETS (must still be met):
-- Calories: {macro.target_calories} kcal | Protein: {macro.protein_g}g | Carbs: {macro.carbs_g}g | Fats: {macro.fats_g}g
-
 YOUR TASK:
-Apply the MINIMUM changes needed to fix ONLY the issues raised above.
-- Do NOT change meals that were not flagged.
-- Ensure the corrected plan still hits the macro targets within ±50 kcal.
-- Keep the same meal structure unless explicitly told to change it.
+Apply the MINIMUM changes needed to fix ONLY the issues raised in the auditor feedback.
+- Preserve the 4-meal metabolic timeline structure (Metabolic Inception, Pre-Workout, Post-Workout, Nocturnal Recovery).
+- Maintain macronutrient totals within ±50 kcal of targets.
+- Correct specific details flagged (e.g. food intolerances, micronutrient checklists, or timing).
 """
 
     current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
@@ -111,26 +140,23 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised above.
         "validation_logs": [log]
     }
 
-
 def nutrition_checker_node(state: AgentState) -> dict:
     """
     Safety & Efficacy Auditor for Nutrition plans.
-    Uses Groq Llama 3.3 70B — no daily quota, automatic retry on rate-limits.
-    Edit this function to change validation criteria for meal plans.
+    Validates macro accuracy, 4-meal structures, timing windows, hydration targets, and food intolerances.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    llm = get_llm(temperature=0)
     llm_structured = llm.with_structured_output(CheckerOutput)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
-
-    # Prefer modified draft if it exists
     draft = state.get("modified_nutrition") or state.get("draft_nutrition")
 
     if not draft:
         raise ValueError("No nutrition draft found in state.")
 
     current_attempt = state.get("domain_retries", {}).get(_DOMAIN, 0)
+    nutrition_guidelines = _load_nutrition_guidelines()
 
     prompt = f"""You are the Senior Nutrition Safety & Efficacy Auditor.
 
@@ -141,15 +167,20 @@ USER PROFILE:
 REQUIRED MACRO TARGETS:
 - Calories: {macro.target_calories} kcal | Protein: {macro.protein_g}g | Carbs: {macro.carbs_g}g | Fats: {macro.fats_g}g
 
+NUTRITIONAL AUDITING MATRIX & DIETARY BLUEPRINTS:
+---
+{nutrition_guidelines}
+---
+
 DRAFT MEAL PLAN TO EVALUATE:
 {draft}
 
 EVALUATION CRITERIA:
-1. MACRO ACCURACY: Does the total daily intake hit within ±50 kcal and ±5g per macro?
-2. MEAL COMPLETENESS: Are all meals (Breakfast, Lunch, Dinner, Snacks) described with calorie and macro breakdown?
-3. FOOD QUALITY: Are the foods whole, practical, and appropriate for the user's goal?
-4. HYDRATION: Is a realistic hydration_target_L provided (between 2.0L and 4.5L)?
-5. MEAL BALANCE: Are calories distributed reasonably across the day (no single meal >50% of daily calories)?
+1. DAILY FOUR-MEAL TIMELINE: Does the plan utilize the 4-meal metabolic schedule (Metabolic Inception, glycogen-saturating Pre-Workout, insulin-spiking Post-Workout, slow-digesting Nocturnal)?
+2. MACRO ACCURACY: Do the daily totals hit within ±50 kcal and ±5g per macro?
+3. HYDRATION & SODIUM: Is a realistic hydration_target_L provided (complying with training volumes and sodium dissolved targets)?
+4. INGREDIENT INCOMPATIBILITIES: Cross-reference user's listed GI issues/allergies. Ensure no dairy/whey or gluten is programmed if flagged in client profile.
+5. MICRONUTRIENTS: Are Omega-3, Magnesium Glycinate, and Vitamin D3+K2 correctly integrated into meal notes?
 
 If all criteria pass, approve it.
 If any fail, reject with specific feedback referencing the exact meal and field that needs fixing.

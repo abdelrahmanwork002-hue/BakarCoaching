@@ -4,25 +4,41 @@ Tracking Coach Agent
 Runs AFTER all fitness and nutrition plans are merged.
 Generates a TrackingStrategy using JSON mode (more reliable than tool-calling
 for complex nested schemas on Groq).
-
-Modify this file to change what the Tracking Coach recommends or monitors.
+Loads and enforces the subjective check-in indices, somatic calibration rules, 
+and Master Accountability Dashboard rules.
 Model: Groq Llama 3.3 70B
 """
+import os
 import json
 import time
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
+from src.agents.base import get_llm
 
 from src.state import AgentState, TrackingStrategy
+
+
+def _load_followup_guidelines() -> str:
+    """Loads all Follow-up and Calibration markdown guidelines from 'md files' directory."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    md_dir = os.path.join(base_dir, "md files")
+    guidelines = ""
+    try:
+        for fname in ["01_followup_client_checkin.md", "02_followup_adaptive_calibration.md", "03_followup_accountability_dashboard.md"]:
+            path = os.path.join(md_dir, fname)
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    guidelines += f"\n--- {fname} ---\n" + f.read() + "\n"
+    except Exception as e:
+        print(f"Error loading followup guidelines: {e}")
+    return guidelines
 
 
 def tracking_coach_node(state: AgentState) -> dict:
     """
     Tracking Coach node. Synthesizes the complete plan into an actionable TrackingStrategy.
-    Uses JSON mode for reliable structured output.
+    Uses JSON mode for reliable structured output and enforces the follow-up guidelines.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.1)
-    llm_json = llm.bind(response_format={"type": "json_object"})
+    llm_json = get_llm(temperature=0.1, json_mode=True)
 
     profile = state.get("user_profile")
     fitness_plan = state.get("fitness_plan")
@@ -46,12 +62,17 @@ def tracking_coach_node(state: AgentState) -> dict:
             for m in nutrition_plan.daily_meals
         )
 
-    directives_summary = "\n".join(
-        f"  - {k}: {v}" for k, v in (macro.specialist_directives or {}).items()
-    )
+    directives_summary = ""
+    if macro and macro.specialist_directives:
+        directives_summary = "\n".join(
+            f"  - {k}: {v}" for k, v in macro.specialist_directives.items()
+        )
 
-    system_msg = SystemMessage(content="""You are the Tracking Coach — a world-class fitness progress specialist.
-You MUST respond with a single valid JSON object and NOTHING else — no markdown, no explanation.
+    # Load follow-up guidelines
+    followup_guidelines = _load_followup_guidelines()
+
+    system_msg = SystemMessage(content="""You are the master Tracking Coach — a world-class progress tracking and somatic calibration specialist.
+You MUST respond with a single valid JSON object and NOTHING else — no markdown, no explanation outside the JSON.
 The JSON must have EXACTLY these 5 keys:
 {
   "weekly_checkin_metrics": ["string", ...],
@@ -61,7 +82,8 @@ The JSON must have EXACTLY these 5 keys:
   "coach_notes": "string"
 }""")
 
-    user_msg = HumanMessage(content=f"""Generate a TrackingStrategy JSON for this client.
+    user_msg = HumanMessage(content=f"""Generate a comprehensive TrackingStrategy JSON for this client.
+You MUST strictly base your metrics, warnings, thresholds, and tips on the Follow-up Specialist Guidelines provided below.
 
 CLIENT PROFILE:
 - Age: {profile.age} | Weight: {profile.weight_kg}kg → Target: {profile.target_weight_kg}kg
@@ -76,16 +98,43 @@ FITNESS PLAN:
 - Total: {total_sessions} sessions / ~{total_mins} mins/week
 
 NUTRITION:
-- Targets: {macro.target_calories} kcal | P:{macro.protein_g}g C:{macro.carbs_g}g F:{macro.fats_g}g
+- Targets: {macro.target_calories if macro else 'N/A'} kcal | P:{macro.protein_g if macro else 'N/A'}g C:{macro.carbs_g if macro else 'N/A'}g F:{macro.fats_g if macro else 'N/A'}g
 - Hydration: {nutrition_plan.hydration_target_L if nutrition_plan else 'N/A'} L/day
 {meal_summary}
 
-Required in your JSON:
-- weekly_checkin_metrics: 5-8 measurable weekly tracking items
-- implementation_tips: 6-10 practical scheduling tips referencing the actual training days
-- milestone_targets: 8-12 progressive targets (format "Week N: ..." or "Month N: ...")
-- red_flag_warnings: 4-8 safety signals specific to this client's injuries
-- coach_notes: 2-3 paragraph motivating synthesis of the program
+FOLLOW-UP SPECIALIST GUIDELINES:
+---
+{followup_guidelines}
+---
+
+Your generated JSON fields must follow these exact instructions:
+
+1. "weekly_checkin_metrics": Include 6-8 items reflecting the Weekly Check-In Metadata and Subjective Bio-Feedback Indicators from the guidelines:
+   - Bodyweight checks (including tracking weight delta vs last week).
+   - Compliance logging (Nutrition, Training, Hydration target adherence out of 7 days).
+   - Subjective biofeedback rating metrics (Sleep Quality 1-5, Energy Levels 1-5, Muscle Soreness/DOMS 1-5, Joint Integrity 1-5, Digestive Comfort 1-5).
+   - Morning resting recovery pulse (Baseline vs Current).
+   - Performance checks (Strength velocity and Yoga flexibility stance depth).
+
+2. "implementation_tips": Include 7-10 practical tips mapping to the client's training days and incorporating the **Direct Symptom-to-Somatic Adaptation Rules**:
+   - High sleep loss & DOMS modification: Drop 1 working set from Gym Tier A and add 15 minutes of passive Yin yoga recovery if sleep is <= 2 AND soreness is >= 4 over 3 consecutive days.
+   - Localized Joint Pain: Swap heavy calisthenics floor holds for parallel bars or forearm modifications, and drop barbell pressing for 1 week if joint integrity is <= 2 (wrists or shoulders).
+   - Severe Hunger: Replace 50% of fast-acting starches with low-glycemic, high-volume fibrous vegetables if hunger rating hits 5 on a fat loss deficit track.
+   - Weight Stall Corrections: Drop carbs by 0.25g * kg for fat loss stalling >14 days; advance daily calories by +150 kcal for mass gain stalling >14 days.
+
+3. "milestone_targets": Include 6-10 progressive targets (format "Week N: ...") detailing the **4-Week Progress Evaluation Index** zones:
+   - Category Alpha: Score >= 85% (automatic rollover, retain baseline, generate positive reinforcement).
+   - Category Beta: Score 60% - 84% (trigger micro-calibration updates, adjust training/meal schedules).
+   - Category Gamma: Score < 60% (hard state interrupt, request complete manual overview from Senior Orchestrator).
+
+4. "red_flag_warnings": Include 5-8 highly specific warnings based on the Systemic Performance Telemetry Scorecard danger zones:
+   - Morning resting HR rising >6 bpm over 4 consecutive days.
+   - Weekly compliance <= 4 marked days.
+   - Sleep score <= 2 or Joint integrity <= 2.
+   - 3 consecutive drops in lift capacity or volume loads.
+   - Missing more than 2 entries on the Excel or App tracking spreadsheet (which prompts automated support alerts).
+
+5. "coach_notes": Synthesize the program in 2-3 inspiring paragraphs. Detail how their progress updates sync bidirectionally via Excel spreadsheet columns directly into the state graph (progress_history), and explain the Alpha/Beta/Gamma compliance routing mechanics.
 """)
 
     for attempt in range(3):
@@ -107,37 +156,47 @@ Required in your JSON:
                 print(f"[Tracking Coach] Rate limit — waiting {wait}s...")
                 time.sleep(wait)
             elif attempt >= 2:
-                # Final fallback — return a minimal but valid strategy
+                # Premium fallback aligned with the exact somatic/scorecard guidelines
                 print(f"[Tracking Coach] Failed after 3 attempts: {err[:200]}")
+                
+                # Check goal type for stall correction fallback
+                is_fat_loss = profile.primary_goal.lower() in ["weight loss", "fat loss", "recomposition"]
+                stall_action = "Drop carbs by $0.25\\text{g} \\times \\text{kg}$" if is_fat_loss else "Advance daily calories by +150 kcal"
+                hunger_action = "Replace 50% fast starches with high-volume fibrous vegetables if hunger hits 5" if is_fat_loss else "Monitor satiety and adjust meal sizes"
+                
                 return {"tracking_strategy": TrackingStrategy(
                     weekly_checkin_metrics=[
-                        "Body weight (kg) — same time each morning",
-                        "Sessions completed vs planned",
-                        "Daily protein intake (g)",
-                        "Sleep quality (hours)",
-                        "Energy level (1-10)"
+                        "Bodyweight checks (kg) — compare morning weight delta vs last week",
+                        "Training compliance — target >= 6 out of 7 days completed",
+                        "Nutrition & Hydration compliance — log daily calories, macros, and hydration",
+                        "Biofeedback Scores (1-5) — Sleep Quality, Energy, DOMS, Joint Integrity, Digestion",
+                        "Morning resting heart rate (bpm) — check for nervous system fatigue",
+                        "Performance benchmarks — strength velocity (dead-hang pulls/barbell lifts) & yoga depth"
                     ],
                     implementation_tips=[
-                        "Follow the training schedule consistently",
-                        "Prepare meals in advance to hit macro targets",
-                        "Prioritize sleep for recovery",
-                        "Warm up properly before every session",
-                        "Stay hydrated — carry a water bottle"
+                        "Systemic Sleep & Soreness Override: If sleep score <= 2 AND DOMS >= 4 for 3 days, drop 1 set from Gym Tier A and add 15 mins Yin yoga.",
+                        "Localized Joint Pain Override: If wrist/shoulder integrity falls <= 2, swap to parallel bars/forearms and drop barbell pressing for 1 week.",
+                        f"Satiety & Hunger Override: {hunger_action}.",
+                        f"Weight Stall Correction: If weight stalls > 14 days, {stall_action}.",
+                        "Prioritize your active recovery days to keep systemic fatigue low and joint integrity high."
                     ],
                     milestone_targets=[
-                        "Week 2: Complete all scheduled sessions",
-                        "Week 4: Track noticeable strength improvement",
-                        "Month 1: Reach first weight milestone",
-                        "Month 2: Establish full routine habit"
+                        "Category Alpha Gate (Score >= 85%): Rollover to next week with positive reinforcement and baseline parameters.",
+                        "Category Beta Gate (Score 60% - 84%): Trigger micro-calibration and schedule adjustment loops.",
+                        "Category Gamma Gate (Score < 60%): Hard state interrupt (lock plan progression and trigger manual Senior Coach overview)."
                     ],
                     red_flag_warnings=[
-                        "Stop immediately if any acute pain occurs",
-                        "Rest if excessively fatigued or unwell",
-                        "Consult a professional if injuries worsen"
+                        "Danger Zone: Morning resting heart rate rising >6 bpm over 4 consecutive days.",
+                        "Danger Zone: Weekly compliance falling <= 4 marked days.",
+                        "Danger Zone: 3 consecutive drops in lift capacity or strength volume loads.",
+                        "Somatic Danger: Subjective Sleep Score <= 2 or Joint Integrity <= 2.",
+                        "Spreadsheet Logging: Missing more than 2 entries in your Excel sheet triggers automated support notifications."
                     ],
                     coach_notes=(
-                        "Your plan is well-structured and tailored to your goals. "
-                        "Consistency is the most important factor in your success. "
-                        "Track your progress weekly and adjust as needed."
+                        f"Your program is scientifically structured to balance mechanical tension, movement mastery, and metabolic timing. "
+                        f"Consistent progression is managed through bidirectional tracking: your uploads sync directly into your progress history, "
+                        f"allowing our real-time calibration engine to apply the 4-week accountability evaluation gates. "
+                        f"Category Alpha targets ensure smooth rollover, while Beta allows for micro-calibrations. "
+                        f"If compliance slips into Category Gamma, a state interrupt is triggered for safety. Stay consistent and log your telemetry!"
                     )
                 )}

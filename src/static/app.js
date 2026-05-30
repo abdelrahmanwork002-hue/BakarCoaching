@@ -108,7 +108,28 @@ async function pollStatus() {
     try {
         const res = await fetch(`/api/status/${currentThreadId}`);
         const data = await res.json();
-        if (data.status === 'error' || data.status === 'not_found') return;
+
+        if (data.status === 'error') {
+            clearInterval(pollInterval);
+            statusBadge.textContent = '❌ Error';
+            statusBadge.className = 'badge badge-paused';
+            hitlAlert.classList.add('hidden');
+            // Show a friendly error panel
+            const errDiv = document.createElement('div');
+            errDiv.className = 'alert-panel alert-warn';
+            errDiv.innerHTML = `
+                <div class="alert-icon">⚠️</div>
+                <div class="alert-body">
+                    <strong>Agent Error — Please Try Again</strong>
+                    <p style="font-size:0.8rem;margin-top:6px;word-break:break-word;opacity:0.7">${data.message || 'An unexpected error occurred.'}</p>
+                </div>
+                <button onclick="location.reload()" class="primary-btn" style="width:auto">🔄 Restart</button>
+            `;
+            dashboardSection.prepend(errDiv);
+            return;
+        }
+
+        if (data.status === 'not_found') return;
 
         updateStatus(data.status, data.next_nodes);
         updateMacroStrip(data.macro_strategy);
@@ -460,5 +481,349 @@ resumeBtn.addEventListener('click', async () => {
     } catch {
         resumeBtn.innerHTML = '✅ Approve & Resume';
         resumeBtn.disabled = false;
+    }
+});
+
+
+// ============================================================
+// EXERCISE LIBRARY & WEB SEARCH TAB CONTROL
+// ============================================================
+
+const navBtnCoaching = document.getElementById('nav-btn-coaching');
+const navBtnLibrary  = document.getElementById('nav-btn-library');
+const librarySection = document.getElementById('library-section');
+
+let exerciseLibrary = [];
+
+navBtnCoaching.addEventListener('click', () => {
+    navBtnCoaching.classList.add('active');
+    navBtnLibrary.classList.remove('active');
+    librarySection.classList.add('hidden');
+    
+    // Restore the correct coaching section depending on whether we onboarded
+    if (currentThreadId) {
+        dashboardSection.classList.remove('hidden');
+    } else {
+        onboardSection.classList.remove('hidden');
+    }
+});
+
+navBtnLibrary.addEventListener('click', () => {
+    navBtnLibrary.classList.add('active');
+    navBtnCoaching.classList.remove('active');
+    librarySection.classList.remove('hidden');
+    
+    // Hide onboarding and dashboard sections
+    onboardSection.classList.add('hidden');
+    dashboardSection.classList.add('hidden');
+    
+    // Load the exercise library
+    fetchLibrary();
+});
+
+// ============================================================
+// LOAD AND RENDER EXERCISE LIBRARY
+// ============================================================
+
+async function fetchLibrary() {
+    try {
+        const res = await fetch('/api/exercises');
+        const data = await res.json();
+        if (data.status === 'success') {
+            exerciseLibrary = data.exercises;
+            renderLibrary();
+        }
+    } catch (err) {
+        console.error('Error fetching exercise library:', err);
+    }
+}
+
+function renderLibrary() {
+    const grid = document.getElementById('exercises-grid-container');
+    const filterType = document.getElementById('filter-type').value;
+    const filterMuscle = document.getElementById('filter-muscle').value;
+    const filterLevel = document.getElementById('filter-level').value;
+    const filterText = document.getElementById('filter-text').value.toLowerCase();
+    
+    grid.innerHTML = '';
+    
+    const filtered = exerciseLibrary.filter(ex => {
+        if (filterType && !ex.training_types.includes(filterType)) return false;
+        if (filterMuscle && !ex.targeted_muscles.includes(filterMuscle)) return false;
+        if (filterLevel && !ex.levels.includes(filterLevel)) return false;
+        if (filterText && !ex.name.toLowerCase().includes(filterText) && !ex.description.toLowerCase().includes(filterText)) return false;
+        return true;
+    });
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = `
+            <div class="glass-panel" style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;">
+                🔍 No exercises match your filters. Use the search bar above to scrape and add new ones!
+            </div>
+        `;
+        return;
+    }
+    
+    filtered.forEach(ex => {
+        const card = document.createElement('div');
+        card.className = 'exercise-card';
+        
+        // Level badge CSS class
+        let levelClass = 'level-beginner';
+        if (ex.levels.includes('Advanced')) {
+            levelClass = 'level-advanced';
+        } else if (ex.levels.includes('Intermediate')) {
+            levelClass = 'level-intermediate';
+        }
+        
+        // Muscles pills
+        const musclePillsHtml = ex.targeted_muscles.map(m => {
+            const focuses = ex.muscle_focus[m] || [];
+            const focusIcons = focuses.map(f => {
+                if (f === 'Strength') return `<span class="focus-strength">💪 Strength</span>`;
+                if (f === 'Mobility') return `<span class="focus-mobility">🤸 Mobility</span>`;
+                return f;
+            }).join(' / ');
+            return `
+                <div class="muscle-pill">
+                    <strong>${m}</strong>: ${focusIcons}
+                </div>
+            `;
+        }).join('');
+        
+        // Progressions html
+        const progressionsHtml = ex.next_level_progressions?.length 
+            ? `<div class="progression-row" style="margin-top:4px;">➡️ <strong>Next Progressions:</strong> ${ex.next_level_progressions.join(', ')}</div>`
+            : '';
+            
+        // Training Types tags
+        const typeTagsHtml = ex.training_types.map(t => `<span class="type-tag ${t}">${t}</span>`).join('');
+        
+        card.innerHTML = `
+            <div class="ex-card-header">
+                <div class="ex-card-title">${ex.name}</div>
+                <span class="level-badge ${levelClass}">${ex.levels.join(' / ')}</span>
+            </div>
+            <div class="ex-card-tags">
+                ${typeTagsHtml}
+            </div>
+            <div class="ex-card-desc">${ex.description}</div>
+            
+            <div class="ex-card-muscles">
+                <div class="muscle-list-title">Targeted Muscles & Focus</div>
+                <div class="muscle-pills">
+                    ${musclePillsHtml}
+                </div>
+            </div>
+            
+            ${progressionsHtml}
+            
+            <div class="ex-card-footer">
+                <a class="demo-btn" href="${ex.demo_url}" target="_blank" rel="noopener">▶ Watch Demo Video</a>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    });
+}
+
+// Add filter event listeners
+['filter-type', 'filter-muscle', 'filter-level'].forEach(id => {
+    document.getElementById(id).addEventListener('change', renderLibrary);
+});
+document.getElementById('filter-text').addEventListener('input', renderLibrary);
+
+// ============================================================
+// WEB SEARCH TRIGGER (BROWSER SEARCH FLOW)
+// ============================================================
+
+const searchForm = document.getElementById('library-search-form');
+const searchInput = document.getElementById('library-search-input');
+const searchLoader = document.getElementById('search-loader');
+const searchBtn = document.getElementById('library-search-btn');
+
+searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (!query) return;
+    
+    // Show loader
+    searchLoader.classList.remove('hidden');
+    searchBtn.disabled = true;
+    searchInput.disabled = true;
+    
+    try {
+        const res = await fetch('/api/exercises/search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query })
+        });
+        
+        const data = await res.json();
+        if (data.status === 'success') {
+            exerciseLibrary = data.exercises;
+            renderLibrary();
+            searchInput.value = '';
+            
+            // Success Message
+            const alertText = data.new_exercises.length > 0 
+                ? `⚡ Found & Classified ${data.new_exercises.length} new exercises!`
+                : `🔍 Search finished. Checked for new exercises.`;
+            alert(alertText);
+        } else {
+            alert('Error running browser search agent: ' + data.detail);
+        }
+    } catch (err) {
+        console.error('Error running web search flow:', err);
+        alert('Failed to connect to search agent.');
+    } finally {
+        searchLoader.classList.add('hidden');
+        searchBtn.disabled = false;
+        searchInput.disabled = false;
+    }
+});
+
+// ============================================================
+// MANUAL ADD EXERCISE FORM DYNAMIC FIELDS & SETUP
+// ============================================================
+
+const toggleAddBtn = document.getElementById('toggle-add-form-btn');
+const manualPanel = document.getElementById('manual-exercise-panel');
+const cancelAddBtn = document.getElementById('cancel-add-btn');
+const manualForm = document.getElementById('manual-exercise-form');
+
+toggleAddBtn.addEventListener('click', () => {
+    manualPanel.classList.toggle('hidden');
+    if (!manualPanel.classList.contains('hidden')) {
+        setupMuscleSelectorGrid();
+        manualPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+cancelAddBtn.addEventListener('click', () => {
+    manualPanel.classList.add('hidden');
+    manualForm.reset();
+});
+
+const STANDARD_MUSCLES = [
+    "Chest", "Back", "Shoulders", "Quads", "Hamstrings", 
+    "Glutes", "Calves", "Biceps", "Triceps", "Core", 
+    "Wrists/Forearms", "Hips"
+];
+
+function setupMuscleSelectorGrid() {
+    const container = document.getElementById('muscle-focus-selector-grid');
+    container.innerHTML = '';
+    
+    STANDARD_MUSCLES.forEach(muscle => {
+        const div = document.createElement('div');
+        div.className = 'muscle-focus-selector-item';
+        div.id = `muscle-item-${muscle.replace('/', '-')}`;
+        
+        div.innerHTML = `
+            <label class="muscle-checkbox-row">
+                <input type="checkbox" name="manual_muscles" value="${muscle}" class="muscle-cb">
+                <span>${muscle}</span>
+            </label>
+            <div class="focus-options-row">
+                <label class="focus-option">
+                    <input type="checkbox" name="focus_${muscle}_strength" value="Strength" checked>
+                    <span>Strength</span>
+                </label>
+                <label class="focus-option">
+                    <input type="checkbox" name="focus_${muscle}_mobility" value="Mobility">
+                    <span>Mobility</span>
+                </label>
+            </div>
+        `;
+        
+        // Add event listener to toggle active styles and input status
+        const cb = div.querySelector('.muscle-cb');
+        cb.addEventListener('change', () => {
+            if (cb.checked) {
+                div.classList.add('selected');
+            } else {
+                div.classList.remove('selected');
+            }
+        });
+        
+        container.appendChild(div);
+    });
+}
+
+// Manual Form Submit
+manualForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('manual-ex-name').value.trim();
+    const demoUrl = document.getElementById('manual-ex-demo').value.trim();
+    const description = document.getElementById('manual-ex-desc').value.trim();
+    
+    // Training Types (Cali, Gym, Yoga)
+    const trainingTypes = [...document.querySelectorAll('input[name="manual_training_types"]:checked')].map(cb => cb.value);
+    
+    // Levels (Beginner, Intermediate, Advanced)
+    const levels = [...document.querySelectorAll('input[name="manual_levels"]:checked')].map(cb => cb.value);
+    
+    // Progressions
+    const progressionsRaw = document.getElementById('manual-ex-progressions').value;
+    const next_level_progressions = progressionsRaw 
+        ? progressionsRaw.split(',').map(s => s.trim()).filter(Boolean)
+        : [];
+        
+    // Targeted Muscles & Focuses
+    const selectedMuscles = [...document.querySelectorAll('input[name="manual_muscles"]:checked')].map(cb => cb.value);
+    if (selectedMuscles.length === 0) {
+        alert('⚠️ Please select at least one targeted muscle.');
+        return;
+    }
+    
+    const muscleFocus = {};
+    selectedMuscles.forEach(muscle => {
+        const focuses = [];
+        const isStrength = document.querySelector(`input[name="focus_${muscle}_strength"]`).checked;
+        const isMobility = document.querySelector(`input[name="focus_${muscle}_mobility"]`).checked;
+        
+        if (isStrength) focuses.push('Strength');
+        if (isMobility) focuses.push('Mobility');
+        
+        if (focuses.length === 0) {
+            focuses.push('Strength'); // fallback
+        }
+        
+        muscleFocus[muscle] = focuses;
+    });
+    
+    const reqBody = {
+        name,
+        description,
+        targeted_muscles: selectedMuscles,
+        muscle_focus: muscleFocus,
+        training_types: trainingTypes,
+        demo_url: demoUrl,
+        levels,
+        next_level_progressions
+    };
+    
+    try {
+        const res = await fetch('/api/exercises', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reqBody)
+        });
+        
+        const data = await res.json();
+        if (data.status === 'success') {
+            exerciseLibrary = data.exercises;
+            renderLibrary();
+            manualPanel.classList.add('hidden');
+            manualForm.reset();
+            alert('🎉 Custom exercise added successfully!');
+        } else {
+            alert('Error adding exercise: ' + data.detail);
+        }
+    } catch (err) {
+        console.error('Error saving manual exercise:', err);
+        alert('Failed to connect to server to save exercise.');
     }
 });

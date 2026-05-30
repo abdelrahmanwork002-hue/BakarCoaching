@@ -437,3 +437,425 @@ h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: var(--mut
     .meal-card { flex-direction: column; }
     .meal-macros { flex-wrap: wrap; }
 }
+
+
+/* ====================================================
+   NAVIGATION & TABS STYLE
+   ==================================================== */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: 16px;
+}
+.nav-tab {
+    flex: 1;
+    max-width: 320px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+.nav-tab:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.03);
+}
+.nav-tab.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    box-shadow: 0 8px 20px -8px var(--accent);
+}
+
+/* ====================================================
+   EXERCISE LIBRARY CARD GRID
+   ==================================================== */
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+.exercise-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+.exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+.exercise-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.6);
+    border-color: rgba(99,102,241,0.25);
+}
+.exercise-card:hover::before {
+    opacity: 1;
+}
+
+.ex-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+.ex-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.ex-card-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+}
+
+/* Badge styling for library */
+.level-badge {
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.level-beginner { background: rgba(16,185,129,0.15); color: #34d399; }
+.level-intermediate { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.level-advanced { background: rgba(239,68,68,0.15); color: #fca5a5; }
+
+.ex-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.type-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+}
+.type-tag.Gym { background: rgba(99,102,241,0.15); color: #818cf8; }
+.type-tag.Calisthenics { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.type-tag.Yoga { background: rgba(16,185,129,0.15); color: #34d399; }
+
+.ex-card-muscles {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 12px;
+    font-size: 0.82rem;
+}
+.muscle-list-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+.muscle-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.muscle-pill {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.focus-strength { color: #fca5a5; font-weight: 600; }
+.focus-mobility { color: #93c5fd; font-weight: 600; }
+
+.progression-row {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: -4px;
+}
+.progression-row strong {
+    color: #818cf8;
+}
+
+.ex-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 12px;
+}
+
+/* ====================================================
+   WEB SEARCH TRIGGER & LOADER
+   ==================================================== */
+.search-box-container {
+    margin-top: 20px;
+    width: 100%;
+}
+.search-form {
+    display: flex;
+    gap: 12px;
+}
+.search-form input {
+    flex: 1;
+    padding: 14px 20px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s;
+}
+.search-form input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+.search-form .primary-btn {
+    width: auto;
+    padding: 0 28px;
+}
+
+/* Search Progress Spinner */
+.search-loader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(99,102,241,0.05);
+    border: 1px solid rgba(99,102,241,0.2);
+    margin-top: 16px;
+    animation: fadeUp 0.3s ease-out;
+}
+.loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(99,102,241,0.15);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+    flex-shrink: 0;
+}
+.loader-text strong {
+    font-size: 0.95rem;
+    color: #818cf8;
+    display: block;
+    margin-bottom: 2px;
+}
+.loader-text p {
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ====================================================
+   FILTERS GRID
+   ==================================================== */
+.library-filters-panel {
+    padding: 20px 24px;
+}
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.filter-group label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+.filter-group select, .filter-group input {
+    padding: 9px 12px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.88rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.filter-group select:focus, .filter-group input:focus {
+    border-color: var(--accent);
+}
+
+.library-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
+.secondary-btn {
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* ====================================================
+   MANUAL EXERCISE FORM PILLS & MULTI-SELECT
+   ==================================================== */
+.checkbox-pill-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+.checkbox-pill {
+    cursor: pointer;
+    position: relative;
+}
+.checkbox-pill input {
+    position: absolute;
+    opacity: 0; width: 0; height: 0;
+}
+.checkbox-pill span {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    user-select: none;
+}
+.checkbox-pill:hover span {
+    border-color: rgba(255,255,255,0.2);
+}
+.checkbox-pill input:checked + span {
+    background: rgba(99,102,241,0.15);
+    border-color: var(--accent);
+    color: #818cf8;
+}
+
+/* Muscle Focus Grid */
+.muscle-focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+}
+.muscle-focus-selector-item {
+    background: rgba(0,0,0,0.15);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.muscle-focus-selector-item.selected {
+    border-color: var(--accent);
+    background: rgba(99,102,241,0.03);
+}
+.muscle-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+.muscle-checkbox-row input {
+    cursor: pointer;
+}
+.focus-options-row {
+    display: flex;
+    gap: 12px;
+    padding-left: 20px;
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.muscle-focus-selector-item.selected .focus-options-row {
+    opacity: 1;
+    pointer-events: auto;
+}
+.focus-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    cursor: pointer;
+}
+.focus-option input {
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: flex-end;
+}
+.form-actions button {
+    width: auto;
+}
+
+/* Responsive fixes for Library filters */
+@media (max-width: 850px) {
+    .filters-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 500px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    .search-form {
+        flex-direction: column;
+    }
+    .search-form .primary-btn {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
