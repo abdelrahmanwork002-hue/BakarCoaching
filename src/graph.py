@@ -84,8 +84,8 @@ def check_gym_status(state: AgentState) -> Literal["fitness_merge", "gym_modifie
         return "fitness_merge"
     if not _was_rejected(state, "Gym"):
         return "fitness_merge"
-    if state.get("domain_retries", {}).get("Gym", 0) >= 2:
-        return "hitl_gym"
+    if state.get("domain_retries", {}).get("Gym", 0) >= 3:
+        return "fitness_merge"
     return "gym_modifier"
 
 def check_yoga_status(state: AgentState) -> Literal["fitness_merge", "yoga_modifier", "hitl_yoga"]:
@@ -93,8 +93,8 @@ def check_yoga_status(state: AgentState) -> Literal["fitness_merge", "yoga_modif
         return "fitness_merge"
     if not _was_rejected(state, "Yoga"):
         return "fitness_merge"
-    if state.get("domain_retries", {}).get("Yoga", 0) >= 2:
-        return "hitl_yoga"
+    if state.get("domain_retries", {}).get("Yoga", 0) >= 3:
+        return "fitness_merge"
     return "yoga_modifier"
 
 def check_calis_status(state: AgentState) -> Literal["fitness_merge", "calisthenics_modifier", "hitl_calis"]:
@@ -102,15 +102,15 @@ def check_calis_status(state: AgentState) -> Literal["fitness_merge", "calisthen
         return "fitness_merge"
     if not _was_rejected(state, "Calisthenics"):
         return "fitness_merge"
-    if state.get("domain_retries", {}).get("Calisthenics", 0) >= 2:
-        return "hitl_calis"
+    if state.get("domain_retries", {}).get("Calisthenics", 0) >= 3:
+        return "fitness_merge"
     return "calisthenics_modifier"
 
 def check_nutrition_status(state: AgentState) -> Literal["plan_merge", "nutrition_modifier", "hitl_nutrition"]:
     if not _was_rejected(state, "Nutrition"):
         return "plan_merge"
-    if state.get("domain_retries", {}).get("Nutrition", 0) >= 2:
-        return "hitl_nutrition"
+    if state.get("domain_retries", {}).get("Nutrition", 0) >= 3:
+        return "plan_merge"
     return "nutrition_modifier"
 
 # ---------------------------------------------------------------------------
@@ -127,11 +127,10 @@ def fitness_merge_node(state: AgentState) -> dict:
     current = state.get("fitness_plan", FitnessPlan())
 
     # Pick up the best available data for each domain.
-    # For active domains: approved_X will be set. For inactive: it stays None.
-    # We use `or current.X` so each parallel call accumulates without wiping siblings.
-    gym_sessions  = state.get("approved_gym")         or current.gym_sessions  or []
-    yoga_sessions = state.get("approved_yoga")        or current.yoga_sessions or []
-    cali_sessions = state.get("approved_calisthenics") or current.calisthenics_sessions or []
+    # Fallback to modified or draft if the plan exceeded max retries and was forced-merged
+    gym_sessions  = state.get("approved_gym")         or state.get("modified_gym")         or state.get("draft_gym")         or current.gym_sessions  or []
+    yoga_sessions = state.get("approved_yoga")        or state.get("modified_yoga")        or state.get("draft_yoga")        or current.yoga_sessions or []
+    cali_sessions = state.get("approved_calisthenics") or state.get("modified_calisthenics") or state.get("draft_calisthenics") or current.calisthenics_sessions or []
 
     new_plan = FitnessPlan(
         gym_sessions=gym_sessions,
@@ -141,8 +140,13 @@ def fitness_merge_node(state: AgentState) -> dict:
     return {"fitness_plan": new_plan}
 
 def plan_merge_node(state: AgentState) -> dict:
-    """Sync point — waits for both fitness and nutrition to complete before Tracking Coach."""
-    return {}
+    """Sync point — waits for both fitness and nutrition to complete before Tracking Coach. Fallback nutrition if needed."""
+    current_nut = state.get("nutrition_plan")
+    if current_nut:
+        return {}
+    best_nut = state.get("modified_nutrition") or state.get("draft_nutrition")
+    from src.state import NutritionPlan
+    return {"nutrition_plan": best_nut or NutritionPlan()}
 
 def pre_release_gate(state: AgentState) -> dict:
     """Final human-in-the-loop gate before the plan is released. LangGraph interrupts here."""
@@ -239,6 +243,7 @@ def build_graph():
 
     # --- Persistence ---
     conn = sqlite3.connect("checkpoints.sqlite", check_same_thread=False)
+    conn.execute("PRAGMA journal_mode=WAL;")  # Critical to prevent deadlocks between FastAPI polling and Graph execution
     memory = SqliteSaver(conn)
 
     graph = builder.compile(
