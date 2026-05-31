@@ -21,11 +21,14 @@ from src.state import AgentState, WorkoutSession, ValidationLog
 
 def get_llm(temperature: float = 0.2, json_mode: bool = False):
     """
-    Central LLM factory — uses Groq Llama 3.3 70B exclusively.
-    Groq is free with no daily quota limit (only a per-minute token limit,
-    handled by the _invoke_with_retry backoff logic).
+    Central LLM factory — uses Groq Llama 3.1 8B Instant with reasonable max_tokens
+    to bypass Llama 70B daily TPD limits and prevent 6k TPM rate limit errors.
     """
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=temperature)
+    llm = ChatGroq(
+        model="llama-3.1-8b-instant",
+        temperature=temperature,
+        max_tokens=1500
+    )
     if json_mode:
         return llm.bind(response_format={"type": "json_object"})
     return llm
@@ -59,36 +62,66 @@ For EVERY exercise you include, you MUST populate ALL of the following fields:
 - notes: Specific form cues or injury modifications for this user. Always reference the user's injury/limitation if relevant.
 """
 
-# ---------------------------------------------------------------------------
-# Retry helper — handles transient rate-limit errors from any provider
-# ---------------------------------------------------------------------------
+import threading
+
+_llm_lock = threading.Lock()
 
 def _invoke_with_retry(llm_structured, messages, max_retries=8):
     """
     Invoke LLM with automatic exponential backoff on rate-limit (429) errors.
     Uses up to 8 retries with waits of 30s, 60s, 90s... to handle Groq TPM limits
     when multiple parallel creators fire simultaneously.
+    Uses a global threading lock strictly for the active API request to serialize
+    them and prevent parallel request spikes, while releasing the lock during backoff sleep.
     """
     for attempt in range(max_retries):
-        try:
-            return llm_structured.invoke(messages)
-        except Exception as e:
-            err_str = str(e)
-            is_rate_limit = (
-                "429" in err_str
-                or "RESOURCE_EXHAUSTED" in err_str
-                or "rate_limit" in err_str.lower()
-                or "RateLimitError" in err_str
-                or "rate limit" in err_str.lower()
-                or "quota" in err_str.lower()
-            )
-            if is_rate_limit:
-                wait = (attempt + 1) * 30  # 30s, 60s, 90s, 120s, 150s, 180s, 210s, 240s
-                print(f"[Rate limit] Waiting {wait}s before retry {attempt + 1}/{max_retries}...")
-                time.sleep(wait)
-            else:
-                raise  # non-quota error — propagate immediately
+        with _llm_lock:
+            # Give Groq a tiny breathing room between consecutive requests
+            time.sleep(1.0)
+            try:
+                return llm_structured.invoke(messages)
+            except Exception as e:
+                err_str = str(e)
+                print(f"[LLM Error] Attempt {attempt+1}/{max_retries} failed: {err_str[:400]}")
+                is_rate_limit = (
+                    "429" in err_str
+                    or "RESOURCE_EXHAUSTED" in err_str
+                    or "rate_limit" in err_str.lower()
+                    or "RateLimitError" in err_str
+                    or "rate limit" in err_str.lower()
+                    or "quota" in err_str.lower()
+                )
+                if not is_rate_limit:
+                    raise  # non-quota error — propagate immediately
+        
+        # If it was a rate limit error, we are now OUTSIDE the with _llm_lock block.
+        # This allows other parallel threads to acquire the lock and execute.
+        wait = (attempt + 1) * 30  # 30s, 60s, 90s, 120s...
+        print(f"[Rate limit] Waiting {wait}s before retry {attempt + 1}/{max_retries}...")
+        time.sleep(wait)
+        
     raise RuntimeError(f"Max retries exceeded ({max_retries} attempts) for LLM call.")
+
+def invoke_json_mode(llm, prompt: str, output_schema):
+    """
+    Invokes the LLM in JSON mode and parses the result into the Pydantic schema,
+    avoiding all structured output tool-calling token bloat.
+    """
+    import json
+    schema_str = json.dumps(output_schema.model_json_schema())
+    prompt += f"\n\nYou MUST respond with a valid JSON object matching this JSON schema:\n{schema_str}\n\nOutput ONLY the JSON object, with no conversational filler or markdown formatting blocks."
+    
+    from langchain_core.messages import HumanMessage
+    response = _invoke_with_retry(llm, [HumanMessage(content=prompt)])
+    raw = response.content.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
+        
+    data = json.loads(raw)
+    return output_schema(**data)
 
 # ---------------------------------------------------------------------------
 # Base Creator Node
@@ -99,20 +132,15 @@ def base_creator_node(state: AgentState, domain: str, directive: str) -> dict:
     Generates a fresh weekly workout plan for a given domain.
     Uses Gemini for fast, creative plan generation, selecting exercises from the Exercise Library.
     """
-    llm = get_llm(temperature=0.2)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.2, json_mode=True)
 
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
 
     # Load and filter exercise library for this domain
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if domain.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(domain, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -151,13 +179,18 @@ You MUST select exercises from this library to formulate your workout sessions w
 ---
 
 YOUR TASK:
-Create a detailed weekly {domain} regimen (list of WorkoutSession objects). Each session targets a specific day and focus area aligned with the Senior Coach directive.
+Create a detailed weekly {domain} regimen (list of WorkoutSession objects). Each session must include:
+- day (string)
+- focus (string)
+- exercises (list of Exercise objects, fully populated per {EXERCISE_FIELDS_INSTRUCTION})
+- duration_mins (integer total session duration in minutes)
+
 Select exercises from the library above. For every exercise chosen, preserve its name and demo_url EXACTLY as specified in the library list. Customize the sets, reps, rest_seconds, tempo, warmup_sets, and notes specifically for this user's profile and injury limitations.
 
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
     return {f"draft_{domain.lower()}": output.sessions}
 
 # ---------------------------------------------------------------------------
@@ -170,8 +203,7 @@ def base_modifier_node(state: AgentState, domain: str) -> dict:
     Does NOT regenerate — only patches the specific issues raised.
     Uses Gemini for fast corrections, matching exercises to the library.
     """
-    llm = get_llm(temperature=0.1)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.1, json_mode=True)
 
 
     profile = state.get("user_profile")
@@ -182,12 +214,8 @@ def base_modifier_node(state: AgentState, domain: str) -> dict:
     current_draft = state.get(f"modified_{domain_key}") or state.get(f"draft_{domain_key}")
 
     # Load and filter exercise library for this domain
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if domain.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(domain, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -233,7 +261,7 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
 
     # Log the modification
     current_retries = state.get("domain_retries", {}).get(domain, 0)
@@ -258,11 +286,9 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the feedback a
 def base_checker_node(state: AgentState, domain: str) -> dict:
     """
     Evaluates the latest draft (modified > draft) for safety and efficacy.
-    Uses Gemini — no daily quota, automatic retry on rate-limits.
+    Uses invoke_json_mode to avoid tool-calling failures on llama-3.1-8b-instant.
     """
-    llm = get_llm(temperature=0)
-    llm_structured = llm.with_structured_output(CheckerOutput)
-
+    llm = get_llm(temperature=0, json_mode=True)
 
     profile = state.get("user_profile")
     domain_key = domain.lower()
@@ -298,7 +324,7 @@ If the plan passes ALL criteria, approve it.
 If ANY criterion fails, reject it with specific, actionable feedback referencing the exact exercise(s) and field(s) that need fixing.
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    output = invoke_json_mode(llm, prompt, CheckerOutput)
 
     log = ValidationLog(
         domain=domain,

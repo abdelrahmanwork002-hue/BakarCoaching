@@ -394,3 +394,23 @@ def query_exercises(
         filtered.append(ex)
         
     return filtered
+
+def load_and_filter_exercises(domain: str, experience_level: str, max_items: int = 7) -> list:
+    """
+    Loads exercises matching the domain and experience level, capping at max_items to prevent TPM rate limits.
+    """
+    library = load_exercise_library()
+    allowed_levels = ["beginner"]
+    user_level = experience_level.lower()
+    if user_level in ["intermediate", "advanced"]:
+        allowed_levels.append("intermediate")
+    if user_level == "advanced":
+        allowed_levels.append("advanced")
+        
+    filtered = [
+        item for item in library
+        if domain.lower() in [t.lower() for t in item.training_types]
+        and any(l.lower() in allowed_levels for l in item.levels)
+    ]
+    return filtered[:max_items]
+

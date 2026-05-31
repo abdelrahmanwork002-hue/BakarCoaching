@@ -32,24 +32,21 @@ class MacroStrategy(BaseModel):
 
 class Exercise(BaseModel):
     """Enriched exercise schema with full training prescription details."""
-    name: str = Field(default="", description="Full name of the exercise")
-    sets: int = Field(default=3, description="Number of working sets")
-    reps: str = Field(default="", description="Rep range or count (e.g. '8-12' or '30 sec' or '45 sec hold')")
-    rest_seconds: int = Field(default=60, description="Rest time between sets in seconds (e.g. 60, 90, 120)")
-    warmup_sets: int = Field(default=0, description="Number of warm-up sets before working sets (0 if not applicable)")
-    tempo: str = Field(default="2-0-2", description="Tempo in eccentric-pause-concentric notation (e.g. '3-1-2' = 3s lower, 1s pause, 2s lift)")
-    demo_url: str = Field(
-        default="",
-        description="YouTube search URL for exercise demonstration. Format: https://www.youtube.com/results?search_query=EXERCISE+NAME+tutorial+form (replace spaces with +)"
-    )
-    muscles_goal: str = Field(default="", description="Primary muscles targeted and training goal (e.g. 'Quads, Glutes — Hypertrophy')")
-    notes: Optional[str] = Field(default=None, description="Form cues, safety notes, or injury modifications for this specific user")
+    name: str = Field(default="", description="Name")
+    sets: int = Field(default=3, description="Sets")
+    reps: str = Field(default="", description="Reps")
+    rest_seconds: int = Field(default=60, description="Rest seconds")
+    warmup_sets: int = Field(default=0, description="Warmup sets")
+    tempo: str = Field(default="2-0-2", description="Tempo")
+    demo_url: str = Field(default="", description="YouTube URL")
+    muscles_goal: str = Field(default="", description="Muscles targeted")
+    notes: Optional[str] = Field(default=None, description="Injury/safety notes")
 
 class WorkoutSession(BaseModel):
-    day: str = Field(description="Day of the week")
-    focus: str = Field(description="Primary focus (e.g., Upper Body, Core, Flexibility)")
-    exercises: List[Exercise] = Field(description="List of exercises with full prescription details")
-    duration_mins: int = Field(description="Estimated duration in minutes")
+    day: str = Field(description="Day")
+    focus: str = Field(description="Focus")
+    exercises: List[Exercise] = Field(default_factory=list, description="Exercises")
+    duration_mins: int = Field(default=60, description="Duration in minutes")
 
 class FitnessPlan(BaseModel):
     gym_sessions: List[WorkoutSession] = Field(default_factory=list)
@@ -57,16 +54,16 @@ class FitnessPlan(BaseModel):
     calisthenics_sessions: List[WorkoutSession] = Field(default_factory=list)
 
 class Meal(BaseModel):
-    meal_name: str = Field(description="Breakfast, Lunch, Dinner, Snack")
-    description: str = Field(description="Description of the meal")
-    calories: int = Field(description="Estimated calories")
-    protein_g: int = Field(description="Protein in grams")
-    carbs_g: int = Field(description="Carbs in grams")
-    fats_g: int = Field(description="Fats in grams")
+    meal_name: str = Field(description="Name")
+    description: str = Field(description="Description")
+    calories: int = Field(description="Calories")
+    protein_g: int = Field(description="Protein")
+    carbs_g: int = Field(description="Carbs")
+    fats_g: int = Field(description="Fats")
 
 class NutritionPlan(BaseModel):
     daily_meals: List[Meal] = Field(default_factory=list)
-    hydration_target_L: float = Field(description="Daily hydration target in liters")
+    hydration_target_L: float = Field(description="Hydration L")
 
 class ValidationLog(BaseModel):
     domain: str = Field(description="Domain being validated (e.g., Gym, Nutrition)")

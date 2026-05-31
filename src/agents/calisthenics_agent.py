@@ -19,7 +19,7 @@ def _load_cali_guidelines() -> str:
     md_dir = os.path.join(base_dir, "md files")
     guidelines = ""
     try:
-        for fname in ["01_client_assessment.md", "02_progression_matrices.md", "03_core_routine_template.md"]:
+        for fname in ["02_progression_matrices.md", "03_core_routine_template.md"]:
             path = os.path.join(md_dir, fname)
             if os.path.exists(path):
                 with open(path, "r", encoding="utf-8") as f:
@@ -28,13 +28,27 @@ def _load_cali_guidelines() -> str:
         print(f"Error loading cali guidelines: {e}")
     return guidelines
 
+def _load_cali_creator_guidelines() -> str:
+    """Loads only the core routine template for the Calisthenics creator prompt to save tokens."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    md_dir = os.path.join(base_dir, "md files")
+    guidelines = ""
+    try:
+        for fname in ["03_core_routine_template.md"]:
+            path = os.path.join(md_dir, fname)
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    guidelines += f"\n--- {fname} ---\n" + f.read() + "\n"
+    except Exception as e:
+        print(f"Error loading cali creator guidelines: {e}")
+    return guidelines
+
 def calisthenics_creator_node(state: AgentState) -> dict:
     """
     Creates the initial Calisthenics plan based on the Senior Coach's directive,
     strictly adhering to client assessment, progression matrices, and structural templates.
     """
-    llm = get_llm(temperature=0.2)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.2, json_mode=True)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
@@ -44,12 +58,8 @@ def calisthenics_creator_node(state: AgentState) -> dict:
     )
 
     # Load and filter exercise library
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if _DOMAIN.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(_DOMAIN, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -65,7 +75,7 @@ def calisthenics_creator_node(state: AgentState) -> dict:
         library_text += "\n"
 
     # Load custom Calisthenics guidelines
-    cali_guidelines = _load_cali_guidelines()
+    cali_guidelines = _load_cali_creator_guidelines()
 
     prompt = f"""You are the master Calisthenics Specialist Creator Agent.
     
@@ -110,7 +120,8 @@ For every exercise selected, preserve its name and demo_url EXACTLY as specified
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
     return {f"draft_{_DOMAIN.lower()}": output.sessions}
 
 def calisthenics_modifier_node(state: AgentState) -> dict:
@@ -118,8 +129,7 @@ def calisthenics_modifier_node(state: AgentState) -> dict:
     Applies targeted corrections to a rejected Calisthenics plan based on checker feedback,
     while enforcing the Calisthenics guidelines and progression structures.
     """
-    llm = get_llm(temperature=0.1)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.1, json_mode=True)
 
     profile = state.get("user_profile")
     feedback = state.get("current_rejections", {}).get(_DOMAIN, "")
@@ -127,12 +137,8 @@ def calisthenics_modifier_node(state: AgentState) -> dict:
     current_draft = state.get(f"modified_{domain_key}") or state.get(f"draft_{domain_key}")
 
     # Load and filter exercise library
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if _DOMAIN.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(_DOMAIN, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -185,7 +191,8 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the auditor fe
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
 
     # Log the modification
     current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
@@ -208,8 +215,7 @@ def calisthenics_checker_node(state: AgentState) -> dict:
     Safety & Efficacy Auditor for Calisthenics plans.
     Validates safety, experience-appropriateness, and adherence to the 5-phase Core mastery structure.
     """
-    llm = get_llm(temperature=0)
-    llm_structured = llm.with_structured_output(CheckerOutput)
+    llm = get_llm(temperature=0, json_mode=True)
 
     profile = state.get("user_profile")
     domain_key = _DOMAIN.lower()
@@ -247,7 +253,8 @@ If the plan passes ALL criteria, approve it.
 If ANY criterion fails, reject it with specific, actionable feedback referencing the exact exercise(s) and field(s) that need fixing.
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CheckerOutput)
 
     log = ValidationLog(
         domain=_DOMAIN,

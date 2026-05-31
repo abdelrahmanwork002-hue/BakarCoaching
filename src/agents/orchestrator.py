@@ -1,6 +1,6 @@
 from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_groq import ChatGroq
 from src.state import AgentState, MacroStrategy
+from src.agents.base import get_llm, _invoke_with_retry
 
 def orchestrator_node(state: AgentState) -> dict:
     """
@@ -11,9 +11,9 @@ def orchestrator_node(state: AgentState) -> dict:
     if not user_profile:
         raise ValueError("UserProfile is missing from state.")
         
-    # We use a robust reasoning model for orchestration (Groq with Llama 3)
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
-    
+    # Use the centralized LLM factory (llama-3.1-8b-instant, max_tokens=1500)
+    llm = get_llm(temperature=0)
+
     # Bind the tool to enforce output structure
     llm_with_structured_output = llm.with_structured_output(MacroStrategy)
     

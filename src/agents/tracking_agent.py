@@ -137,9 +137,10 @@ Your generated JSON fields must follow these exact instructions:
 5. "coach_notes": Synthesize the program in 2-3 inspiring paragraphs. Detail how their progress updates sync bidirectionally via Excel spreadsheet columns directly into the state graph (progress_history), and explain the Alpha/Beta/Gamma compliance routing mechanics.
 """)
 
+    from src.agents.base import _invoke_with_retry
     for attempt in range(3):
         try:
-            response = llm_json.invoke([system_msg, user_msg])
+            response = _invoke_with_retry(llm_json, [system_msg, user_msg])
             raw = response.content.strip()
             if raw.startswith("```"):
                 raw = raw.split("```")[1]

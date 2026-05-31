@@ -17,7 +17,7 @@ def run():
     graph = build_graph()
     
     # Thread config for sqlite checkpointer
-    config = {"configurable": {"thread_id": "test_user_001"}}
+    config = {"configurable": {"thread_id": "test_user_fresh_1003"}}
     
     # Mock Initial State
     initial_profile = UserProfile(

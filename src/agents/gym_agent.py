@@ -19,7 +19,7 @@ def _load_gym_guidelines() -> str:
     md_dir = os.path.join(base_dir, "md files")
     guidelines = ""
     try:
-        for fname in ["01_gym_client_assessment.md", "02_gym_progression_matrices.md", "03_gym_routine_framework.md"]:
+        for fname in ["02_gym_progression_matrices.md", "03_gym_routine_framework.md"]:
             path = os.path.join(md_dir, fname)
             if os.path.exists(path):
                 with open(path, "r", encoding="utf-8") as f:
@@ -28,13 +28,27 @@ def _load_gym_guidelines() -> str:
         print(f"Error loading gym guidelines: {e}")
     return guidelines
 
+def _load_gym_creator_guidelines() -> str:
+    """Loads only the core routine template for the Gym creator prompt to save tokens."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    md_dir = os.path.join(base_dir, "md files")
+    guidelines = ""
+    try:
+        for fname in ["03_gym_routine_framework.md"]:
+            path = os.path.join(md_dir, fname)
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    guidelines += f"\n--- {fname} ---\n" + f.read() + "\n"
+    except Exception as e:
+        print(f"Error loading gym creator guidelines: {e}")
+    return guidelines
+
 def gym_creator_node(state: AgentState) -> dict:
     """
     Creates the initial Gym workout plan based on the Senior Coach's directive,
     strictly adhering to strength intakes, compound progression matrices, and hypertrophy routines.
     """
-    llm = get_llm(temperature=0.2)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.2, json_mode=True)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
@@ -44,12 +58,8 @@ def gym_creator_node(state: AgentState) -> dict:
     )
 
     # Load and filter exercise library
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if _DOMAIN.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(_DOMAIN, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -65,7 +75,7 @@ def gym_creator_node(state: AgentState) -> dict:
         library_text += "\n"
 
     # Load custom Gym guidelines
-    gym_guidelines = _load_gym_guidelines()
+    gym_guidelines = _load_gym_creator_guidelines()
 
     prompt = f"""You are the master Gym Specialist Creator Agent.
     
@@ -109,7 +119,8 @@ For every exercise selected, preserve its name and demo_url EXACTLY as specified
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
     return {f"draft_{_DOMAIN.lower()}": output.sessions}
 
 def gym_modifier_node(state: AgentState) -> dict:
@@ -117,8 +128,7 @@ def gym_modifier_node(state: AgentState) -> dict:
     Applies targeted corrections to a rejected Gym plan based on checker feedback,
     while enforcing intensity overload matrices.
     """
-    llm = get_llm(temperature=0.1)
-    llm_structured = llm.with_structured_output(CreatorOutput)
+    llm = get_llm(temperature=0.1, json_mode=True)
 
     profile = state.get("user_profile")
     feedback = state.get("current_rejections", {}).get(_DOMAIN, "")
@@ -126,12 +136,8 @@ def gym_modifier_node(state: AgentState) -> dict:
     current_draft = state.get(f"modified_{domain_key}") or state.get(f"draft_{domain_key}")
 
     # Load and filter exercise library
-    from src.exercise_library import load_exercise_library
-    library_items = load_exercise_library()
-    domain_exercises = [
-        item for item in library_items
-        if _DOMAIN.lower() in [t.lower() for t in item.training_types]
-    ]
+    from src.exercise_library import load_and_filter_exercises
+    domain_exercises = load_and_filter_exercises(_DOMAIN, profile.experience_level)
 
     library_text = ""
     for ex in domain_exercises:
@@ -184,7 +190,8 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the auditor fe
 {EXERCISE_FIELDS_INSTRUCTION}
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CreatorOutput)
 
     # Log the modification
     current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
@@ -207,8 +214,7 @@ def gym_checker_node(state: AgentState) -> dict:
     Safety & Efficacy Auditor for Gym plans.
     Validates safety, RPE/RIR volume limits, deload checkmarks, and 5-phase split structures.
     """
-    llm = get_llm(temperature=0)
-    llm_structured = llm.with_structured_output(CheckerOutput)
+    llm = get_llm(temperature=0, json_mode=True)
 
     profile = state.get("user_profile")
     domain_key = _DOMAIN.lower()
@@ -246,7 +252,8 @@ If the plan passes ALL criteria, approve it.
 If ANY criterion fails, reject it with specific, actionable feedback referencing the exact exercise(s) and field(s) that need fixing.
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CheckerOutput)
 
     log = ValidationLog(
         domain=_DOMAIN,

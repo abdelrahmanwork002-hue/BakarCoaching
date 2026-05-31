@@ -18,7 +18,7 @@ def _load_senior_guidelines() -> str:
     md_dir = os.path.join(base_dir, "md files")
     guidelines = ""
     try:
-        for fname in ["01_senior_orchestrator_assessment.md", "02_senior_integration_mechanics.md", "03_senior_macrocycle_framework.md"]:
+        for fname in ["02_senior_integration_mechanics.md"]:
             path = os.path.join(md_dir, fname)
             if os.path.exists(path):
                 with open(path, "r", encoding="utf-8") as f:
@@ -37,9 +37,8 @@ def orchestrator_node(state: AgentState) -> dict:
     if not user_profile:
         raise ValueError("UserProfile is missing from state.")
 
-    from src.agents.base import get_llm
-    llm = get_llm(temperature=0)
-    llm_structured = llm.with_structured_output(MacroStrategy)
+    from src.agents.base import get_llm, invoke_json_mode
+    llm = get_llm(temperature=0, json_mode=True)
 
     # Load Senior Orchestrator guidelines
     senior_guidelines = _load_senior_guidelines()
@@ -66,19 +65,28 @@ You MUST strictly follow these cross-disciplinary intake rules, 12-week hybrid m
 ---
 
 Your outputted MacroStrategy must:
-1. Set daily caloric and macronutrient targets. Ensure caloric and macro intakes align with the user's primary goal (e.g. slight surplus for Phase 1 accumulation, high-protein maintenance for Phase 2 intensification, or controlled deficit for Phase 3 recomposition).
-2. Set a high-level `training_split` description reflecting the Master 12-Week Hybrid Macrocycle Architecture and the Weekly Integration Timeline (e.g. designating Gym Compound + Calisthenics Pulls, Yoga Vinyasa, CNS Rest, pressing/planche work, and hybrid circuits).
-3. Assign `specialist_directives` for ONLY the training types the client explicitly requested (e.g. subset of ['Gym', 'Yoga', 'Calisthenics']). Do not include or omit any requested type.
-4. Integrate Conflict Resolution in Directives:
-   - Cap overlapping shoulder loading (e.g. if Bench Press and Calisthenics Dips run, cap volumes and mandate 1:1 rear-delt balance).
-   - Ensure a 24-hour neural buffer between heavy barbell lifting (Axial loads/Squats/Deadlifts) and Yoga/Calisthenics handstands.
-   - For wrist extension fatigue, replace Yoga wrist balance holds with forearm-grounded poses (e.g. Dolphin Pose).
-   - Sync metabolic demands (if on aggressive caloric deficit, direct gym reps to lower volume 4-6 reps to maintain strength and protect muscle mass).
+1. Set daily caloric and macronutrient targets. Ensure caloric and macro intakes align with the user's primary goal.
+2. Set a high-level `training_split` description reflecting the Master 12-Week Hybrid Macrocycle Architecture.
+3. Assign `specialist_directives` for EXACTLY these training types: {user_profile.preferred_training_types}. 
+   DO NOT include any directives for domains not in this list.
+4. Integrate Conflict Resolution in Directives as per the guidelines.
 
-Formulate highly custom, detailed coaching mandates for each downstream specialist agent (Gym, Calisthenics, Yoga) as their directives.
+Formulate highly custom, detailed coaching mandates for each downstream specialist agent ({', '.join(user_profile.preferred_training_types)}) as their directives.
 
 Output the complete MacroStrategy now.
 """
 
-    macro_strategy = llm_structured.invoke([HumanMessage(content=prompt)])
+    macro_strategy = invoke_json_mode(llm, prompt, MacroStrategy)
+    
+    # Programmatic enforce: remove any hallucinated domains that the user didn't request
+    allowed_domains = set(user_profile.preferred_training_types)
+    macro_strategy.specialist_directives = {
+        k: v for k, v in macro_strategy.specialist_directives.items() if k in allowed_domains
+    }
+    
+    # Ensure at least one fallback if LLM failed to output any valid ones
+    if not macro_strategy.specialist_directives and allowed_domains:
+        first_domain = list(allowed_domains)[0]
+        macro_strategy.specialist_directives[first_domain] = "Follow standard progressive overload and safety protocols."
+
     return {"macro_strategy": macro_strategy}

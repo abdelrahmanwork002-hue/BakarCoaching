@@ -19,7 +19,7 @@ def _load_nutrition_guidelines() -> str:
     md_dir = os.path.join(base_dir, "md files")
     guidelines = ""
     try:
-        for fname in ["01_nutritionist_assessment.md", "02_nutritionist_progression_matrices.md", "03_nutritionist_meal_blueprint.md"]:
+        for fname in ["02_nutritionist_progression_matrices.md", "03_nutritionist_meal_blueprint.md"]:
             path = os.path.join(md_dir, fname)
             if os.path.exists(path):
                 with open(path, "r", encoding="utf-8") as f:
@@ -28,19 +28,33 @@ def _load_nutrition_guidelines() -> str:
         print(f"Error loading nutrition guidelines: {e}")
     return guidelines
 
+def _load_nutrition_creator_guidelines() -> str:
+    """Loads only the core meal blueprint for the Nutrition creator prompt to save tokens."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    md_dir = os.path.join(base_dir, "md files")
+    guidelines = ""
+    try:
+        for fname in ["03_nutritionist_meal_blueprint.md"]:
+            path = os.path.join(md_dir, fname)
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    guidelines += f"\n--- {fname} ---\n" + f.read() + "\n"
+    except Exception as e:
+        print(f"Error loading nutrition creator guidelines: {e}")
+    return guidelines
+
 def nutrition_creator_node(state: AgentState) -> dict:
     """
     Creates the initial daily meal plan aligned with macro targets,
     strictly adhering to dynamic fueling matrices and four-meal timing frameworks.
     """
-    llm = get_llm(temperature=0.1)
-    llm_structured = llm.with_structured_output(NutritionPlan)
+    llm = get_llm(temperature=0.1, json_mode=True)
 
     macro = state.get("macro_strategy")
     profile = state.get("user_profile")
 
     # Load custom Nutrition guidelines
-    nutrition_guidelines = _load_nutrition_guidelines()
+    nutrition_guidelines = _load_nutrition_creator_guidelines()
 
     prompt = f"""You are the master Head Nutritionist and Meal Planning Specialist.
 
@@ -75,7 +89,8 @@ Set the `hydration_target_L` based on active training guidelines (>3.5L baseline
 Provide macro and calorie breakdowns for EVERY single meal, and ensure the daily totals hit the required macro targets within ±50 kcal.
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, NutritionPlan)
     return {"draft_nutrition": output}
 
 def nutrition_modifier_node(state: AgentState) -> dict:
@@ -83,8 +98,7 @@ def nutrition_modifier_node(state: AgentState) -> dict:
     Applies targeted corrections to a rejected nutrition plan based on checker feedback,
     while maintaining the dynamic meal timing framework.
     """
-    llm = get_llm(temperature=0.1)
-    llm_structured = llm.with_structured_output(NutritionPlan)
+    llm = get_llm(temperature=0.1, json_mode=True)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
@@ -124,7 +138,8 @@ Apply the MINIMUM changes needed to fix ONLY the issues raised in the auditor fe
 """
 
     current_retries = state.get("domain_retries", {}).get(_DOMAIN, 0)
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, NutritionPlan)
 
     log = ValidationLog(
         domain=_DOMAIN,
@@ -145,8 +160,7 @@ def nutrition_checker_node(state: AgentState) -> dict:
     Safety & Efficacy Auditor for Nutrition plans.
     Validates macro accuracy, 4-meal structures, timing windows, hydration targets, and food intolerances.
     """
-    llm = get_llm(temperature=0)
-    llm_structured = llm.with_structured_output(CheckerOutput)
+    llm = get_llm(temperature=0, json_mode=True)
 
     profile = state.get("user_profile")
     macro = state.get("macro_strategy")
@@ -186,7 +200,8 @@ If all criteria pass, approve it.
 If any fail, reject with specific feedback referencing the exact meal and field that needs fixing.
 """
 
-    output = _invoke_with_retry(llm_structured, [HumanMessage(content=prompt)])
+    from src.agents.base import invoke_json_mode
+    output = invoke_json_mode(llm, prompt, CheckerOutput)
 
     log = ValidationLog(
         domain=_DOMAIN,
